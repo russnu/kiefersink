@@ -1,0 +1,44 @@
+package com.kiefersink.admin.controller;
+
+import com.kiefersink.admin.model.Settings;
+import com.kiefersink.admin.service.SettingsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RequestMapping("/api/settings")
+@RestController
+public class SettingsController {
+    @Autowired
+    private SettingsService settingsService;
+    //========================================================================================================//
+    @GetMapping
+    public List<Settings> getAllSettings() {
+        return settingsService.getAll();
+    }
+    //========================================================================================================//
+    @GetMapping("/{setting_key}")
+    public Settings getSettings(@PathVariable("setting_key") String settingKey) {
+        return settingsService.get(settingKey);
+    }
+    //========================================================================================================//
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Settings createSettings(@RequestBody Settings settings) {
+        return settingsService.create(settings);
+    }
+    //========================================================================================================//
+    @PutMapping
+    public Settings updateSettings(@PathVariable("setting_key") String settingKey, @RequestBody Settings settings) {
+        return settingsService.update(settingKey, settings);
+    }
+    //========================================================================================================//
+    @DeleteMapping("/{setting_key}")
+    public void deleteSettings(@PathVariable("setting_key") String settingKey) {
+        settingsService.delete(settingKey);
+    }
+    //========================================================================================================//
+
+}

@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap');
+
+@import 'tailwindcss';
+
+@theme {
+  --font-poppins: 'Poppins';
+}
+@plugin "daisyui" {
+  themes: black --default;
+}
+
+body {
+  @apply font-poppins;
+}
+
+.nav-btn {
+  @apply px-5 py-5 font-bold hover:text-yellow-500 transition duration-400 ease-in-out;
+}
+
+.button {
+  @apply btn px-7 py-7 bg-black text-white font-bold text-lg sm:text-xl shadow-md hover:bg-base-300 hover:shadow-white transition duration-400 ease-in-out;
+}
+
+.button-outline {
+  @apply btn btn-outline px-7 py-7 text-white font-bold text-lg sm:text-xl hover:shadow-md hover:bg-black hover:shadow-white hover:text-white transition duration-400 ease-in-out;
+}
