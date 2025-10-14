@@ -9,20 +9,20 @@ INSERT INTO offeringtypes (id, name) VALUES
 -- ARTISTS
 -- ========================
 INSERT INTO artists (id, name, imageUrl) VALUES
-(1, 'Kiefer Santos', 'images/artists/kiefer.jpg'),
-(2, 'Maria Lopez', 'images/artists/maria.jpg'),
-(3, 'Jay Cruz', 'images/artists/jay.jpg');
+(1, 'Kiefer Santos', 'artist1.jpg'),
+(2, 'Maria Lopez', 'artist1.jpg'),
+(3, 'Jay Cruz', 'artist1.jpg');
 
 -- ========================
 -- ARTIST CONTACTS
 -- ========================
-INSERT INTO artistcontacts (id, artistId, platform, value) VALUES
-(1, 1, 'facebook', 'facebook.com/kiefer.ink'),
-(2, 1, 'instagram', 'instagram.com/kiefer.ink'),
-(3, 2, 'instagram', 'instagram.com/maria.ink'),
-(4, 2, 'facebook', 'facebook.com/maria.lopez.tattoo'),
-(5, 3, 'instagram', 'instagram.com/jaycruz.ink'),
-(6, 3, 'tiktok', 'tiktok.com/@jaycruztattoo');
+INSERT INTO artistcontacts (id, artistId, platform, handle, url) VALUES
+(1, 1, 'facebook', '@kiefer.ink', 'https://facebook.com/kiefer.ink'),
+(2, 1, 'instagram', '@kiefer.ink', 'https://instagram.com/kiefer.ink'),
+(3, 2, 'instagram', '@maria.ink', 'https://instagram.com/maria.ink'),
+(4, 2, 'facebook', '@maria.lopez.tattoo', 'https://facebook.com/maria.lopez.tattoo'),
+(5, 3, 'instagram', '@jaycruz.ink', 'https://instagram.com/jaycruz.ink'),
+(6, 3, 'tiktok', '@jaycruztattoo', 'https://tiktok.com/@jaycruztattoo');
 
 
 -- ========================
@@ -48,13 +48,9 @@ INSERT INTO portfolio (id, artistId, title, description, imageUrl) VALUES
 -- ========================
 INSERT INTO settings (settingKey, settingValue) VALUES
 ('companyName', 'Kiefer''s Ink Tattoo'),
-('email', 'info@kiefersinktattoo.com'),
-('phone', '+63 917 555 8888'),
-('facebook', 'facebook.com/kiefersinktattoo'),
-('instagram', 'instagram.com/kiefersinktattoo'),
 ('logoUrl', 'images/logo.png'),
-('address', '2nd Floor, SM City Manila, Philippines'),
-('openHours', 'Mon-Sun, 10:00 AM - 8:00 PM');
+('openHours', 'Mon-Sun, 10:00 AM - 8:00 PM'),
+('address', '3rd flr, 189 Victor Javier Rosario Pasig City, Pasig, Philippines');
 
 
 -- ========================
@@ -68,9 +64,8 @@ INSERT INTO inquiries (id, offeringId, createdAt, customerName, customerEmail, c
 -- ========================
 -- COMPANY CONTACTS
 -- ========================
-INSERT INTO companycontacts (platform, value) VALUES
-('facebook', 'facebook.com/kiefersinktattoo'),
-('instagram', 'instagram.com/kiefersinktattoo'),
-('email', 'info@kiefersinktattoo.com'),
-('phone', '+63 917 555 8888'),
-('address', '2nd Floor, SM City Manila, Philippines');
+INSERT INTO companycontacts (platform, handle, url) VALUES
+('facebook', 'Kiefer''s INK Tattoo', 'https://www.facebook.com/dhensvalenciaworks'),
+('instagram', '@kiefersinktattoo', 'https://instagram.com/kiefersinktattoo'),
+('email', 'info@kiefersinktattoo.com', 'mailto:info@kiefersinktattoo.com'),
+('phone', '09955545887', '')

@@ -36,27 +36,25 @@ public class ArtistContactServiceImpl implements ArtistContactService {
     //========================================================================================================//
     @Override
     public ArtistContact create(ArtistContact artistContact) {
-        ArtistContactData artistContactData = new ArtistContactData();
-        artistContactData.setArtist(transformArtist.toData(artistContact.getArtist()));
-        artistContactData.setPlatform(artistContact.getPlatform());
-        artistContactData.setValue(artistContact.getValue());
+        ArtistContactData artistContactData = transformArtistContact.toData(artistContact);
 
         ArtistContactData saved = artistContactRepository.save(artistContactData);
-        artistContact.setId(saved.getId());
+        saved.setId(saved.getId());
 
-        return artistContact;
+        return transformArtistContact.toModel(saved);
     }
     //========================================================================================================//
     @Override
     public ArtistContact update(Integer id, ArtistContact artistContact) {
-        ArtistContactData artistContactData = artistContactRepository.findById(id)
+        ArtistContactData existing = artistContactRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Artist contact not found"));
 
-        artistContactData.setArtist(transformArtist.toData(artistContact.getArtist()));
-        artistContactData.setPlatform(artistContact.getPlatform());
-        artistContactData.setValue(artistContact.getValue());
+        existing.setArtist(transformArtist.toData(artistContact.getArtist()));
+        existing.setPlatform(artistContact.getPlatform());
+        existing.setHandle(artistContact.getHandle());
+        existing.setUrl(artistContact.getUrl());
 
-        artistContactRepository.save(artistContactData);
+        artistContactRepository.save(existing);
         return artistContact;
     }
     //========================================================================================================//

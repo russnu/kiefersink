@@ -9,5 +9,6 @@ import lombok.Data;
 public class CompanyContactData {
     @Id
     private String platform;
-    private String value;
+    private String handle;
+    private String url;
 }

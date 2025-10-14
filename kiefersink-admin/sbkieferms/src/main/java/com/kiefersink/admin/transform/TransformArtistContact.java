@@ -9,7 +9,8 @@ public class TransformArtistContact implements Transform<ArtistContact, ArtistCo
     public ArtistContact toModel(ArtistContactData data) {
         ArtistContact artistContact = new ArtistContact();
         artistContact.setPlatform(data.getPlatform());
-        artistContact.setValue(data.getValue());
+        artistContact.setHandle(data.getHandle());
+        artistContact.setUrl(data.getUrl());
         artistContact.setArtist(transformArtist.toModel(data.getArtist()));
 
         return artistContact;
@@ -19,7 +20,8 @@ public class TransformArtistContact implements Transform<ArtistContact, ArtistCo
     public ArtistContactData toData(ArtistContact model) {
         ArtistContactData artistContactData = new ArtistContactData();
         artistContactData.setPlatform(model.getPlatform());
-        artistContactData.setValue(model.getValue());
+        artistContactData.setHandle(model.getHandle());
+        artistContactData.setUrl(model.getUrl());
         artistContactData.setArtist(transformArtist.toData(model.getArtist()));
 
         return artistContactData;

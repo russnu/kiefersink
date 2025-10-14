@@ -11,7 +11,8 @@ public class ArtistContactData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String platform;
-    private String value;
+    private String handle;
+    private String url;
 
     // Relationships ======================================= //
     @ManyToOne

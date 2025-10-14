@@ -40,24 +40,22 @@ public class CompanyContactServiceImpl implements CompanyContactService {
     //========================================================================================================//
     @Override
     public CompanyContact create(CompanyContact companyContact) {
-        CompanyContactData companyContactData = new CompanyContactData();
-        companyContactData.setPlatform(companyContact.getPlatform());
-        companyContactData.setValue(companyContact.getValue());
+        CompanyContactData companyContactData = transformCompanyContact.toData(companyContact);
+        CompanyContactData saved = companyContactRepository.save(companyContactData);
 
-        companyContactRepository.save(companyContactData);
-
-        return companyContact;
+        return transformCompanyContact.toModel(saved);
     }
     //========================================================================================================//
     @Override
     public CompanyContact update(String platform, CompanyContact companyContact) {
-        CompanyContactData companyContactData = companyContactRepository.findById(platform)
+        CompanyContactData existing = companyContactRepository.findById(platform)
                 .orElseThrow(() -> new RuntimeException("Company contact not found"));
 
-        companyContactData.setPlatform(companyContact.getPlatform());
-        companyContactData.setValue(companyContact.getValue());
+        existing.setPlatform(companyContact.getPlatform());
+        existing.setHandle(companyContact.getHandle());
+        existing.setUrl(companyContact.getUrl());
 
-        companyContactRepository.save(companyContactData);
+        companyContactRepository.save(existing);
         return companyContact;
     }
     //========================================================================================================//

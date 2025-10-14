@@ -1,0 +1,54 @@
+<section class="banner bg-[url('/assets/images/banner1.jpg')]">
+  <div class="absolute inset-0 bg-white/10"></div>
+
+  <div class="absolute inset-0 flex flex-col justify-center items-center text-white">
+    <h1 class="font-black text-white text-[clamp(2rem,5vw,5rem)]">Our Artists</h1>
+  </div>
+</section>
+
+<section class="relative py-16 px-10 md:px-20 text-white">
+  <div
+    class="absolute inset-0 bg-[url('/assets/images/effects_smoke.png')] bg-no-repeat bg-center grayscale opacity-30 pointer-events-none rotate-180"
+  ></div>
+
+  <div class="text-center mb-12">
+    <h2 class="text-3xl font-bold mb-4">Meet the Team</h2>
+    <p class="text-gray-400 max-w-2xl mx-auto">
+      The artists — storytellers, translating your ideas into stunning designs that last a lifetime.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center">
+    @for (artist of artists; track artist.id) {
+    <div
+      class="card bg-zinc-900 hover:bg-zinc-800 transition-all duration-300 w-80 overflow-hidden group"
+    >
+      <div class="overflow-hidden">
+        <img
+          [src]="artist.imageUrl"
+          [alt]="artist.name"
+          class="artist-photo w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
+      <div class="p-6 text-center">
+        <h3 class="text-2xl font-semibold mb-2">{{ artist.name }}</h3>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div class="mt-12 text-center">
+    <lucide-icon [img]="FileIcon" class="w-10 h-10 text-white mb-4" />
+    <p class="text-gray-400">
+      Want to work with one of our artists? <br />
+      <span class="text-white font-medium"
+        >Book a consultation today and start your design journey.</span
+      >
+    </p>
+  </div>
+</section>
+
+<!-- 
+<a href="{{ contact.url }}" target="_blank">
+  <i class="fab fa-{{ contact.platform }}"></i> {{ contact.handle }}
+</a> -->

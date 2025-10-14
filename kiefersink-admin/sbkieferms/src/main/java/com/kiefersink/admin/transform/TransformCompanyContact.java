@@ -10,7 +10,8 @@ public class TransformCompanyContact implements Transform<CompanyContact, Compan
     public CompanyContact toModel(CompanyContactData data) {
         CompanyContact companyContact = new CompanyContact();
         companyContact.setPlatform(data.getPlatform());
-        companyContact.setValue(data.getValue());
+        companyContact.setHandle(data.getHandle());
+        companyContact.setUrl(data.getUrl());
 
         return companyContact;
     }
@@ -19,7 +20,8 @@ public class TransformCompanyContact implements Transform<CompanyContact, Compan
     public CompanyContactData toData(CompanyContact model) {
         CompanyContactData companyContactData = new CompanyContactData();
         companyContactData.setPlatform(model.getPlatform());
-        companyContactData.setValue(model.getValue());
+        companyContactData.setHandle(model.getHandle());
+        companyContactData.setUrl(model.getUrl());
 
         return companyContactData;
     }

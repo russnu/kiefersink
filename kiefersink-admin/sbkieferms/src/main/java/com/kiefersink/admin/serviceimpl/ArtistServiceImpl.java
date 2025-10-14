@@ -40,25 +40,22 @@ public class ArtistServiceImpl implements ArtistService {
     //========================================================================================================//
     @Override
     public Artist create(Artist artist) {
-        ArtistData artistData = new ArtistData();
-        artistData.setName(artist.getName());
-        artistData.setImageUrl(artist.getImageUrl());
-
+        ArtistData artistData = transformArtist.toData(artist);
         ArtistData saved = artistRepository.save(artistData);
-        artist.setId(saved.getId());
+        saved.setId(saved.getId());
 
-        return artist;
+        return transformArtist.toModel(saved);
     }
     //========================================================================================================//
     @Override
     public Artist update(Integer id, Artist artist) {
-        ArtistData artistData = artistRepository.findById(id)
+        ArtistData existing = artistRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Artist not found"));
 
-        artistData.setName(artist.getName());
-        artistData.setImageUrl(artist.getImageUrl());
+        existing.setName(artist.getName());
+        existing.setImageUrl(artist.getImageUrl());
 
-        artistRepository.save(artistData);
+        artistRepository.save(existing);
         return artist;
     }
     //========================================================================================================//

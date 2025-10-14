@@ -10,20 +10,16 @@
   <!-- Content -->
   <div class="z-10 max-w-3xl rounded-2xl p-5 text-center md:text-right">
     <!-- Headline -->
-    <p class="font-black text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight">
-      Ink Your Story.
-    </p>
-    <p class="font-black text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight">
-      Wear It Forever.
-    </p>
+    <p class="font-black text-white text-[clamp(2rem,5vw,5rem)] leading-none">Ink Your Story.</p>
+    <p class="font-black text-white text-[clamp(2rem,5vw,5rem)] leading-none">Wear It Forever.</p>
 
     <!-- Subtext -->
-    <p class="italic text-white mt-4 text-lg sm:text-xl md:text-2xl leading-relaxed">
+    <p class="font-normal text-white mt-4 text-lg sm:text-xl md:text-2xl leading-relaxed">
       Tattoos are more than art, they’re stories written on skin. At Kiefer’s Ink, every design is
       bold, personal, and unforgettable.
     </p>
-    <p class="italic font-bold text-yellow-400 mt-4 text-lg sm:text-xl md:text-2xl">
-      Your body, your story — we bring it to life in ink.
+    <p class="font-bold text-yellow-200 mt-4 text-lg sm:text-xl md:text-2xl">
+      Your body, your story. We bring it to life in ink.
     </p>
 
     <!-- Buttons -->
@@ -40,13 +36,14 @@
     class="absolute inset-0 bg-[url('/assets/images/effects_smoke.png')] bg-no-repeat grayscale-90 opacity-30"
   ></div>
 
-  <section class="z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-10 px-20 relative">
-    <!-- Text -->
-    <div>
+  <section
+    class="flex flex-col md:flex-row mx-auto py-20 px-20 max-w-7xl gap-20 relative items-center"
+  >
+    <div class="flex-1">
       <h2 class="font-black text-3xl text-white mb-4">
         Crafting Iconic Tattoos & Piercings Since 2016
       </h2>
-      <p class="text-lg text-white">
+      <p class="text-lg text-white leading-relaxed">
         Since 2016 in Pasig, Kiefer’s Ink Tattoo has been a trusted spot for both tattoos and
         piercings. What began as a small passion project has grown into a studio known for authentic
         designs, creative expression, and a commitment to safety and hygiene. Whether you’re getting
@@ -55,12 +52,8 @@
       </p>
     </div>
 
-    <!-- Floating collage -->
-    <div class="relative">
-      <!-- Main large image -->
+    <div class="relative flex-1">
       <img src="assets/images/tattoo1_nobg.png" class="w-full max-h-[400px] object-contain" />
-
-      <!-- Floating images -->
       <img
         src="assets/images/tattoo3_nobg.png"
         class="absolute top-[-20px] right-[-20px] w-1/3 max-h-[200px] object-contain shadow-lg"
@@ -81,11 +74,11 @@
   </section>
 
   <!-- ============================================================================================================================= -->
-  <section class="z-10 py-10 px-20 relative">
+  <section class="relative py-20 px-20 mx-auto max-w-7xl">
     <h2 class="font-black text-3xl text-white text-center mb-10">Our Services</h2>
     <!-- ------------------------------------------------------------------------------------------------ -->
-    <div class="flex justify-around flex-wrap gap-y-10">
-      <div class="w-full md:w-1/3">
+    <div class="flex flex-col md:flex-row mx-auto flex-wrap gap-y-10 gap-x-20">
+      <div class="flex-1">
         <h3 class="text-2xl font-bold text-white mb-4">Tattoos</h3>
         <p class="text-gray-300 mb-6">
           From minimalist designs to full-sleeve masterpieces, our artists specialize in bringing
@@ -98,7 +91,7 @@
         </figure>
       </div>
       <!-- ------------------------------------------------------------------------------------------------ -->
-      <div class="w-full md:w-1/3">
+      <div class="flex-1">
         <div class="flex gap-5">
           <div>
             <h3 class="text-2xl font-bold text-white mb-4">Piercings</h3>

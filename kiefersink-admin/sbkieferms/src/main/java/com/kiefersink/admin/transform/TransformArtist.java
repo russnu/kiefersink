@@ -10,7 +10,7 @@ public class TransformArtist implements Transform<Artist, ArtistData>{
         Artist artist = new Artist();
         artist.setId(data.getId());
         artist.setName(data.getName());
-        artist.setImageUrl(data.getImageUrl());
+        artist.setImageUrl("http://localhost:8080/uploads/artist-images/" + data.getImageUrl());
 
         return artist;
     }
