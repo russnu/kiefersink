@@ -1,12 +1,10 @@
 package com.kiefersink.admin.serviceimpl;
 
-import com.kiefersink.admin.entity.InquiryData;
 import com.kiefersink.admin.entity.OfferingData;
 import com.kiefersink.admin.model.Offering;
 import com.kiefersink.admin.repository.OfferingRepository;
 import com.kiefersink.admin.service.OfferingService;
 import com.kiefersink.admin.transform.TransformOffering;
-import com.kiefersink.admin.transform.TransformOfferingType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +16,6 @@ public class OfferingServiceImpl implements OfferingService {
     @Autowired
     private OfferingRepository offeringRepository;
     private final TransformOffering transformOffering = new TransformOffering();
-    private final TransformOfferingType transformOfferingType = new TransformOfferingType();
     //========================================================================================================//
     @Override
     public List<Offering> getAll() {
@@ -47,7 +44,6 @@ public class OfferingServiceImpl implements OfferingService {
         offeringData.setId(offering.getId());
         offeringData.setName(offering.getName());
         offeringData.setDescription(offering.getDescription());
-        offeringData.setOfferingTypeData(transformOfferingType.toData(offering.getOfferingType()));
         offeringData.setPriceRange(offering.getPriceRange());
 
         OfferingData saved = offeringRepository.save(offeringData);
@@ -64,7 +60,6 @@ public class OfferingServiceImpl implements OfferingService {
         offeringData.setId(offering.getId());
         offeringData.setName(offering.getName());
         offeringData.setDescription(offering.getDescription());
-        offeringData.setOfferingTypeData(transformOfferingType.toData(offering.getOfferingType()));
         offeringData.setPriceRange(offering.getPriceRange());
 
         offeringRepository.save(offeringData);

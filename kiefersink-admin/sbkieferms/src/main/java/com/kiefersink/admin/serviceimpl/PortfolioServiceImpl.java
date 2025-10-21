@@ -20,13 +20,21 @@ public class PortfolioServiceImpl implements PortfolioService {
     private final TransformArtist transformArtist = new TransformArtist();
     //========================================================================================================//
     @Override
-    public List<Portfolio> getAll() {
-        List<PortfolioData> portfolioDataList = new ArrayList<>();
-        portfolioRepository.findAll().forEach(portfolioDataList::add);
+    public List<Portfolio> getAll(boolean featured) {
+        List<PortfolioData> portfolioDataList;
+
+        if (featured) {
+            portfolioDataList = portfolioRepository.findByFeaturedTrue();
+        } else {
+            portfolioDataList = portfolioRepository.findAll();
+        }
 
         List<Portfolio> portfolios = new ArrayList<>();
         for (PortfolioData data : portfolioDataList) {
             Portfolio portfolio = transformPortfolio.toModel(data);
+            portfolio.getArtist().setImageUrl(null);
+            portfolio.getOffering().setDescription(null);
+
             portfolios.add(portfolio);
         }
         return portfolios;
@@ -37,8 +45,12 @@ public class PortfolioServiceImpl implements PortfolioService {
         PortfolioData portfolioData = portfolioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Portfolio not found"));
 
-        return transformPortfolio.toModel(portfolioData);
+        Portfolio portfolio = transformPortfolio.toModel(portfolioData);
+        portfolio.getOffering().setDescription(null);
+
+        return portfolio;
     }
+
     //========================================================================================================//
     @Override
     public Portfolio create(Portfolio portfolio) {

@@ -49,12 +49,10 @@ public class ArtistContactServiceImpl implements ArtistContactService {
         ArtistContactData existing = artistContactRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Artist contact not found"));
 
-        existing.setArtist(transformArtist.toData(artistContact.getArtist()));
-        existing.setPlatform(artistContact.getPlatform());
-        existing.setHandle(artistContact.getHandle());
-        existing.setUrl(artistContact.getUrl());
+        ArtistContactData updatedData = transformArtistContact.toData(artistContact);
+        updatedData.setId(existing.getId());
 
-        artistContactRepository.save(existing);
+        artistContactRepository.save(updatedData);
         return artistContact;
     }
     //========================================================================================================//

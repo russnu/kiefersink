@@ -1,14 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { LucideAngularModule } from 'lucide-angular';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RouterLink } from '@angular/router';
 import {
   CompanyContact,
   CompanyContactService,
 } from '../../services/company_contact/company-contact-service';
-import { Settings, SettingsService } from '../../services/settings/settings-service';
+import { SettingsService } from '../../services/settings/settings-service';
 
 @Component({
   selector: 'app-about',
-  imports: [LucideAngularModule],
+  imports: [FontAwesomeModule, RouterLink],
   templateUrl: './about.html',
   styleUrl: './about.css',
 })
@@ -34,22 +35,7 @@ export class About implements OnInit {
     });
   }
 
-  displayContactLink(contact: CompanyContact) {
-    if (contact.platform === 'email') {
-      return {
-        href: `mailto:${contact.handle}`,
-        icon: 'mail',
-      };
-    }
-    if (contact.platform === 'phone') {
-      return {
-        href: `tel:${contact.handle}`,
-        icon: 'phone',
-      };
-    }
-    return {
-      href: contact.url,
-      icon: contact.platform,
-    };
+  displayLinks(contact: CompanyContact) {
+    return this.companyContactService.displayContactLink(contact);
   }
 }

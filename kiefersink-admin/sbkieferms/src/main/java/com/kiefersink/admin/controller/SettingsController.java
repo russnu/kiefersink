@@ -12,32 +12,32 @@ import java.util.List;
 @RestController
 public class SettingsController {
     @Autowired
-    private SettingsService settingsService;
+    private SettingsService service;
     //========================================================================================================//
     @GetMapping
     public List<Settings> getAllSettings() {
-        return settingsService.getAll();
+        return service.getAll();
     }
     //========================================================================================================//
     @GetMapping("/{setting_key}")
     public Settings getSettings(@PathVariable("setting_key") String settingKey) {
-        return settingsService.get(settingKey);
+        return service.get(settingKey);
     }
     //========================================================================================================//
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Settings createSettings(@RequestBody Settings settings) {
-        return settingsService.create(settings);
+        return service.create(settings);
     }
     //========================================================================================================//
     @PutMapping
     public Settings updateSettings(@PathVariable("setting_key") String settingKey, @RequestBody Settings settings) {
-        return settingsService.update(settingKey, settings);
+        return service.update(settingKey, settings);
     }
     //========================================================================================================//
     @DeleteMapping("/{setting_key}")
     public void deleteSettings(@PathVariable("setting_key") String settingKey) {
-        settingsService.delete(settingKey);
+        service.delete(settingKey);
     }
     //========================================================================================================//
 

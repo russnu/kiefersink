@@ -1,6 +1,5 @@
 package com.kiefersink.admin.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +16,7 @@ public class OfferingData {
 
     // Relationships ======================================= //
     @ManyToOne
-    @JoinColumn(name = "offeringTypeId", nullable = false)
-    private OfferingTypeData offeringTypeData;
+    @JoinColumn(name = "categoryId", nullable = false)
+    private CategoryData category;
+
 }

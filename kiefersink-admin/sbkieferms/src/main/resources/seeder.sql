@@ -1,54 +1,68 @@
 -- ========================
--- OFFERING TYPES
--- ========================
-INSERT INTO offeringtypes (id, name) VALUES
-(1, 'Tattoo'),
-(2, 'Piercing');
-
--- ========================
 -- ARTISTS
 -- ========================
-INSERT INTO artists (id, name, imageUrl) VALUES
-(1, 'Kiefer Santos', 'artist1.jpg'),
-(2, 'Maria Lopez', 'artist1.jpg'),
-(3, 'Jay Cruz', 'artist1.jpg');
-
+INSERT INTO artists (name, imageUrl) VALUES
+('Jek Valencia', 'jek.jpg'),
+('Dhens Valencia', 'dhens.jpg'),
+('Arman Walin', 'arman.jpg');
 -- ========================
 -- ARTIST CONTACTS
 -- ========================
-INSERT INTO artistcontacts (id, artistId, platform, handle, url) VALUES
-(1, 1, 'facebook', '@kiefer.ink', 'https://facebook.com/kiefer.ink'),
-(2, 1, 'instagram', '@kiefer.ink', 'https://instagram.com/kiefer.ink'),
-(3, 2, 'instagram', '@maria.ink', 'https://instagram.com/maria.ink'),
-(4, 2, 'facebook', '@maria.lopez.tattoo', 'https://facebook.com/maria.lopez.tattoo'),
-(5, 3, 'instagram', '@jaycruz.ink', 'https://instagram.com/jaycruz.ink'),
-(6, 3, 'tiktok', '@jaycruztattoo', 'https://tiktok.com/@jaycruztattoo');
+INSERT INTO artistcontacts (artistId, platform, handle, url) VALUES
+(1, 'facebook', 'Jek Valencia', 'https://www.facebook.com/rosewester18'),
+(1, 'instagram', '@jek.kiefersinktattoo', 'https://www.instagram.com/jek.kiefersinktattoo/'),
+(1, 'tiktok', '@jek.kiefersinktat', 'https://www.tiktok.com/@jek.kiefersinktat'),
 
+(2, 'facebook', 'Dhens Valencia', 'https://www.facebook.com/alyssadhens18'),
+(2, 'instagram', '@dhens.kiefersink', 'https://www.instagram.com/dhens.kiefersink/'),
+
+(3, 'facebook', 'Arman Walin', 'https://www.facebook.com/profile.php?id=61581541725835'),
+(3, 'instagram', '@rman.kiefersink', 'https://www.instagram.com/rman.kiefersink/'),
+(3, 'tiktok', '@arman.kiefersinkt', 'https://www.tiktok.com/@arman.kiefersinkt');
+
+-- ========================
+-- CATEGORIES
+-- ========================
+INSERT INTO categories (name) VALUES
+('Tattoo'),
+('Piercing');
 
 -- ========================
 -- OFFERINGS
 -- ========================
-INSERT INTO offerings (id, offeringTypeId, name, description, priceRange) VALUES
-(1, 1, 'Black & Grey Tattoo', 'Classic black and grey designs, perfect for portraits and shading work.', '₱3000 - ₱15000'),
-(2, 1, 'Color Tattoo', 'Full-color tattoos with vibrant ink and custom designs.', '₱4000 - ₱20000'),
-(3, 2, 'Ear Piercing', 'Standard ear piercing with sterilized equipment.', '₱800 - ₱2000'),
-(4, 2, 'Navel Piercing', 'Trendy belly button piercing with jewelry included.', '₱1500 - ₱2500');
+INSERT INTO offerings (name, categoryId, description, priceRange) VALUES
+('Black & Grey Tattoo', 1, 'Classic black and grey designs with smooth shading and timeless contrast.', '₱3,000 - ₱30,000'),
+('Color Tattoo', 1, 'Full-color tattoos with vibrant ink and detailed blending.', '₱4,000 - ₱40,000'),
+('Watercolor Tattoo', 1, 'Soft, artistic watercolor designs that mimic paint brush effects.', '₱5,000 - ₱45,000'),
+('Minimalist Tattoo', 1, 'Clean, elegant linework and simple forms for subtle expression.', '₱1,500 - ₱18,000'),
+('Realism Tattoo', 1, 'Hyper-detailed, lifelike portraits and realistic imagery.', '₱6,000 - ₱50,000'),
+('Geometric Tattoo', 1, 'Modern designs using symmetry, lines, and abstract shapes.', '₱3,500 - ₱25,000'),
+('Japanese Tattoo', 1, 'Traditional Japanese motifs with bold outlines and deep symbolism.', '₱8,000 - ₱60,000'),
+('Fine Line Tattoo', 1, 'Delicate, precise linework emphasizing subtle beauty and detail.', '₱2,500 - ₱15,000'),
+('Tribal Tattoo', 1, 'Bold, black patterns inspired by cultural and symbolic designs.', '₱4,000 - ₱30,000'),
+('Script Tattoo', 1, 'Typography and lettering pieces expressing words, quotes, or names.', '₱2,000 - ₱10,000');
 
 -- ========================
 -- PORTFOLIO
 -- ========================
-INSERT INTO portfolio (id, artistId, title, description, imageUrl) VALUES
-(1, 1, 'Dragon Sleeve', 'Full-sleeve dragon tattoo with intricate details.', 'images/portfolio/dragon_sleeve.jpg'),
-(2, 1, 'Minimalist Tattoo', 'Clean minimalist design for first-timers.', 'images/portfolio/minimalist.jpg'),
-(3, 2, 'Floral Backpiece', 'Colorful floral tattoo covering the back.', 'images/portfolio/floral_backpiece.jpg'),
-(4, 3, 'Geometric Tattoo', 'Modern geometric linework tattoo.', 'images/portfolio/geometric.jpg');
+INSERT INTO portfolio (artistId, title, description, imageUrl, offeringId, featured) VALUES
+(2, 'Wolf Forearm Tattoo', 'Eyes like ice, heart like fire. Tattoo by @dhens.kiefersink.', 'gallery_tattoo1.jpg', 1, 1),
+(1, 'Minimalist Forearm Tattoo', 'Tattoos are time travel etched in skin.', 'gallery_tattoo2.jpg', 4, 0),
+(1, 'Ink Flow Dragon', 'A sumi-e inspired dragon tattoo flowing across the shoulder and arm.', 'gallery_tattoo3.jpg', 2, 1),
+(2, 'Dog Portrait', 'A realistic dog portrait framed in a minimalist box, capturing the warmth and joy of a beloved pet.', 'gallery_tattoo4.jpg', 5, 1),
+(2, 'Rooted Resilience', 'A gnarled, leafless tree tattoo extending across the upper arm and shoulder, symbolizing endurance.', 'gallery_tattoo5.jpg', 1, 0),
+(1, 'Minimalist Butterflies', 'Tiny wings, big dreams 🦋', 'gallery_tattoo6.jpg', 4, 0),
+(2, 'Minimalist Wolf', 'Stay wild, stay free, stay fierce.', 'gallery_tattoo7.jpg', 4, 0),
+(3, 'Koi Forearm Tattoo', 'Balance. Harmony. Flow.', 'gallery_tattoo8.jpg', 7, 0),
+(3, 'Fractured Wings', 'A sharp, symmetrical tattoo centered on the upper back, symbolizing transformation and strength.', 'gallery_tattoo9.jpg', 6, 0),
+(3, 'Shoshin (初心)', 'A minimalist tattoo featuring the Japanese kanji "初心" (Shoshin), meaning "beginner’s mind."', 'gallery_tattoo10.jpg', 10, 1);
 
 -- ========================
 -- SETTINGS
 -- ========================
 INSERT INTO settings (settingKey, settingValue) VALUES
 ('companyName', 'Kiefer''s Ink Tattoo'),
-('logoUrl', 'images/logo.png'),
+('logoUrl', 'http://localhost:8080/uploads/logo_white.png'),
 ('openHours', 'Mon-Sun, 10:00 AM - 8:00 PM'),
 ('address', '3rd flr, 189 Victor Javier Rosario Pasig City, Pasig, Philippines');
 
@@ -56,10 +70,10 @@ INSERT INTO settings (settingKey, settingValue) VALUES
 -- ========================
 -- INQUIRIES
 -- ========================
-INSERT INTO inquiries (id, offeringId, createdAt, customerName, customerEmail, customerPhone, subject, message) VALUES
-(1, 1, '2025-09-13 14:30:00', 'John Doe', 'johndoe@gmail.com', '09171112222', 'Tattoo Inquiry', 'Hi, I’d like to book a black & grey portrait tattoo.'),
-(2, 3, '2025-09-12 16:10:00', 'Anna Smith', 'anna.smith@yahoo.com', '09173334444', 'Piercing Appointment', 'Do you accept walk-ins for ear piercing?'),
-(3, 2, '2025-09-11 10:20:00', 'Mark Lee', 'mark.lee@gmail.com', '09176667777', 'Color Tattoo Request', 'Looking for a color phoenix tattoo on my arm.');
+INSERT INTO inquiries (customerName, customerEmail, customerPhone, subject, message) VALUES
+('John Doe', 'johndoe@gmail.com', '09171112222', 'Tattoo Inquiry', 'Hi, I’d like to book a black & grey portrait tattoo.'),
+('Anna Smith', 'anna.smith@yahoo.com', '09173334444', 'Piercing Appointment', 'Do you accept walk-ins for ear piercing?'),
+('Mark Lee', 'mark.lee@gmail.com', '09176667777', 'Color Tattoo Request', 'Looking for a color phoenix tattoo on my arm.');
 
 -- ========================
 -- COMPANY CONTACTS
@@ -67,5 +81,6 @@ INSERT INTO inquiries (id, offeringId, createdAt, customerName, customerEmail, c
 INSERT INTO companycontacts (platform, handle, url) VALUES
 ('facebook', 'Kiefer''s INK Tattoo', 'https://www.facebook.com/dhensvalenciaworks'),
 ('instagram', '@kiefersinktattoo', 'https://instagram.com/kiefersinktattoo'),
+('tiktok', '@kiefersinktattoo', 'https://www.tiktok.com/@kiefersinktattoo'),
 ('email', 'info@kiefersinktattoo.com', 'mailto:info@kiefersinktattoo.com'),
 ('phone', '09955545887', '')

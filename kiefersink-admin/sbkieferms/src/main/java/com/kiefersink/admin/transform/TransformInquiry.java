@@ -14,7 +14,6 @@ public class    TransformInquiry implements Transform<Inquiry, InquiryData>{
         inquiry.setCustomerName(data.getCustomerName());
         inquiry.setCustomerEmail(data.getCustomerEmail());
         inquiry.setCustomerPhone(data.getCustomerPhone());
-        inquiry.setOffering(transformOffering.toModel(data.getOfferingData()));
         inquiry.setSubject(data.getSubject());
         inquiry.setMessage(data.getMessage());
         inquiry.setCreatedAt(data.getCreatedAt());
@@ -29,7 +28,6 @@ public class    TransformInquiry implements Transform<Inquiry, InquiryData>{
         inquiryData.setCustomerName(model.getCustomerName());
         inquiryData.setCustomerEmail(model.getCustomerEmail());
         inquiryData.setCustomerPhone(model.getCustomerPhone());
-        inquiryData.setOfferingData(transformOffering.toData(model.getOffering()));
         inquiryData.setSubject(model.getSubject());
         inquiryData.setMessage(model.getMessage());
         inquiryData.setCreatedAt(model.getCreatedAt());

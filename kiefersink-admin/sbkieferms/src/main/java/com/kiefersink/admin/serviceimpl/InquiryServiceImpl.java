@@ -5,7 +5,6 @@ import com.kiefersink.admin.model.Inquiry;
 import com.kiefersink.admin.repository.InquiryRepository;
 import com.kiefersink.admin.service.InquiryService;
 import com.kiefersink.admin.transform.TransformInquiry;
-import com.kiefersink.admin.transform.TransformOffering;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,6 @@ public class InquiryServiceImpl implements InquiryService {
     @Autowired
     private InquiryRepository inquiryRepository;
     private final TransformInquiry transformInquiry = new TransformInquiry();
-    private final TransformOffering transformOffering = new TransformOffering();
     //========================================================================================================//
     @Override
     public List<Inquiry> getAll() {
@@ -47,7 +45,6 @@ public class InquiryServiceImpl implements InquiryService {
         inquiryData.setCustomerName(inquiry.getCustomerName());
         inquiryData.setCustomerEmail(inquiry.getCustomerEmail());
         inquiryData.setCustomerPhone(inquiry.getCustomerPhone());
-        inquiryData.setOfferingData(transformOffering.toData(inquiry.getOffering()));
         inquiryData.setSubject(inquiry.getSubject());
         inquiryData.setMessage(inquiry.getMessage());
         inquiryData.setCreatedAt(inquiry.getCreatedAt());
@@ -67,7 +64,6 @@ public class InquiryServiceImpl implements InquiryService {
         inquiryData.setCustomerName(inquiry.getCustomerName());
         inquiryData.setCustomerEmail(inquiry.getCustomerEmail());
         inquiryData.setCustomerPhone(inquiry.getCustomerPhone());
-        inquiryData.setOfferingData(transformOffering.toData(inquiry.getOffering()));
         inquiryData.setSubject(inquiry.getSubject());
         inquiryData.setMessage(inquiry.getMessage());
         inquiryData.setCreatedAt(inquiry.getCreatedAt());

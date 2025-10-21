@@ -8,6 +8,8 @@ import lombok.Data;
 @Table(name = "CompanyContacts")
 public class CompanyContactData {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String platform;
     private String handle;
     private String url;

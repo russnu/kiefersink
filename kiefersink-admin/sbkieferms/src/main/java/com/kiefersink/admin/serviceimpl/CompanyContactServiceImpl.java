@@ -31,8 +31,8 @@ public class CompanyContactServiceImpl implements CompanyContactService {
     }
     //========================================================================================================//
     @Override
-    public CompanyContact get(String platform) {
-        CompanyContactData companyContactData = companyContactRepository.findById(platform)
+    public CompanyContact get(Integer id) {
+        CompanyContactData companyContactData = companyContactRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Company contact not found"));
 
         return transformCompanyContact.toModel(companyContactData);
@@ -47,8 +47,8 @@ public class CompanyContactServiceImpl implements CompanyContactService {
     }
     //========================================================================================================//
     @Override
-    public CompanyContact update(String platform, CompanyContact companyContact) {
-        CompanyContactData existing = companyContactRepository.findById(platform)
+    public CompanyContact update(Integer id, CompanyContact companyContact) {
+        CompanyContactData existing = companyContactRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Company contact not found"));
 
         existing.setPlatform(companyContact.getPlatform());
@@ -60,7 +60,7 @@ public class CompanyContactServiceImpl implements CompanyContactService {
     }
     //========================================================================================================//
     @Override
-    public void delete(String platform) {
-        companyContactRepository.deleteById(platform);
+    public void delete(Integer id) {
+        companyContactRepository.deleteById(id);
     }
 }

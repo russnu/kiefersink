@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface CompanyContactService {
     List<CompanyContact> getAll();
-    CompanyContact get(String platform);
+    CompanyContact get(Integer id);
     CompanyContact create(CompanyContact companyContact);
-    CompanyContact update(String platform, CompanyContact companyContact);
-    void delete(String platform);
+    CompanyContact update(Integer id, CompanyContact companyContact);
+    void delete(Integer id);
 }

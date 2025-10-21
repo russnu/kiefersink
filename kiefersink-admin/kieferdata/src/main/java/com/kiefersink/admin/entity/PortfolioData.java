@@ -13,10 +13,16 @@ public class PortfolioData {
     private String title;
     private String description;
     private String imageUrl;
+    private boolean featured;
 
     // Relationships ======================================= //
     @ManyToOne
     @JoinColumn(name = "artistId", nullable = false)
     private ArtistData artist;
+
+    @ManyToOne
+    @JoinColumn(name = "offeringId", nullable = false)
+    private OfferingData offering;
+
 
 }

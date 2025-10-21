@@ -9,4 +9,7 @@ public class Portfolio {
     private String title;
     private String description;
     private String imageUrl;
+    private boolean featured;
+    private Offering offering;
+
 }

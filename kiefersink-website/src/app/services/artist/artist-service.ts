@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, map, switchMap } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { ArtistContactService, ArtistContact } from '../artist_contact/artist-contact-service';
 //==========================================================//
 export interface Artist {
   id: number;
@@ -8,37 +10,33 @@ export interface Artist {
   imageUrl: string;
   contacts?: ArtistContact[];
 }
-
-export interface ArtistContact {
-  id: number;
-  artistId: number;
-  platform: string;
-  handle: string;
-  url: string;
-}
 //==========================================================//
 @Injectable({
   providedIn: 'root',
 })
 export class ArtistService {
-  private artistsUrl = 'http://localhost:8080/api/artist';
-  private contactsUrl = 'http://localhost:8080/api/artist_contact';
+  private apiUrl = `${environment.apiBaseUrl}/artist`;
+  protected artistContactService = inject(ArtistContactService);
 
   constructor(private http: HttpClient) {}
 
+  getAllArtists(): Observable<Artist[]> {
+    return this.http.get<Artist[]>(this.apiUrl);
+  }
+
   getAllWithContacts(): Observable<Artist[]> {
-    return this.http.get<Artist[]>(this.artistsUrl).pipe(
+    return this.http.get<Artist[]>(this.apiUrl).pipe(
       switchMap((artists) => {
         const contactRequests = artists.map((artist) =>
-          this.http.get<ArtistContact[]>(`${this.contactsUrl}/${artist.id}`).pipe(
+          this.artistContactService.getArtistContacts(artist.id).pipe(
             map((contacts) => ({
               ...artist,
               contacts,
-            }))
-          )
+            })),
+          ),
         );
         return forkJoin(contactRequests);
-      })
+      }),
     );
   }
 }

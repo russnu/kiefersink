@@ -5,7 +5,7 @@ import com.kiefersink.admin.model.Portfolio;
 import java.util.List;
 
 public interface PortfolioService {
-    List<Portfolio> getAll();
+    List<Portfolio> getAll(boolean featured);
     Portfolio get(Integer id);
     Portfolio create(Portfolio portfolio);
     Portfolio update(Integer id, Portfolio portfolio);

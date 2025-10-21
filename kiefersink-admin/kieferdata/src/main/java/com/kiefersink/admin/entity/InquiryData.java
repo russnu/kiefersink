@@ -2,6 +2,7 @@ package com.kiefersink.admin.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @Entity
@@ -15,10 +16,6 @@ public class InquiryData {
     private String customerPhone;
     private String subject;
     private String message;
+    @CreationTimestamp
     private String createdAt;
-
-    // Relationships ======================================= //
-    @ManyToOne
-    @JoinColumn(name = "offeringId", nullable = false)
-    private OfferingData offeringData;
 }

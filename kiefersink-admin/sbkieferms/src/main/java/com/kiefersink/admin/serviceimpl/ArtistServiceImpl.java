@@ -2,9 +2,11 @@ package com.kiefersink.admin.serviceimpl;
 
 import com.kiefersink.admin.entity.ArtistData;
 import com.kiefersink.admin.model.Artist;
+import com.kiefersink.admin.model.Category;
 import com.kiefersink.admin.repository.ArtistRepository;
 import com.kiefersink.admin.service.ArtistService;
 import com.kiefersink.admin.transform.TransformArtist;
+import com.kiefersink.admin.transform.TransformArtistContact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,26 +18,43 @@ public class ArtistServiceImpl implements ArtistService {
     @Autowired
     private ArtistRepository artistRepository;
     private final TransformArtist transformArtist = new TransformArtist();
+    private final TransformArtistContact transformArtistContact =  new TransformArtistContact();
     //========================================================================================================//
     @Override
-    public List<Artist> getAll() {
+    public List<Artist> getAll(boolean includeContacts) {
         List<ArtistData> artistDataList = new ArrayList<>();
         artistRepository.findAll().forEach(artistDataList::add);
 
         List<Artist> artists = new ArrayList<>();
         for (ArtistData data : artistDataList) {
             Artist artist = transformArtist.toModel(data);
+            if (includeContacts) {
+                artist.setContacts(
+                        data.getContacts().stream()
+                                .map(transformArtistContact::toModel)
+                                .toList()
+                );
+            }
             artists.add(artist);
         }
         return artists;
     }
     //========================================================================================================//
     @Override
-    public Artist get(Integer id) {
+    public Artist get(Integer id, boolean includeContacts) {
         ArtistData artistData = artistRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Artist not found"));
 
-        return transformArtist.toModel(artistData);
+        Artist artist = transformArtist.toModel(artistData);
+        if (includeContacts) {
+            artist.setContacts(
+                    artistData.getContacts().stream()
+                            .map(transformArtistContact::toModel)
+                            .toList()
+            );
+        }
+
+        return artist;
     }
     //========================================================================================================//
     @Override

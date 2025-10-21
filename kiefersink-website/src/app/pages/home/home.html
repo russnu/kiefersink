@@ -3,84 +3,125 @@
 >
   <!-- Background -->
   <div
-    class="absolute inset-0 bg-[url('/assets/images/bg1.jpg')] bg-cover bg-center grayscale-90"
+    class="absolute inset-0 bg-cover bg-center grayscale-90 bg-[url('/assets/images/bg4.png')]"
   ></div>
   <div class="absolute inset-0 bg-black/40"></div>
 
   <!-- Content -->
   <div class="z-10 max-w-3xl rounded-2xl p-5 text-center md:text-right">
     <!-- Headline -->
-    <p class="font-black text-white text-[clamp(2rem,5vw,5rem)] leading-none">Ink Your Story.</p>
-    <p class="font-black text-white text-[clamp(2rem,5vw,5rem)] leading-none">Wear It Forever.</p>
+    <p class="font-black text-yellow-200 text-[clamp(2.5rem,5vw,5rem)] leading-none">
+      Ink Your Story.
+    </p>
+    <p class="font-black text-yellow-200 text-[clamp(2.5rem,5vw,5rem)] leading-none">
+      Wear It Forever.
+    </p>
 
     <!-- Subtext -->
-    <p class="font-normal text-white mt-4 text-lg sm:text-xl md:text-2xl leading-relaxed">
+    <p class="text-white mt-4 text-[clamp(1rem,3.5vw,1.5rem)]">
       Tattoos are more than art, they’re stories written on skin. At Kiefer’s Ink, every design is
       bold, personal, and unforgettable.
     </p>
-    <p class="font-bold text-yellow-200 mt-4 text-lg sm:text-xl md:text-2xl">
+    <p class="font-bold italic mt-4 text-[clamp(1rem,3.5vw,1.5rem)]">
       Your body, your story. We bring it to life in ink.
     </p>
 
     <!-- Buttons -->
     <div class="mt-6 flex flex-col sm:flex-row justify-center md:justify-end gap-4">
-      <button routerLink="/contact" class="button">Inquire</button>
-      <button routerLink="/contact" class="button-outline">View Gallery</button>
+      <button routerLink="/contact" class="button px-7 py-7">Inquire</button>
+      <button routerLink="/gallery" class="button-outline px-7 py-7">View Gallery</button>
     </div>
   </div>
 </section>
 <!-- ============================================================================================================================= -->
 
 <div class="relative">
-  <div
-    class="absolute inset-0 bg-[url('/assets/images/effects_smoke.png')] bg-no-repeat grayscale-90 opacity-30"
-  ></div>
+  <div class="smoke-bg bg-[url('/assets/images/effects_smoke.png')]"></div>
 
   <section
-    class="flex flex-col md:flex-row mx-auto py-20 px-20 max-w-7xl gap-20 relative items-center"
+    class="flex flex-col md:flex-row mx-auto py-20 px-20 max-w-[1500px] gap-20 relative items-center"
   >
     <div class="flex-1">
-      <h2 class="font-black text-3xl text-white mb-4">
+      <h2 class="font-black leading-none text-[clamp(2rem,3vw,3rem)] text-white mb-4">
         Crafting Iconic Tattoos & Piercings Since 2016
       </h2>
-      <p class="text-lg text-white leading-relaxed">
+      <div class="divider before:bg-white after:bg-white"></div>
+
+      <p class="text-[clamp(1rem,2vw,1.3rem)] text-white leading-relaxed">
         Since 2016 in Pasig, Kiefer’s Ink Tattoo has been a trusted spot for both tattoos and
         piercings. What began as a small passion project has grown into a studio known for authentic
-        designs, creative expression, and a commitment to safety and hygiene. Whether you’re getting
-        your first piercing or a full-sleeve tattoo, our artists bring your story to life with skill
-        and care.
+        designs, creative expression, and a commitment to safety and hygiene.
+      </p>
+      <p class="text-[clamp(1rem,2vw,1.3rem)] text-white leading-relaxed mt-4">
+        Whether you’re getting your first piercing or a full-sleeve tattoo, our artists bring your
+        story to life with skill and care.
       </p>
     </div>
 
     <div class="relative flex-1">
-      <img src="assets/images/tattoo1_nobg.png" class="w-full max-h-[400px] object-contain" />
-      <img
-        src="assets/images/tattoo3_nobg.png"
-        class="absolute top-[-20px] right-[-20px] w-1/3 max-h-[200px] object-contain shadow-lg"
-      />
-      <img
-        src="assets/images/piercing1.jpg"
-        class="absolute top-[20%] left-[-40px] w-1/4 max-h-[150px] object-contain shadow-lg"
-      />
-      <img
-        src="assets/images/tattoo4_nobg.png"
-        class="absolute bottom-[-10px] left-[-10px] w-1/3 max-h-[200px] object-contain shadow-lg"
-      />
-      <img
-        src="assets/images/piercing6_nobg.png"
-        class="absolute bottom-[30%] right-[-70px] w-1/4 max-h-[150px] object-contain shadow-lg"
-      />
+      <!-- ---------------------------------------------------------------------------------------------- -->
+      <div class="relative z-10">
+        <img
+          src="assets/images/tattoo1_nobg.png"
+          class="relative z-10 w-full max-h-[500px] object-contain transition-transform duration-500 hover:scale-105"
+        />
+      </div>
+      <!-- ---------------------------------------------------------------------------------------------- -->
+      <div class="absolute w-30 top-10 right-[-20px] lg:top-0 lg:right-10 lg:w-40">
+        <div class="relative group cursor-pointer">
+          <div class="glow-effect"></div>
+          <img
+            src="assets/images/tattoo3_nobg.png"
+            class="relative z-10 w-full h-auto object-contain rounded-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+          />
+        </div>
+      </div>
+      <!-- ---------------------------------------------------------------------------------------------- -->
+      <div class="absolute w-30 top-30 lg:top-10 left-[-50px] lg:left-10 lg:w-40">
+        <div class="relative group cursor-pointer">
+          <div class="glow-effect"></div>
+          <img
+            src="assets/images/piercing12_nobg.png"
+            class="relative z-10 w-full h-auto object-contain rounded-lg transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3"
+          />
+        </div>
+      </div>
+      <!-- ---------------------------------------------------------------------------------------------- -->
+      <div class="absolute w-30 top-80 left-[-10px] lg:top-65 lg:left-20 lg:w-40">
+        <div class="relative group cursor-pointer">
+          <div class="glow-effect"></div>
+          <img
+            src="assets/images/tattoo4_nobg.png"
+            class="relative z-10 w-full h-auto object-contain rounded-lg transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-2"
+            alt="Custom tattoo artwork"
+          />
+        </div>
+      </div>
+      <!-- ---------------------------------------------------------------------------------------------- -->
+      <div class="absolute w-30 top-62 right-[-40px] lg:right-12 lg:w-40">
+        <div class="relative group cursor-pointer">
+          <div
+            class="absolute bg-white/30 inset-0 blur-xl rounded-lg group-hover:bg-white/65 transition-colors duration-300"
+          ></div>
+          <img
+            src="assets/images/piercing4.jpg"
+            class="relative z-10 w-full h-auto object-contain drop-shadow-xl rounded-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-2"
+          />
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ============================================================================================================================= -->
   <section class="relative py-20 px-20 mx-auto max-w-7xl">
-    <h2 class="font-black text-3xl text-white text-center mb-10">Our Services</h2>
+    <h2 class="font-black leading-none text-[clamp(2rem,3vw,3rem)] text-white text-center mb-10">
+      Our Services
+    </h2>
     <!-- ------------------------------------------------------------------------------------------------ -->
     <div class="flex flex-col md:flex-row mx-auto flex-wrap gap-y-10 gap-x-20">
       <div class="flex-1">
         <h3 class="text-2xl font-bold text-white mb-4">Tattoos</h3>
-        <p class="text-gray-300 mb-6">
+        <p class="text-[clamp(1rem,1vw,1.05rem)] text-white leading-relaxed mb-6">
           From minimalist designs to full-sleeve masterpieces, our artists specialize in bringing
           your vision to life with clean lines, bold colors, and expert technique.
         </p>
@@ -95,7 +136,7 @@
         <div class="flex gap-5">
           <div>
             <h3 class="text-2xl font-bold text-white mb-4">Piercings</h3>
-            <p class="text-gray-300 mb-6 max-w-xl">
+            <p class="text-[clamp(1rem,1vw,1.05rem)] text-white leading-relaxed mb-6">
               We provide safe, hygienic piercings for ears, nose, and beyond. With a wide range of
               high-quality jewelry, we ensure your piercing experience is as stylish as it is
               comfortable.
@@ -111,6 +152,30 @@
           <img src="assets/images/piercing7.jpg" />
         </figure>
       </div>
+    </div>
+  </section>
+  <!-- ============================================================================================================================= -->
+  <section class="relative py-20 px-20 max-w-[1500px] mx-auto">
+    <h2 class="font-black leading-none text-[clamp(2rem,3vw,3rem)] text-white mb-5">Our Works</h2>
+    <div class="flex flex-col md:flex-row mb-6 justify-between gap-6 gap-x-10 items-stretch">
+      <div>
+        <p class="text-[clamp(1rem,1vw,1.05rem)] text-white leading-relaxed">
+          Our gallery showcases the passion, precision, and creativity behind every piece we craft.
+          From delicate linework to bold full-color art, each design reflects our artists’
+          dedication to turning ideas into lasting impressions.
+        </p>
+      </div>
+      <button routerLink="/gallery" class="button-outline px-7 py-7 md:self-end">
+        Explore Gallery
+      </button>
+    </div>
+
+    <div class="carousel rounded-box space-x-5 w-full">
+      @for (portfolio of portfolios; track portfolio.id) {
+        <div class="carousel-item w-md">
+          <img [src]="portfolio.imageUrl" [alt]="portfolio.title" />
+        </div>
+      }
     </div>
   </section>
 </div>

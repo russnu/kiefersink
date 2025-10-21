@@ -12,32 +12,32 @@ import java.util.List;
 @RestController
 public class InquiryController {
     @Autowired
-    private InquiryService inquiryService;
+    private InquiryService service;
     //========================================================================================================//
     @GetMapping
     public List<Inquiry> getAllInquiries() {
-        return inquiryService.getAll();
+        return service.getAll();
     }
     //========================================================================================================//
     @GetMapping("/{id}")
     public Inquiry getInquiry(@PathVariable("id") Integer id) {
-        return inquiryService.get(id);
+        return service.get(id);
     }
     //========================================================================================================//
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Inquiry createInquiry(@RequestBody Inquiry inquiry) {
-        return inquiryService.create(inquiry);
+        return service.create(inquiry);
     }
     //========================================================================================================//
     @PutMapping
     public Inquiry updateInquiry(@PathVariable("id") Integer id, @RequestBody Inquiry inquiry) {
-        return inquiryService.update(id, inquiry);
+        return service.update(id, inquiry);
     }
     //========================================================================================================//
     @DeleteMapping("/{id}")
     public void deleteInquiry(@PathVariable("id") Integer id) {
-        inquiryService.delete(id);
+        service.delete(id);
     }
     //========================================================================================================//
 

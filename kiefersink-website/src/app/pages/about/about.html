@@ -1,122 +1,119 @@
-<section class="banner bg-[url('/assets/images/banner1.jpg')]">
+<section
+  class="banner grayscale-90 bg-[url('/assets/images/banner6.jpg')] !bg-[position:center_bottom_40%]"
+>
   <div class="absolute inset-0 bg-white/10"></div>
-
   <div class="absolute inset-0 flex flex-col justify-center items-center text-white">
     <h1 class="font-black text-[clamp(2rem,5vw,5rem)] leading-tight">About Us</h1>
   </div>
 </section>
+<!-- =============================================================================================================================== -->
+<div class="relative">
+  <div class="smoke-bg bg-[url('/assets/images/effects_smoke2.png')]"></div>
+  <section class="py-20">
+    <div class="flex flex-col md:flex-row max-w-6xl mx-auto px-6 gap-12 items-center">
+      <!-- Image -->
+      <div class="relative group flex-1">
+        <img
+          src="/assets/images/banner3.jpg"
+          class="rounded-2xl shadow-xl group-hover:scale-105 transition-transform duration-500 ease-in-out"
+        />
+      </div>
 
-<section class="py-20">
-  <div class="flex flex-col md:flex-row max-w-6xl mx-auto px-6 gap-12 items-center">
-    <!-- Image -->
-    <div class="relative group flex-1">
-      <img
-        src="/assets/images/banner1.jpg"
-        class="rounded-2xl shadow-xl transition-transform duration-500 group-hover:scale-105"
-      />
-      <div
-        class="absolute inset-0 bg-black/20 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-500"
-      ></div>
+      <div class="space-y-6 flex-1">
+        <h2 class="text-4xl font-bold text-white">More Than Ink</h2>
+        <p class="text-white leading-relaxed">
+          At <span class="font-semibold text-yellow-200">Kiefer’s Ink</span>, we believe every
+          tattoo is more than ink — it’s an expression of individuality. We specialize in custom
+          designs, fine-line detailing, and bold traditional pieces, blending precision with
+          personality in every stroke. Whether you’re coming in for your first tattoo or adding to a
+          growing collection, we work closely with you to capture the meaning behind your design and
+          craft something that’s uniquely yours.
+        </p>
+        <p class="text-white leading-relaxed">
+          With a clean, relaxed studio environment and a passion for the craft, we make sure your
+          experience is as unforgettable as the art itself.
+        </p>
+
+        <button routerLink="/contact" class="button-outline px-7 py-7">Inquire Now</button>
+      </div>
     </div>
+  </section>
+  <!-- =============================================================================================================================== -->
+  <section class="pb-20">
+    <div class="space-y-6 max-w-6xl mx-auto px-6">
+      <div class="relative group">
+        <img
+          src="/assets/images/banner2.png"
+          class="rounded-2xl shadow-xl group-hover:scale-105 transition-transform duration-500 ease-in-out"
+        />
+      </div>
 
-    <div class="space-y-6 flex-1">
-      <h2 class="text-4xl font-bold text-white">More Than Ink</h2>
-      <p class="text-white leading-relaxed">
-        At <span class="font-semibold text-primary">Kiefer’s Ink Tattoo</span>, we believe every
-        tattoo is more than ink — it’s an expression of individuality. We specialize in custom
-        designs, fine-line detailing, and bold traditional pieces, blending precision with
-        personality in every stroke. Whether you’re coming in for your first tattoo or adding to a
-        growing collection, we work closely with you to capture the meaning behind your design and
-        craft something that’s uniquely yours.
-      </p>
-      <p class="text-white leading-relaxed">
-        With a clean, relaxed studio environment and a passion for the craft, we make sure your
-        experience is as unforgettable as the art itself.
-      </p>
-
-      <button routerLink="/contact" class="button-outline">Inquire Now</button>
-    </div>
-  </div>
-</section>
-
-<section class="pb-20">
-  <div class="space-y-6 max-w-6xl mx-auto px-6">
-    <div class="relative group">
-      <img
-        src="/assets/images/banner1.jpg"
-        class="rounded-2xl shadow-xl transition-transform duration-500 group-hover:scale-105"
-      />
-      <div
-        class="absolute inset-0 bg-black/20 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-500"
-      ></div>
-    </div>
-
-    <div class="space-y-6">
-      <h2 class="text-4xl font-bold text-white">Artists. Storytellers. Creators.</h2>
-      <p class="text-white leading-relaxed">
-        Our artists are passionate storytellers with needles and ink, each bringing a unique style,
-        steady hand, and years of experience. From bold traditional work to intricate realism, they
-        pour creativity and precision into every design, ensuring each piece reflects both artistry
-        and authenticity.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="pb-20">
-  <div class="flex flex-col md:flex-row max-w-6xl mx-auto px-6 gap-12">
-    <div class="space-y-6 flex-1">
-      <h2 class="text-4xl font-bold text-white">Get in Touch</h2>
-      <div>
-        <h3 class="font-semibold text-base-content flex gap-2 mb-1">
-          <lucide-icon name="map-pin" />Location
-        </h3>
-        <p class="text-base-content/70 leading-relaxed ml-8">
-          Kiefer’s Ink Tattoo Studio<br />
-          {{ address }}
+      <div class="space-y-6">
+        <h2 class="text-4xl font-bold text-white">Artists. Storytellers. Creators.</h2>
+        <p class="text-white leading-relaxed">
+          Our artists are passionate storytellers with needles and ink, each bringing a unique
+          style, steady hand, and years of experience. From bold traditional work to intricate
+          realism, they pour creativity and precision into every design, ensuring each piece
+          reflects both artistry and authenticity.
         </p>
       </div>
-
-      <div>
-        <h3 class="font-semibold text-base-content flex gap-2 mb-1">
-          <lucide-icon name="message-circle" />Contact
-        </h3>
-        @for (contact of companyContacts; track contact.platform){ @let link =
-        displayContactLink(contact);
-        <a
-          [href]="link.href"
-          target="_blank"
-          class="flex items-center gap-2 hover:text-primary transition text-base-content/70 ml-8 leading-relaxed my-2"
-        >
-          <lucide-icon [name]="link.icon" /> {{ contact.handle }}</a
-        >
-
-        }
-      </div>
-
-      <div>
+    </div>
+  </section>
+  <!-- =============================================================================================================================== -->
+  <section class="pb-20">
+    <div class="flex flex-col md:flex-row max-w-6xl mx-auto px-6 gap-12">
+      <div class="space-y-6 flex-1">
+        <h2 class="text-4xl font-bold">Get in Touch</h2>
         <div>
-          <h3 class="font-semibold text-base-content flex gap-2 mb-1">
-            <lucide-icon name="clock" /> Hours
-          </h3>
+          <p class="font-semibold text-base-content flex gap-2 mb-1 items-center">
+            <fa-icon icon="location-dot" class="text-xl" />Location
+          </p>
+          <p class="text-base-content/70 leading-relaxed ml-8">
+            Kiefer’s Ink Tattoo Studio<br />
+            {{ address }}
+          </p>
         </div>
-        <p class="text-base-content/70 ml-8">
-          {{ openHours }}
-        </p>
+
+        <div>
+          <p class="font-semibold flex gap-2 mb-1 items-center">
+            <fa-icon icon="message" class="text-xl" />Contact
+          </p>
+          @for (contact of companyContacts; track contact.id) {
+            @let link = displayLinks(contact);
+            <a
+              [href]="link.href"
+              target="_blank"
+              class="link-button flex items-center gap-2 ml-8 my-2"
+            >
+              <fa-icon [icon]="[link.prefix, link.icon]" class="text-xl" /> {{ contact.handle }}</a
+            >
+          }
+        </div>
+
+        <div>
+          <div>
+            <p class="font-semibold flex gap-2 mb-1 items-center">
+              <fa-icon icon="clock" class="text-xl" /> Hours
+            </p>
+          </div>
+          <p class="text-base-content/70 ml-8">
+            {{ openHours }}
+          </p>
+        </div>
+      </div>
+
+      <div class="flex-2">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.154640301227!2d121.08194667574116!3d14.590262677328484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c9c2b98714b3%3A0x29f9f6ae2c1c545b!2sKiefer&#39;s%20INK%20Tattoo!5e0!3m2!1sen!2sph!4v1760187887491!5m2!1sen!2sph"
+          width="100%"
+          height="100%"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="rounded-2xl min-h-100"
+        ></iframe>
       </div>
     </div>
-
-    <div class="flex-2">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.154640301227!2d121.08194667574116!3d14.590262677328484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c9c2b98714b3%3A0x29f9f6ae2c1c545b!2sKiefer&#39;s%20INK%20Tattoo!5e0!3m2!1sen!2sph!4v1760187887491!5m2!1sen!2sph"
-        width="100%"
-        height="100%"
-        style="border: 0"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        class="rounded-2xl"
-      ></iframe>
-    </div>
-  </div>
-</section>
+  </section>
+</div>

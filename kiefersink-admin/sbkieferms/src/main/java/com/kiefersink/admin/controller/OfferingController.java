@@ -12,32 +12,32 @@ import java.util.List;
 @RestController
 public class OfferingController {
     @Autowired
-    private OfferingService offeringService;
+    private OfferingService service;
     //========================================================================================================//
     @GetMapping
     public List<Offering> getAllOfferings() {
-        return offeringService.getAll();
+        return service.getAll();
     }
     //========================================================================================================//
     @GetMapping("/{id}")
     public Offering getOffering(@PathVariable("id") Integer id) {
-        return offeringService.get(id);
+        return service.get(id);
     }
     //========================================================================================================//
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Offering createOffering(@RequestBody Offering offering) {
-        return offeringService.create(offering);
+        return service.create(offering);
     }
     //========================================================================================================//
     @PutMapping
     public Offering updateOffering(@PathVariable("id") Integer id, @RequestBody Offering offering) {
-        return offeringService.update(id, offering);
+        return service.update(id, offering);
     }
     //========================================================================================================//
     @DeleteMapping("/{id}")
     public void deleteOffering(@PathVariable("id") Integer id) {
-        offeringService.delete(id);
+        service.delete(id);
     }
     //========================================================================================================//
 

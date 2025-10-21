@@ -13,32 +13,32 @@ import java.util.List;
 @RestController
 public class CompanyContactController {
     @Autowired
-    private CompanyContactService companyContactService;
+    private CompanyContactService service;
     //========================================================================================================//
     @GetMapping
     public List<CompanyContact> getAllCompanyContacts() {
-        return companyContactService.getAll();
+        return service.getAll();
     }
     //========================================================================================================//
-    @GetMapping("/{platform}")
-    public CompanyContact getCompanyContact(@PathVariable("platform") String platform) {
-        return companyContactService.get(platform);
+    @GetMapping("/{id}")
+    public CompanyContact getCompanyContact(@PathVariable("id") Integer id) {
+        return service.get(id);
     }
     //========================================================================================================//
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CompanyContact createCompanyContact(@RequestBody CompanyContact companyContact) {
-        return companyContactService.create(companyContact);
+        return service.create(companyContact);
     }
     //========================================================================================================//
-    @PutMapping("/{platform}")
-    public CompanyContact updateCompanyContact(@PathVariable("platform") String platform, @RequestBody CompanyContact companyContact) {
-        return companyContactService.update(platform, companyContact);
+    @PutMapping("/{id}")
+    public CompanyContact updateCompanyContact(@PathVariable("id") Integer id, @RequestBody CompanyContact companyContact) {
+        return service.update(id, companyContact);
     }
     //========================================================================================================//
-    @DeleteMapping("/{platform}")
-    public void deleteCompanyContact(@PathVariable("platform") String platform) {
-        companyContactService.delete(platform);
+    @DeleteMapping("/{id}")
+    public void deleteCompanyContact(@PathVariable("id") Integer id) {
+        service.delete(id);
     }
     //========================================================================================================//
 }

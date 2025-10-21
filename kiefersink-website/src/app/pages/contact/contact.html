@@ -1,1 +1,272 @@
-<h1>Contact</h1>
+<div class="min-h-screen bg-base-200">
+  <!-- Hero Section -->
+  <section class="banner bg-[url('/assets/images/banner5.jpg')] !bg-[position:center_bottom_35%]">
+    <div class="absolute inset-0 bg-black/50"></div>
+
+    <div class="absolute inset-0 flex flex-col justify-center items-center text-white">
+      <h1 class="font-black text-[clamp(2rem,5vw,5rem)] leading-tight">Get in Touch</h1>
+      <p class="py-6 text-lg">
+        Have questions or ready to book your next tattoo? We'd love to hear from you!
+      </p>
+    </div>
+  </section>
+  <!-- ================================================================================================================== -->
+  <div class="relative">
+    <div class="smoke-bg bg-[url('/assets/images/effects_smoke.png')]"></div>
+    <div class="container mx-auto px-4 py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+        <!-- Contact Information Column -->
+        <div class="lg:col-span-1 space-y-6">
+          <!-- Contact Info Card -->
+          <div class="card bg-black/70 shadow-xl">
+            <div class="card-body">
+              <h2 class="card-title text-2xl mb-4">Contact Information</h2>
+
+              <!-- Address -->
+              <div class="flex gap-4 mb-4">
+                <div
+                  class="flex-shrink-0 self-center bg-primary rounded-full w-12 h-12 flex items-center justify-center"
+                >
+                  <fa-icon icon="location-dot" class="text-xl" />
+                </div>
+                <div>
+                  <h3 class="font-bold">Address</h3>
+                  <p class="text-sm text-base-content/70 leading-relaxed">{{ address }}</p>
+                </div>
+              </div>
+
+              <div class="divider my-1"></div>
+
+              <!-- Phone -->
+              <div class="flex gap-4 mb-4">
+                <div
+                  class="flex-shrink-0 self-center bg-primary rounded-full w-12 h-12 flex items-center justify-center"
+                >
+                  <fa-icon icon="phone" class="text-xl" />
+                </div>
+                <div>
+                  <h3 class="font-bold">Phone</h3>
+                  @for (phone of phoneContacts; track phone.id) {
+                    <p class="text-sm text-base-content/70 leading-relaxed">{{ phone.handle }}</p>
+                  }
+                </div>
+              </div>
+
+              <div class="divider my-2"></div>
+
+              <!-- Email -->
+              <div class="flex gap-4 mb-4">
+                <div
+                  class="flex-shrink-0 self-center bg-primary rounded-full w-12 h-12 flex items-center justify-center"
+                >
+                  <fa-icon icon="envelope" class="text-xl" />
+                </div>
+                <div>
+                  <h3 class="font-bold">Email</h3>
+                  @for (email of emailContacts; track email.id) {
+                    <p class="text-sm text-base-content/70 leading-relaxed">{{ email.handle }}</p>
+                  }
+                </div>
+              </div>
+
+              <div class="divider my-2"></div>
+
+              <!-- Business Hours -->
+              <div class="flex gap-4">
+                <div
+                  class="flex-shrink-0 self-center bg-primary rounded-full w-12 h-12 flex items-center justify-center"
+                >
+                  <fa-icon icon="clock" class="text-xl" />
+                </div>
+                <div>
+                  <h3 class="font-bold">Business Hours</h3>
+                  <p class="text-sm text-base-content/70 leading-relaxed">{{ openHours }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Media Card -->
+          <div class="card bg-black/70 shadow-xl">
+            <div class="card-body">
+              <h2 class="card-title text-xl mb-4">Follow Us</h2>
+              <div class="flex gap-4 flex-wrap">
+                @for (social of socialContacts; track social.id) {
+                  @let link = displayLinks(social);
+                  <a
+                    [href]="link.href"
+                    target="_blank"
+                    class="button-outline !rounded-full !w-12 !h-12"
+                  >
+                    <fa-icon [icon]="[link.prefix, link.icon]" class="text-xl" />
+                  </a>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ==================================================================================================================================================== -->
+        <!-- Inquiry Form Column -->
+        <div class="lg:col-span-2">
+          <div class="card bg-black/70 shadow-xl h-full xl :max-h-[700px]">
+            <div class="card-body h-full">
+              <h2 class="card-title text-3xl mb-6">Send Us a Message</h2>
+
+              <form class="h-full" (ngSubmit)="onSubmit($event)" #inquiryForm="ngForm">
+                <div class="flex flex-col xl:flex-row gap-x-10 h-full">
+                  <!-- Message -->
+                  <div class="fieldset flex-1 flex flex-col space-y-4">
+                    <div class="space-y-2">
+                      <label class="label text-white text-sm">Subject</label>
+                      <input
+                        name="subject"
+                        [(ngModel)]="inquiry.subject"
+                        type="text"
+                        placeholder="What’s your inquiry about?"
+                        class="input text-input"
+                        required
+                      />
+                    </div>
+                    <div class="flex flex-col flex-1 space-y-2">
+                      <label class="label text-white text-sm">Message</label>
+                      <textarea
+                        name="message"
+                        [(ngModel)]="inquiry.message"
+                        class="textarea textarea-input flex-1 resize-none min-h-[200px]"
+                        placeholder="Tell us about your tattoo idea, preferred size, placement, etc."
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+                  <!-- -------------------------------------------------------------------------- -->
+                  <div class="flex-1 flex flex-col justify-between">
+                    <div class="fieldset space-y-4">
+                      <!-- First Name -->
+                      <div class="space-y-2">
+                        <label class="label text-white text-sm">Name</label>
+                        <input
+                          name="customerName"
+                          [(ngModel)]="inquiry.customerName"
+                          type="text"
+                          placeholder="Enter your name"
+                          class="input text-input"
+                          required
+                        />
+                      </div>
+                      <!-- Email -->
+                      <div class="space-y-2">
+                        <label class="label text-white text-sm">Email</label>
+                        <input
+                          name="customerEmail"
+                          [(ngModel)]="inquiry.customerEmail"
+                          type="email"
+                          placeholder="Enter your email"
+                          class="input text-input"
+                          required
+                        />
+                      </div>
+                      <!-- Phone -->
+                      <div class="space-y-2">
+                        <label class="label text-white text-sm">Phone Number</label>
+                        <input
+                          name="customerPhone"
+                          [(ngModel)]="inquiry.customerPhone"
+                          type="tel"
+                          placeholder="Enter your phone number"
+                          class="input text-input"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <!-- Alert Info -->
+                      <div class="alert bg-primary my-6">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          class="stroke-current shrink-0 w-6 h-6"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          ></path>
+                        </svg>
+                        <span class="text-sm"
+                          >We typically respond within 24-48 hours. For urgent inquiries, please
+                          call us directly.</span
+                        >
+                      </div>
+                      <!-- Submit Button -->
+                      <div class="card-actions justify-end">
+                        <button type="reset" class="btn btn-ghost text-sm" (click)="resetForm()">
+                          Clear Form
+                        </button>
+                        <button type="submit" class="button !text-sm">
+                          <fa-icon icon="paper-plane" />
+                          Send Message
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Section -->
+      <div class="mt-12">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body p-0">
+            <div class="h-96 w-full bg-base-300 rounded-lg flex items-center justify-center">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.1546403012276!2d121.08194667574116!3d14.590262677328472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c9c2b98714b3%3A0x29f9f6ae2c1c545b!2sKiefer&#39;s%20INK%20Tattoo!5e0!3m2!1sen!2sph!4v1761048357600!5m2!1sen!2sph"
+                width="100%"
+                height="100%"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<dialog id="success_modal" class="modal">
+  <div class="modal-box">
+    <div class="text-center">
+      <div class="flex justify-center mb-4">
+        <div class="rounded-full bg-success p-6">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="w-12 h-12 text-success-content"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+        </div>
+      </div>
+      <h3 class="font-bold text-2xl mb-2">Message Sent Successfully!</h3>
+      <p class="py-4 text-base-content/70">
+        Thank you for reaching out to us. We'll get back to you within 24-48 hours.
+      </p>
+      <div class="modal-action justify-center">
+        <form method="dialog">
+          <button class="btn btn-primary">Close</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</dialog>

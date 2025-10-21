@@ -12,27 +12,27 @@ import java.util.List;
 @RestController
 public class ArtistContactController {
     @Autowired
-    private ArtistContactService artistContactService;
+    private ArtistContactService service;
     //========================================================================================================//
     @GetMapping("/{artist_id}")
     public List<ArtistContact> getArtistContact(@PathVariable("artist_id") Integer artistId) {
-        return artistContactService.getByArtist(artistId);
+        return service.getByArtist(artistId);
     }
     //========================================================================================================//
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ArtistContact createArtistContact(@RequestBody ArtistContact artistContact) {
-        return artistContactService.create(artistContact);
+        return service.create(artistContact);
     }
     //========================================================================================================//
     @PutMapping("/{id}")
     public ArtistContact updateArtistContact(@PathVariable("id") Integer id, @RequestBody ArtistContact artistContact) {
-        return artistContactService.update(id, artistContact);
+        return service.update(id, artistContact);
     }
     //========================================================================================================//
     @DeleteMapping("/{id}")
     public void deleteArtistContact(@PathVariable("id") Integer id) {
-        artistContactService.delete(id);
+        service.delete(id);
     }
     //========================================================================================================//
 }

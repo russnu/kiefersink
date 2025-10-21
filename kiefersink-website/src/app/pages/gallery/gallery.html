@@ -1,1 +1,195 @@
-<h1>Gallery</h1>
+<!-- Gallery Page Component Template -->
+<section class="banner bg-[url('/assets/images/banner4.jpg')]">
+  <div class="absolute inset-0 bg-black/50"></div>
+
+  <div class="absolute inset-0 flex flex-col justify-center items-center text-white">
+    <h1 class="font-black text-[clamp(2rem,5vw,5rem)] leading-tight">Our Gallery</h1>
+    <p class="py-6 text-lg">
+      Explore our artists' finest work and get inspired for your next tattoo.
+    </p>
+  </div>
+</section>
+
+<!-- Filter Section -->
+<div class="container mx-auto px-4 py-8">
+  <div class="flex flex-wrap gap-4 justify-center mb-8">
+    <details class="dropdown group w-full max-w-xs">
+      <summary
+        class="text-sm flex items-center justify-between p-2.5 gap-5 border border-primary group-focus-within:border-white cursor-pointer transition-colors duration-500 ease-in-out"
+        [class.border-white]="hasActiveArtistFilters()"
+      >
+        <div class="flex items-center gap-2">
+          Filter by Artist
+          @if (hasActiveArtistFilters()) {
+            <span class="border-1 rounded-full badge badge-outline badge-sm">{{
+              getArtistFilterCount()
+            }}</span>
+          }
+        </div>
+
+        <fa-icon icon="caret-left" class="transition-transform duration-500" />
+      </summary>
+      <div
+        class="menu dropdown-content bg-black w-full p-2 max-h-[400px] flex-nowrap overflow-hidden transition-all duration-500 ease-in-out"
+      >
+        <label
+          class="label justify-start gap-3 hover:bg-base-200 rounded-lg p-3 items-center leading-0"
+          ><input
+            type="checkbox"
+            class="checkbox checkbox-xs"
+            [checked]="areAllArtistsSelected()"
+            (change)="toggleAllArtists($event)"
+          />All Artists</label
+        >
+        <div class="divider my-auto"></div>
+        @for (artist of artists; track artist.id) {
+          <label
+            class="label justify-start gap-3 hover:bg-base-200 rounded-lg p-3 items-center leading-0"
+            [class.text-white]="isArtistSelected(artist.id)"
+            ><input
+              type="checkbox"
+              class="checkbox checkbox-xs"
+              [checked]="isArtistSelected(artist.id)"
+              (change)="toggleArtist(artist.id, $event)"
+            />{{ artist.name }}</label
+          >
+        }
+      </div>
+    </details>
+
+    <!-- ---------------------------------------------------------------------- -->
+
+    <details class="dropdown group w-full max-w-xs">
+      <summary
+        class="text-sm flex items-center justify-between p-2.5 gap-5 border border-primary group-focus-within:border-white cursor-pointer transition-colors duration-500 ease-in-out"
+        [class.border-white]="hasActiveCategoryFilters()"
+      >
+        <div>
+          Filter by Style
+          @if (hasActiveCategoryFilters()) {
+            <span class="border-1 rounded-full badge badge-outline badge-sm">{{
+              getCategoryFilterCount()
+            }}</span>
+          }
+        </div>
+        <fa-icon icon="caret-left" class="transition-transform duration-500" />
+      </summary>
+      <div
+        class="menu dropdown-content bg-black w-full p-2 max-h-[400px] overflow-auto flex-nowrap"
+      >
+        @for (category of categories; track category.id) {
+          <label
+            class="label justify-start gap-3 hover:bg-base-200 rounded-lg p-3 items-center leading-0"
+            [class.text-white]="isCategorySelected(category.id)"
+            ><input
+              type="checkbox"
+              class="checkbox checkbox-xs"
+              [checked]="isCategorySelected(category.id)"
+              (change)="toggleCategory(category, $event)"
+            />{{ category.name }}</label
+          >
+          @for (offering of category.offerings; track offering.id) {
+            <label
+              class="label justify-start gap-6 hover:bg-base-200 rounded-lg p-3 items-center leading-0 ml-6"
+              [class.text-white]="isOfferingSelected(offering.id)"
+              ><input
+                type="checkbox"
+                class="checkbox checkbox-xs"
+                [checked]="isOfferingSelected(offering.id)"
+                (change)="toggleOffering(category.id, offering.id, $event)"
+              />{{ offering.name }}</label
+            >
+          }
+          <div class="divider my-auto"></div>
+        }
+      </div>
+    </details>
+
+    <!-- ---------------------------------------------------------------------- -->
+
+    <button class="btn btn-primary" (click)="applyFilters()">Apply Filters</button>
+    <button class="btn btn-ghost" (click)="clearFilters()">Clear Filters</button>
+  </div>
+
+  <!-- ====================================================================================================================== -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    @for (portfolio of filteredPortfolios; track portfolio.id) {
+      <div
+        class="card bg-base-100 shadow-xl hover:shadow-2xl transition cursor-pointer group"
+        (click)="openModal(portfolio)"
+      >
+        <figure class="relative overflow-hidden">
+          <img
+            [src]="portfolio.imageUrl"
+            [alt]="portfolio.title"
+            class="w-full h-80 object-cover group-hover:scale-110 transition duration-300"
+          />
+        </figure>
+        <div class="card-body p-4">
+          <h2 class="card-title text-lg">{{ portfolio.title }}</h2>
+          <p class="text-sm text-base-content/70">{{ portfolio.description }}</p>
+          <div class="card-actions justify-between items-center mt-2">
+            <div class="badge badge-outline">{{ portfolio.artist.name }}</div>
+            <div class="badge badge-ghost">{{ portfolio.offering.name }}</div>
+          </div>
+        </div>
+      </div>
+    }
+    @if (filteredPortfolios.length === 0) {
+      <div class="col-span-full text-center py-20">
+        <p class="text-2xl text-base-content/50">No portfolios match your filters</p>
+        <button class="btn btn-primary mt-4" (click)="clearFilters()">Clear Filters</button>
+      </div>
+    }
+
+    <!-- Pagination -->
+  </div>
+  @if (totalPages > 1) {}
+
+  <div class="flex justify-center mt-12">
+    <div class="join">
+      <button class="join-item btn text-xl" (click)="previousPage()" [disabled]="currentPage === 1">
+        «
+      </button>
+      @for (page of getPageNumbers(); track page) {
+        <button
+          class="join-item btn"
+          [class.btn-active]="currentPage === page"
+          (click)="goToPage(page)"
+        >
+          {{ page }}
+        </button>
+      }
+      <button
+        class="join-item btn text-xl"
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages"
+      >
+        »
+      </button>
+    </div>
+  </div>
+
+  <dialog id="image_modal" class="modal">
+    <div class="modal-box p-0">
+      <!-- Close button -->
+      <button
+        class="absolute right-4 top-4 z-10 text-base-100/80 hover:text-base-100 hover:scale-105 active:scale-90 transition-all duration-500 ease-in-out"
+      >
+        <fa-icon icon="circle-xmark" class="text-3xl" />
+      </button>
+
+      @if (selectedPortfolio) {
+        <!-- Image -->
+        <figure class="mb-0">
+          <img [src]="selectedPortfolio.imageUrl" [alt]="selectedPortfolio.title" />
+        </figure>
+      }
+    </div>
+
+    <!-- Backdrop to close -->
+    <form method="dialog" class="modal-backdrop">
+      <button></button>
+    </form>
+  </dialog>
+</div>

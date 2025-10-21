@@ -14,17 +14,41 @@ body {
 }
 
 .nav-btn {
-  @apply px-5 py-5 font-bold hover:text-yellow-500 transition duration-400 ease-in-out;
+  @apply px-5 py-5 font-bold hover:text-yellow-200 transition-all duration-500 active:scale-90 ease-in-out;
 }
 
 .button {
-  @apply btn px-7 py-7 bg-black text-white font-bold text-lg sm:text-xl shadow-md hover:bg-base-300 hover:shadow-white transition duration-400 ease-in-out;
+  @apply btn border border-white bg-black text-white font-bold text-lg sm:text-xl shadow-md hover:bg-base-300 hover:shadow-white hover:scale-105 transition-all duration-500 ease-in-out;
 }
 
 .button-outline {
-  @apply btn btn-outline px-7 py-7 text-white font-bold text-lg sm:text-xl hover:shadow-md hover:bg-black hover:shadow-white hover:text-white transition duration-400 ease-in-out;
+  @apply btn btn-outline border border-white text-white font-bold text-lg sm:text-xl hover:shadow-md hover:bg-black hover:shadow-white hover:text-white hover:scale-105 transition-all duration-500 ease-in-out;
 }
 
 .banner {
-  @apply relative w-full aspect-[16/9] min-h-[200px] max-h-[400px] bg-cover bg-center;
+  @apply relative w-full aspect-[16/9] min-h-[200px] max-h-[400px] bg-cover bg-center grayscale-90 brightness-80 contrast-100;
+}
+
+.glow-effect {
+  @apply absolute bg-white/15 inset-0 blur-xl rounded-lg group-hover:bg-white/25 transition-colors duration-300;
+}
+.link-button {
+  @apply text-base-content/70 hover:text-primary active:scale-90 transition-all duration-500 ease-in-out;
+}
+
+.link-button-white {
+  @apply text-white hover:text-primary;
+}
+
+.footer-link {
+  @apply text-white hover:text-primary active:scale-90 transition-all duration-500 ease-in-out;
+}
+
+.smoke-bg {
+  @apply absolute inset-0 bg-fixed grayscale-90 opacity-20 bg-center bg-cover pointer-events-none;
+}
+
+.text-input,
+.textarea-input {
+  @apply w-full focus:outline-none border border-primary focus:border-white transition-colors duration-500 ease-in-out placeholder:text-xs placeholder:opacity-70;
 }

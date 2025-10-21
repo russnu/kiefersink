@@ -1,19 +1,108 @@
 <nav
-  class="fixed z-50 h-[100px] flex items-center justify-between px-10 w-full transition duration-400 ease-in-out"
+  class="fixed z-50 w-full transition-all duration-400 ease-in-out"
   [ngClass]="{ 'bg-black/80 shadow-md backdrop-blur': isScrolled }"
 >
-  <div class="text-xl font-bold h-full">
-    <img
-      src="assets/images/logo_white.png"
-      alt="Kiefer's Ink Logo"
-      class="h-[100%] w-auto object-contain transition-transform hover:scale-105"
-    />
+  <div class="container mx-auto px-4 lg:px-10">
+    <!-- ============================================================================= -->
+    <div class="flex items-center justify-between h-[100px]">
+      <div class="flex-shrink-0 h-full">
+        <img
+          [src]="logoUrl"
+          alt="Kiefer's Ink Logo"
+          class="h-full w-auto object-contain transition-transform hover:scale-110 duration-300 ease-in-out"
+        />
+      </div>
+      <!-- ----------------------------------------------------- -->
+      <div class="hidden lg:flex gap-4">
+        <button
+          routerLink="/"
+          routerLinkActive="text-yellow-200"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-btn"
+        >
+          Home
+        </button>
+        <button routerLink="/about" routerLinkActive="text-yellow-200" class="nav-btn">
+          About Us
+        </button>
+        <button routerLink="/artists" routerLinkActive="text-yellow-200" class="nav-btn">
+          Artists
+        </button>
+        <button routerLink="/gallery" routerLinkActive="text-yellow-200" class="nav-btn">
+          Gallery
+        </button>
+        <button routerLink="/contact" routerLinkActive="text-yellow-200" class="nav-btn">
+          Contact Us
+        </button>
+      </div>
+      <!-- ----------------------------------------------------- -->
+      <button
+        class="lg:hidden swap swap-rotate"
+        [class.swap-active]="isMenuOpen"
+        (click)="toggleMenu()"
+      >
+        <fa-icon icon="bars" class="swap-off text-xl" />
+        <fa-icon icon="xmark-circle" class="swap-on text-xl" />
+      </button>
+    </div>
+    <!-- ============================================================================= -->
   </div>
-  <div class="flex gap-4">
-    <button routerLink="/" class="nav-btn">Home</button>
-    <button routerLink="/about" class="nav-btn">About Us</button>
-    <button routerLink="/artists" class="nav-btn">Artists</button>
-    <button routerLink="/gallery" class="nav-btn">Gallery</button>
-    <button routerLink="/contact" class="nav-btn">Contact Us</button>
+  <!-- ================================================================================================================== -->
+  <div
+    class="lg:hidden overflow-hidden transition-all duration-500 ease-in-out"
+    [class.max-h-0]="!isMenuOpen"
+    [class.max-h-screen]="isMenuOpen"
+  >
+    <div class="flex flex-col gap-2 py-7 bg-black/95 backdrop-blur-lg shadow-xl">
+      <button
+        routerLink="/"
+        routerLinkActive="text-yellow-200"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-btn"
+        (click)="closeMenu()"
+      >
+        Home
+      </button>
+
+      <button
+        routerLink="/about"
+        routerLinkActive="text-yellow-200"
+        class="nav-btn"
+        (click)="closeMenu()"
+      >
+        About Us
+      </button>
+
+      <button
+        routerLink="/artists"
+        routerLinkActive="text-yellow-200"
+        class="nav-btn"
+        (click)="closeMenu()"
+      >
+        Artists
+      </button>
+
+      <button
+        routerLink="/gallery"
+        routerLinkActive="text-yellow-200"
+        class="nav-btn"
+        (click)="closeMenu()"
+      >
+        Gallery
+      </button>
+
+      <button
+        routerLink="/contact"
+        routerLinkActive="text-yellow-200"
+        class="nav-btn"
+        (click)="closeMenu()"
+      >
+        Contact Us
+      </button>
+    </div>
   </div>
 </nav>
+
+@if (isMenuOpen) {
+  <div class="fixed inset-0 bg-black/50 z-40 lg:hidden" (click)="closeMenu()"></div>
+}

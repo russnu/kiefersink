@@ -1,0 +1,8 @@
+/* Smooth transitions for mobile menu */
+
+/* Optional: Add blur effect when menu is open */
+@supports (backdrop-filter: blur(10px)) {
+  nav.menu-open {
+    backdrop-filter: blur(10px);
+  }
+}
