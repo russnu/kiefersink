@@ -14,6 +14,7 @@ public class TransformOffering implements Transform<Offering, OfferingData>{
         offering.setName(data.getName());
         offering.setDescription(data.getDescription());
         offering.setPriceRange(data.getPriceRange());
+        offering.setImageUrl("http://localhost:8080/uploads/offering-images/" + data.getImageUrl());
         offering.setCategory(transformCategory.toModel(data.getCategory()));
 
         return offering;
@@ -26,6 +27,7 @@ public class TransformOffering implements Transform<Offering, OfferingData>{
         offeringData.setName(model.getName());
         offeringData.setDescription(model.getDescription());
         offeringData.setPriceRange(model.getPriceRange());
+        offeringData.setImageUrl(model.getImageUrl());
         offeringData.setCategory(transformCategory.toData(model.getCategory()));
 
         return offeringData;

@@ -6,6 +6,7 @@ export interface Offering {
   name: string;
   description: string;
   priceRange: string;
+  imageUrl: string;
   category: Category;
 }
 

@@ -1,0 +1,94 @@
+<section
+  class="banner grayscale-90 bg-[url('/assets/images/banner4.jpg')] !bg-[position:center_bottom_40%]"
+>
+  <div class="absolute inset-0 bg-black/50"></div>
+
+  <div class="absolute inset-0 flex flex-col justify-center items-center text-white">
+    <h1 class="font-black text-[clamp(2rem,5vw,5rem)] leading-tight">Our Services</h1>
+  </div>
+</section>
+<!-- ============================================================================================================ -->
+<div class="relative">
+  <div class="smoke-bg bg-[url('/assets/images/effects_smoke2.png')] pointer-events-none"></div>
+  <section class="container mx-auto pt-12 mb-12 px-7">
+    @for (category of categories; track category.id; let isLast = $last) {
+      <div class="my-20 space-y-8">
+        <div class="text-center space-y-8">
+          <h2 class="font-black leading-none text-[clamp(2rem,3vw,3rem)] text-white">
+            {{ category.name }} Services
+          </h2>
+          <div class="h-2 bg-primary rounded-full max-w-[100px] mx-auto"></div>
+        </div>
+
+        <!-- Offerings Grid -->
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-10">
+          <!-- grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-10 max-w-6xl mx-auto -->
+          @for (offering of category.offerings; track offering.id) {
+            <div class="card shadow-xl hover:shadow-2xl group h-fit hover:bg-primary/30">
+              <!-- Image -->
+              <figure class="relative overflow-hidden">
+                <img
+                  [src]="offering.imageUrl"
+                  [alt]="offering.name"
+                  class="w-full h-90 object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out"
+                />
+              </figure>
+
+              <!-- Card Body -->
+              <div
+                class="card-body space-y-2 px-0 group-hover:px-2 transition-all duration-500 ease-in-out"
+              >
+                <h3 class="card-title text-lg">{{ offering.name }}</h3>
+                <p class="text-sm text-base-content/70">
+                  {{ offering.description }}
+                </p>
+                <div class="card-actions justify-between items-center">
+                  <div class="badge badge-lg badge-outline gap-2">
+                    {{ offering.priceRange }}
+                  </div>
+                  <button
+                    class="button-ghost btn-md gap-2"
+                    (click)="viewGalleryByOffering(offering.id)"
+                  >
+                    View Gallery
+                    <!-- <fa-icon icon="arrow-right" /> -->
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Divider between categories -->
+      @if (!isLast) {
+        <div class="divider my-12"></div>
+      }
+    }
+
+    <!-- Empty State -->
+    @if (categories.length === 0) {
+      <div class="text-center py-20">
+        <fa-icon icon="box-open" class="text-6xl text-base-content/30 mb-4" />
+        <h3 class="text-2xl font-bold mb-2">No Services Available</h3>
+        <p class="text-base-content/70">Check back soon for our service offerings!</p>
+      </div>
+    }
+
+    <!-- CTA Section -->
+    <section
+      class="mt-20 bg-gradient-to-r from-primary to-secondary/20 rounded-2xl p-12 text-center"
+    >
+      <h2 class="text-3xl lg:text-4xl font-bold mb-4">Ready to Get Inked?</h2>
+      <p class="text-lg text-base-content/80 mb-6 max-w-2xl mx-auto">
+        Our experienced artists are here to bring your vision to life. Book a consultation today!
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <button class="button btn-lg gap-2" routerLink="/contact">
+          <fa-icon icon="envelope" />Contact Us
+        </button>
+        <button class="button-outline btn-lg gap-2" routerLink="/gallery">View Our Work</button>
+      </div>
+    </section>
+  </section>
+</div>

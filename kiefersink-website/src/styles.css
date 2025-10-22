@@ -18,11 +18,15 @@ body {
 }
 
 .button {
-  @apply btn border border-white bg-black text-white font-bold text-lg sm:text-xl shadow-md hover:bg-base-300 hover:shadow-white hover:scale-105 transition-all duration-500 ease-in-out;
+  @apply btn border border-white bg-black text-white font-bold shadow-md hover:bg-base-300 hover:shadow-white hover:scale-105 transition-all duration-500 ease-in-out;
+}
+
+.button-ghost {
+  @apply btn btn-ghost border-0 text-white font-bold hover:bg-primary hover:scale-105 transition-all duration-500 ease-in-out;
 }
 
 .button-outline {
-  @apply btn btn-outline border border-white text-white font-bold text-lg sm:text-xl hover:shadow-md hover:bg-black hover:shadow-white hover:text-white hover:scale-105 transition-all duration-500 ease-in-out;
+  @apply btn btn-outline border border-white text-white font-bold hover:shadow-md hover:bg-black hover:shadow-white hover:text-white hover:scale-105 transition-all duration-500 ease-in-out;
 }
 
 .banner {

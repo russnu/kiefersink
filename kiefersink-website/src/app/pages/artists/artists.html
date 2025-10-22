@@ -6,9 +6,7 @@
 </section>
 
 <section class="relative py-16 px-10 md:px-20 text-white mx-auto">
-  <div
-    class="absolute inset-0 bg-[url('/assets/images/effects_smoke.png')] bg-no-repeat bg-center grayscale opacity-30 pointer-events-none rotate-180"
-  ></div>
+  <div class="smoke-bg bg-[url('/assets/images/effects_smoke.png')] rotate-180"></div>
 
   <div class="text-center mb-12">
     <h2 class="text-3xl font-bold mb-4">Meet the Team</h2>
@@ -19,7 +17,10 @@
 
   <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-10 max-w-6xl mx-auto">
     @for (artist of artists; track artist.id) {
-      <div class="card hover:bg-zinc-800/70 transition-all duration-300 group w-full max-h-min">
+      <div
+        class="card hover:bg-primary/30 transition-all duration-300 group w-full max-h-min"
+        (click)="viewGalleryByArtist(artist.id)"
+      >
         <div class="overflow-hidden">
           <img [src]="artist.imageUrl" [alt]="artist.name" class="artist-photo" />
         </div>

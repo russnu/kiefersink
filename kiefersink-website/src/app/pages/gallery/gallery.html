@@ -1,7 +1,5 @@
-<!-- Gallery Page Component Template -->
-<section class="banner bg-[url('/assets/images/banner4.jpg')]">
+<section class="banner bg-[url('/assets/images/banner7.jpg')]">
   <div class="absolute inset-0 bg-black/50"></div>
-
   <div class="absolute inset-0 flex flex-col justify-center items-center text-white">
     <h1 class="font-black text-[clamp(2rem,5vw,5rem)] leading-tight">Our Gallery</h1>
     <p class="py-6 text-lg">
@@ -9,9 +7,8 @@
     </p>
   </div>
 </section>
-
-<!-- Filter Section -->
-<div class="container mx-auto px-4 py-8">
+<!-- ============================================================================================================ -->
+<section class="container mx-auto px-4 py-8">
   <div class="flex flex-wrap gap-4 justify-center mb-8">
     <details class="dropdown group w-full max-w-xs">
       <summary
@@ -56,9 +53,7 @@
         }
       </div>
     </details>
-
     <!-- ---------------------------------------------------------------------- -->
-
     <details class="dropdown group w-full max-w-xs">
       <summary
         class="text-sm flex items-center justify-between p-2.5 gap-5 border border-primary group-focus-within:border-white cursor-pointer transition-colors duration-500 ease-in-out"
@@ -107,68 +102,74 @@
 
     <!-- ---------------------------------------------------------------------- -->
 
-    <button class="btn btn-primary" (click)="applyFilters()">Apply Filters</button>
-    <button class="btn btn-ghost" (click)="clearFilters()">Clear Filters</button>
+    <button class="button-outline" (click)="applyFilters()">Apply Filters</button>
+    <button class="button-ghost" (click)="clearFilters()">Clear Filters</button>
   </div>
 
   <!-- ====================================================================================================================== -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-    @for (portfolio of filteredPortfolios; track portfolio.id) {
-      <div
-        class="card bg-base-100 shadow-xl hover:shadow-2xl transition cursor-pointer group"
-        (click)="openModal(portfolio)"
-      >
-        <figure class="relative overflow-hidden">
-          <img
-            [src]="portfolio.imageUrl"
-            [alt]="portfolio.title"
-            class="w-full h-80 object-cover group-hover:scale-110 transition duration-300"
-          />
-        </figure>
-        <div class="card-body p-4">
-          <h2 class="card-title text-lg">{{ portfolio.title }}</h2>
-          <p class="text-sm text-base-content/70">{{ portfolio.description }}</p>
-          <div class="card-actions justify-between items-center mt-2">
-            <div class="badge badge-outline">{{ portfolio.artist.name }}</div>
-            <div class="badge badge-ghost">{{ portfolio.offering.name }}</div>
+
+  @if (paginatedPortfolios.length > 0) {
+    <div class="columns-auto sm:columns-2 lg:columns-3 xl:columns-4 gap-5">
+      @for (portfolio of paginatedPortfolios; track portfolio.id) {
+        <div
+          class="break-inside-avoid card bg-base-100 shadow-xl hover:shadow-2xl transition cursor-pointer group h-fit"
+          (click)="openModal(portfolio)"
+        >
+          <figure class="relative overflow-hidden">
+            <img
+              [src]="portfolio.imageUrl"
+              [alt]="portfolio.title"
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out"
+            />
+          </figure>
+          <div class="card-body p-4 px-0">
+            <h2 class="card-title text-lg">{{ portfolio.title }}</h2>
+            <p class="text-sm text-base-content/70">{{ portfolio.description }}</p>
+            <div class="card-actions justify-between items-center mt-2">
+              <div class="badge badge-outline">{{ portfolio.artist.name }}</div>
+              <div class="badge badge-ghost">{{ portfolio.offering.name }}</div>
+            </div>
           </div>
         </div>
-      </div>
-    }
-    @if (filteredPortfolios.length === 0) {
-      <div class="col-span-full text-center py-20">
-        <p class="text-2xl text-base-content/50">No portfolios match your filters</p>
-        <button class="btn btn-primary mt-4" (click)="clearFilters()">Clear Filters</button>
-      </div>
-    }
-
-    <!-- Pagination -->
-  </div>
-  @if (totalPages > 1) {}
-
-  <div class="flex justify-center mt-12">
-    <div class="join">
-      <button class="join-item btn text-xl" (click)="previousPage()" [disabled]="currentPage === 1">
-        «
-      </button>
-      @for (page of getPageNumbers(); track page) {
-        <button
-          class="join-item btn"
-          [class.btn-active]="currentPage === page"
-          (click)="goToPage(page)"
-        >
-          {{ page }}
-        </button>
       }
-      <button
-        class="join-item btn text-xl"
-        (click)="nextPage()"
-        [disabled]="currentPage === totalPages"
-      >
-        »
-      </button>
     </div>
-  </div>
+  } @else {
+    <div class="w-full text-center py-20">
+      <p class="text-2xl text-base-content/50">No portfolios match your filters</p>
+      <button class="button-ghost mt-4" (click)="clearFilters()">Clear Filters</button>
+    </div>
+  }
+
+  <!-- Pagination -->
+  @if (totalPages > 1) {
+    <div class="flex justify-center mt-12">
+      <div class="join">
+        <button
+          class="join-item btn text-xl"
+          (click)="previousPage()"
+          [disabled]="currentPage === 1"
+        >
+          «
+        </button>
+        @for (page of getPageNumbers(); track page) {
+          <button
+            class="join-item btn"
+            [class.btn-active]="currentPage === page"
+            (click)="goToPage(page)"
+          >
+            {{ page }}
+          </button>
+        }
+        <button
+          class="join-item btn text-xl"
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages"
+        >
+          »
+        </button>
+      </div>
+    </div>
+  }
 
   <dialog id="image_modal" class="modal">
     <div class="modal-box p-0">
@@ -176,7 +177,7 @@
       <button
         class="absolute right-4 top-4 z-10 text-base-100/80 hover:text-base-100 hover:scale-105 active:scale-90 transition-all duration-500 ease-in-out"
       >
-        <fa-icon icon="circle-xmark" class="text-3xl" />
+        <fa-icon icon="circle-xmark" class="text-3xl" (click)="closeModal()" />
       </button>
 
       @if (selectedPortfolio) {
@@ -192,4 +193,4 @@
       <button></button>
     </form>
   </dialog>
-</div>
+</section>

@@ -30,17 +30,28 @@ INSERT INTO categories (name) VALUES
 -- ========================
 -- OFFERINGS
 -- ========================
-INSERT INTO offerings (name, categoryId, description, priceRange) VALUES
-('Black & Grey Tattoo', 1, 'Classic black and grey designs with smooth shading and timeless contrast.', '₱3,000 - ₱30,000'),
-('Color Tattoo', 1, 'Full-color tattoos with vibrant ink and detailed blending.', '₱4,000 - ₱40,000'),
-('Watercolor Tattoo', 1, 'Soft, artistic watercolor designs that mimic paint brush effects.', '₱5,000 - ₱45,000'),
-('Minimalist Tattoo', 1, 'Clean, elegant linework and simple forms for subtle expression.', '₱1,500 - ₱18,000'),
-('Realism Tattoo', 1, 'Hyper-detailed, lifelike portraits and realistic imagery.', '₱6,000 - ₱50,000'),
-('Geometric Tattoo', 1, 'Modern designs using symmetry, lines, and abstract shapes.', '₱3,500 - ₱25,000'),
-('Japanese Tattoo', 1, 'Traditional Japanese motifs with bold outlines and deep symbolism.', '₱8,000 - ₱60,000'),
-('Fine Line Tattoo', 1, 'Delicate, precise linework emphasizing subtle beauty and detail.', '₱2,500 - ₱15,000'),
-('Tribal Tattoo', 1, 'Bold, black patterns inspired by cultural and symbolic designs.', '₱4,000 - ₱30,000'),
-('Script Tattoo', 1, 'Typography and lettering pieces expressing words, quotes, or names.', '₱2,000 - ₱10,000');
+INSERT INTO offerings (name, categoryId, description, priceRange, imageUrl) VALUES
+('Black & Grey Tattoo', 1, 'Classic black and grey designs with smooth shading and timeless contrast.', '₱3,000 - ₱30,000', 'blackngray.jpg'),
+('Color Tattoo', 1, 'Full-color tattoos with vibrant ink and detailed blending.', '₱4,000 - ₱40,000', 'colored.jpg'),
+('Watercolor Tattoo', 1, 'Soft, artistic watercolor designs that mimic paint brush effects.', '₱5,000 - ₱45,000', 'watercolor.jpg'),
+('Minimalist Tattoo', 1, 'Clean, elegant linework and simple forms for subtle expression.', '₱1,500 - ₱18,000', 'minimalist.jpg'),
+('Realism Tattoo', 1, 'Hyper-detailed, lifelike portraits and realistic imagery.', '₱6,000 - ₱50,000', 'realism.jpg'),
+('Japanese Tattoo', 1, 'Traditional Japanese motifs with bold outlines and deep symbolism.', '₱8,000 - ₱60,000', 'japanese.png'),
+('Fine Line Tattoo', 1, 'Delicate, precise linework emphasizing subtle beauty and detail.', '₱2,500 - ₱15,000', 'fineline.jpeg'),
+('Tribal Tattoo', 1, 'Bold, black patterns inspired by cultural and symbolic designs.', '₱4,000 - ₱30,000', 'tribal.jpg'),
+('Script Tattoo', 1, 'Typography and lettering pieces expressing words, quotes, or names.', '₱2,000 - ₱10,000', 'script.jpg'),
+
+('Ear Lobe Piercing', 2, 'A simple and classic piercing on the soft lower part of the ear. Perfect for first-timers.', '₱500 - ₱1,000', 'earlobe.jpg'),
+('Conch Piercing', 2, 'A stylish piercing placed in the middle part of the ear’s cartilage.', '₱1,000 - ₱2,000', 'conch.jpg'),
+('Helix Piercing', 2, 'A trendy piercing on the upper cartilage of the ear, known for its versatility in jewelry options.', '₱800 - ₱1,800', 'helix.png'),
+('Nostril Piercing', 2, 'Stylish nostril piercings done with precision and care.', '₱800 - ₱2,500', 'nostril.jpg'),
+('Eyebrow Piercing', 2, 'Expressive brow piercings that enhance your unique style.', '₱1,000 - ₱3,000', 'eyebrow.jpg'),
+('Lip Piercing', 2, 'Beautiful lip and labret piercings with safe aftercare guidance.', '₱1,200 - ₱3,500', 'lip.jpg'),
+('Tongue Piercing', 2, 'Professional tongue piercings with sterilized equipment and expert care.', '₱1,500 - ₱4,000', 'tongue.jpg'),
+('Belly Piercing', 2, 'Stylish navel piercings with jewelry options for every look.', '₱1,000 - ₱3,000', 'belly.jpg'),
+('Industrial Piercing', 2, 'Double ear cartilage piercings connected by a single barbell.', '₱1,500 - ₱4,000', 'industrial.jpg'),
+('Daith Piercing', 2, 'Unique inner ear piercing known for both style and migraine relief.', '₱1,200 - ₱3,500', 'daith.jpg'),
+('Septum Piercing', 2, 'Bold central nose piercing with customizable jewelry options.', '₱1,500 - ₱3,000', 'septum.jpg');
 
 -- ========================
 -- PORTFOLIO
@@ -48,14 +59,14 @@ INSERT INTO offerings (name, categoryId, description, priceRange) VALUES
 INSERT INTO portfolio (artistId, title, description, imageUrl, offeringId, featured) VALUES
 (2, 'Wolf Forearm Tattoo', 'Eyes like ice, heart like fire. Tattoo by @dhens.kiefersink.', 'gallery_tattoo1.jpg', 1, 1),
 (1, 'Minimalist Forearm Tattoo', 'Tattoos are time travel etched in skin.', 'gallery_tattoo2.jpg', 4, 0),
-(1, 'Ink Flow Dragon', 'A sumi-e inspired dragon tattoo flowing across the shoulder and arm.', 'gallery_tattoo3.jpg', 2, 1),
+(1, 'Ink Flow Dragon', 'A sumi-e inspired dragon tattoo flowing across the shoulder and arm.', 'gallery_tattoo3.jpg', 1, 1),
 (2, 'Dog Portrait', 'A realistic dog portrait framed in a minimalist box, capturing the warmth and joy of a beloved pet.', 'gallery_tattoo4.jpg', 5, 1),
 (2, 'Rooted Resilience', 'A gnarled, leafless tree tattoo extending across the upper arm and shoulder, symbolizing endurance.', 'gallery_tattoo5.jpg', 1, 0),
 (1, 'Minimalist Butterflies', 'Tiny wings, big dreams 🦋', 'gallery_tattoo6.jpg', 4, 0),
 (2, 'Minimalist Wolf', 'Stay wild, stay free, stay fierce.', 'gallery_tattoo7.jpg', 4, 0),
-(3, 'Koi Forearm Tattoo', 'Balance. Harmony. Flow.', 'gallery_tattoo8.jpg', 7, 0),
-(3, 'Fractured Wings', 'A sharp, symmetrical tattoo centered on the upper back, symbolizing transformation and strength.', 'gallery_tattoo9.jpg', 6, 0),
-(3, 'Shoshin (初心)', 'A minimalist tattoo featuring the Japanese kanji "初心" (Shoshin), meaning "beginner’s mind."', 'gallery_tattoo10.jpg', 10, 1);
+(3, 'Koi Forearm Tattoo', 'Balance. Harmony. Flow.', 'gallery_tattoo8.jpg', 2, 0),
+(3, 'Fractured Wings', 'A sharp, symmetrical tattoo centered on the upper back, symbolizing transformation and strength.', 'gallery_tattoo9.jpg', 4, 0),
+(3, 'Shoshin (初心)', 'A minimalist tattoo featuring the Japanese kanji "初心" (Shoshin), meaning "beginner’s mind."', 'gallery_tattoo10.jpg', 9, 1);
 
 -- ========================
 -- SETTINGS

@@ -6,6 +6,7 @@ import {
   CompanyContactService,
 } from '../../services/company_contact/company-contact-service';
 import { SettingsService } from '../../services/settings/settings-service';
+import { Category, CategoryService } from '../../services/category/category-service';
 
 @Component({
   selector: 'app-about',
@@ -17,9 +18,11 @@ export class About implements OnInit {
   companyContacts: CompanyContact[] = [];
   address = '';
   openHours = '';
+  categories: Category[] = [];
 
   private companyContactService = inject(CompanyContactService);
   private settingsService = inject(SettingsService);
+  private categoryService = inject(CategoryService);
 
   ngOnInit() {
     this.companyContactService.getCompanyContacts().subscribe((data) => {
@@ -32,6 +35,10 @@ export class About implements OnInit {
 
     this.settingsService.getSettings('openHours').subscribe((data) => {
       this.openHours = data.settingValue;
+    });
+
+    this.categoryService.getAllCategoriesWithOfferings().subscribe((data) => {
+      this.categories = data;
     });
   }
 

@@ -5,6 +5,7 @@ import {
   ArtistContact,
 } from '../../services/artist_contact/artist-contact-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Router } from '@angular/router';
 //==========================================================//
 @Component({
   selector: 'app-artists',
@@ -18,6 +19,7 @@ export class Artists implements OnInit {
 
   private artistService = inject(ArtistService);
   private artistContactService = inject(ArtistContactService);
+  private router = inject(Router);
 
   ngOnInit() {
     this.artistService.getAllWithContacts().subscribe((data) => {
@@ -27,5 +29,11 @@ export class Artists implements OnInit {
 
   displayLinks(contact: ArtistContact) {
     return this.artistContactService.displayContactLink(contact);
+  }
+
+  viewGalleryByArtist(artistId: number) {
+    this.router.navigate(['/gallery'], {
+      queryParams: { artist: artistId },
+    });
   }
 }

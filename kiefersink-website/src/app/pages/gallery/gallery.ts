@@ -3,6 +3,7 @@ import { Portfolio, PortfolioService } from '../../services/portfolio/portfolio-
 import { Category, CategoryService } from '../../services/category/category-service';
 import { Artist, ArtistService } from '../../services/artist/artist-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-gallery',
@@ -31,24 +32,74 @@ export class Gallery implements OnInit {
   private portfolioService = inject(PortfolioService);
   private categoryService = inject(CategoryService);
   private artistService = inject(ArtistService);
+  private route = inject(ActivatedRoute);
 
   ngOnInit() {
     this.categoryService.getAllCategoriesWithOfferings().subscribe((categories) => {
       this.categories = categories;
+      this.checkQueryParams();
     });
 
     this.portfolioService.getPortfolios().subscribe((data) => {
       this.portfolios = data;
       this.filteredPortfolios = data;
       this.updatePagination();
+      this.checkQueryParams();
     });
 
     this.artistService.getAllArtists().subscribe((data) => {
       this.artists = data;
+      this.checkQueryParams();
     });
   }
+  // Check for query parameters and apply filters
+  checkQueryParams() {
+    this.route.queryParams.subscribe((params) => {
+      // Check if all data is loaded
+      if (this.portfolios.length === 0 || this.categories.length === 0) {
+        return;
+      }
 
-  //==================================================================================//
+      const offeringId = params['offering'];
+      const artistId = params['artist'];
+      const categoryId = params['category'];
+
+      // Apply offering filter
+      if (offeringId) {
+        const id = parseInt(offeringId);
+        this.selectedOfferings.add(id);
+
+        // Find and select the category for this offering
+        const category = this.categories.find((c) => c.offerings?.some((o) => o.id === id));
+        if (category) {
+          this.selectedCategories.add(category.id);
+        }
+      }
+
+      // Apply artist filter
+      if (artistId) {
+        this.selectedArtists.add(parseInt(artistId));
+      }
+
+      // Apply category filter (select all offerings in category)
+      if (categoryId) {
+        const id = parseInt(categoryId);
+        const category = this.categories.find((c) => c.id === id);
+        if (category) {
+          this.selectedCategories.add(id);
+          category.offerings?.forEach((o) => this.selectedOfferings.add(o.id));
+        }
+      }
+
+      // Apply filters if any were set
+      if (this.selectedOfferings.size > 0 || this.selectedArtists.size > 0) {
+        this.applyFilters();
+      }
+    });
+  }
+  //==================================================================================================================================//
+  // Filter
+  //==================================================================================================================================//
   toggleArtist(artistId: number, event: Event) {
     event.stopPropagation();
     if (this.selectedArtists.has(artistId)) {
@@ -76,7 +127,7 @@ export class Gallery implements OnInit {
   areAllArtistsSelected(): boolean {
     return this.artists.length > 0 && this.selectedArtists.size === this.artists.length;
   }
-  // ================================================================================== //
+  //----------------------------------------------------------------//
   toggleCategory(category: Category, event: Event) {
     event.stopPropagation();
     const checkbox = event.target as HTMLInputElement;
@@ -99,7 +150,7 @@ export class Gallery implements OnInit {
   isCategorySelected(categoryId: number): boolean {
     return this.selectedCategories.has(categoryId);
   }
-  // ================================================================================== //
+  //----------------------------------------------------------------//
   toggleOffering(categoryId: number, offeringId: number, event: Event) {
     event.stopPropagation();
     const checkbox = event.target as HTMLInputElement;
@@ -121,14 +172,11 @@ export class Gallery implements OnInit {
       this.selectedCategories.delete(categoryId);
     }
   }
-
   //----------------------------------------------------------------//
   isOfferingSelected(offeringId: number): boolean {
     return this.selectedOfferings.has(offeringId);
   }
-  // ================================================================================== //
-
-  // Apply filters
+  //----------------------------------------------------------------//
   applyFilters() {
     let filtered = [...this.portfolios];
 
@@ -143,6 +191,8 @@ export class Gallery implements OnInit {
     }
 
     this.filteredPortfolios = filtered;
+    this.currentPage = 1;
+    this.updatePagination();
   }
   //----------------------------------------------------------------//
   clearFilters() {
@@ -169,9 +219,9 @@ export class Gallery implements OnInit {
   getCategoryFilterCount(): number {
     return this.selectedOfferings.size;
   }
-  //==================================================================================//
+  //==================================================================================================================================//
   // Modal
-  //==================================================================================//
+  //==================================================================================================================================//
   openModal(portfolio: Portfolio) {
     this.selectedPortfolio = portfolio;
     const modal = document.getElementById('image_modal') as HTMLDialogElement;
@@ -183,9 +233,9 @@ export class Gallery implements OnInit {
     const modal = document.getElementById('image_modal') as HTMLDialogElement;
     modal?.close();
   }
-  //==================================================================================//
+  //==================================================================================================================================//
   // Pagination
-  //==================================================================================//
+  //==================================================================================================================================//
   updatePagination() {
     this.totalPages = Math.ceil(this.filteredPortfolios.length / this.itemsPerPage);
     this.currentPage = Math.min(this.currentPage, this.totalPages || 1);

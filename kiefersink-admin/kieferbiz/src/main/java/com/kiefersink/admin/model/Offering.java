@@ -9,5 +9,6 @@ public class Offering {
     private String name;
     private String description;
     private String priceRange;
+    private String imageUrl;
     private Category category;
 }

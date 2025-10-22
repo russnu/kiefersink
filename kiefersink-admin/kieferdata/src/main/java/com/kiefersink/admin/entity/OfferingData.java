@@ -13,6 +13,7 @@ public class OfferingData {
     private String name;
     private String description;
     private String priceRange;
+    private String imageUrl;
 
     // Relationships ======================================= //
     @ManyToOne
