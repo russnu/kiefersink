@@ -1,4 +1,4 @@
-package com.kiefersink.kieferms;
+package com.kiefersink.admin;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
