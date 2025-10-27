@@ -1,0 +1,38 @@
+<div class="drawer lg:drawer-open">
+  <input class="drawer-toggle" />
+  <div class="drawer-side">
+    <ul class="menu bg-base-200 min-h-full w-80 p-4">
+      <li>
+        <a
+          routerLink="/"
+          routerLinkActive="text-yellow-200"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-btn"
+          >Artists</a
+        >
+      </li>
+      <li>
+        <a routerLink="/portfolios" routerLinkActive="text-yellow-200" class="nav-btn"
+          >Portfolios</a
+        >
+      </li>
+      <li>
+        <a routerLink="/services" routerLinkActive="text-yellow-200" class="nav-btn">Services</a>
+      </li>
+      <li>
+        <a
+          routerLink="/settings"
+          routerLinkActive="text-yellow-200"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-btn"
+          >Settings</a
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="drawer-content">
+    <main class="p-7">
+      <router-outlet />
+    </main>
+  </div>
+</div>

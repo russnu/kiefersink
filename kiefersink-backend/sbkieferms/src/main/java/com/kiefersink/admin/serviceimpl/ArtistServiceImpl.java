@@ -2,7 +2,6 @@ package com.kiefersink.admin.serviceimpl;
 
 import com.kiefersink.admin.entity.ArtistData;
 import com.kiefersink.admin.model.Artist;
-import com.kiefersink.admin.model.Category;
 import com.kiefersink.admin.repository.ArtistRepository;
 import com.kiefersink.admin.service.ArtistService;
 import com.kiefersink.admin.transform.TransformArtist;
