@@ -12,4 +12,10 @@ public class Artist {
     private String name;
     private String imageUrl;
     private List<ArtistContact> contacts;
+
+    public String getImageFileName() {
+        return this.getName().replaceAll("\\s+", "_").toLowerCase();
+    };
+
+
 }

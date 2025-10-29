@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface ArtistContactRepository extends CrudRepository<ArtistContactData, Integer> {
     List<ArtistContactData> findByArtist_Id(Integer artistId);
+    void deleteAllByArtistId(Integer artistId);
 }

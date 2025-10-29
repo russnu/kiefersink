@@ -16,4 +16,4 @@ spring:
     date-format: MM dd, yyyy hh:mm a
     time-zone: GMT+08:00
 file:
-  upload-dir: uploads
+  upload-dir: sbkieferms/uploads

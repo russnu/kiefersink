@@ -52,7 +52,6 @@ export class Gallery implements OnInit {
       this.checkQueryParams();
     });
   }
-  // Check for query parameters and apply filters
   checkQueryParams() {
     this.route.queryParams.subscribe((params) => {
       // Check if all data is loaded

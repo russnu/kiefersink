@@ -1,1 +1,44 @@
-<p>artists works!</p>
+<button class="btn" onclick="create_form.showModal()">Add Artist</button>
+
+@for (artist of artists; track artist.id) {
+  <div class="card flex-row">
+    <img [src]="artist.imageUrl" [alt]="artist.name" class="photo" />
+    <div class="flex-1">
+      <p>{{ artist.name }}</p>
+      @for (contact of artist.contacts; track contact.id) {
+        <p>{{ contact.platform }}: {{ contact.handle }}</p>
+      }
+      <button class="btn" (click)="openEditModal(artist)">Edit</button>
+      <button class="btn" (click)="openDeleteModal(artist)">Delete</button>
+    </div>
+  </div>
+}
+<!-- ===================================================================================== -->
+<dialog id="create_form" class="modal">
+  <div class="modal-box">
+    <create-artist-form />
+  </div>
+</dialog>
+<!-- ===================================================================================== -->
+<dialog id="edit_form" class="modal">
+  <div class="modal-box">
+    <edit-artist-form [artist]="selectedArtist" />
+  </div>
+</dialog>
+<!-- ===================================================================================== -->
+<dialog id="delete_confirm" class="modal">
+  <div class="modal-box">
+    <div>
+      <h1>Are you sure you want to remove artist</h1>
+    </div>
+    <div class="modal-action">
+      <!-- (click)="confirmDelete() -->
+      <button type="submit" class="btn" (click)="deleteArtist()">Delete</button>
+      <button type="cancel" class="btn" onclick="delete_confirm.close()">Cancel</button>
+    </div>
+  </div>
+
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>

@@ -4,7 +4,9 @@ import com.kiefersink.admin.model.Artist;
 import com.kiefersink.admin.service.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,15 +25,15 @@ public class ArtistController {
         return service.get(id, includeContacts);
     }
     //========================================================================================================//
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Artist createArtist(@RequestBody Artist artist) {
-        return service.create(artist);
+    public Artist createArtist(  @RequestPart("artist") Artist artist, @RequestPart(value = "image", required = false) MultipartFile image) {
+        return service.create(artist, image);
     }
     //========================================================================================================//
-    @PutMapping("/{id}")
-    public Artist updateArtist(@PathVariable("id") Integer id, @RequestBody Artist artist) {
-        return service.update(id, artist);
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Artist updateArtist(@PathVariable("id") Integer id, @RequestPart("artist") Artist artist, @RequestPart(value = "image", required = false) MultipartFile image) {
+        return service.update(id, artist, image);
     }
     //========================================================================================================//
     @DeleteMapping("/{id}")

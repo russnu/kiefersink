@@ -1,0 +1,70 @@
+@if (artist) {
+  <form #editForm="ngForm" (ngSubmit)="onUpdate(editForm)">
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend text-2xl">Edit Artist</legend>
+
+      <label for="name" class="label">Artist Name </label>
+      <input type="text" name="name" class="input" [(ngModel)]="artist.name" required />
+
+      <label for="imageUrl" class="label">Profile Image</label>
+      <input type="file" name="image" class="file-input" (change)="onFileSelected($event)" />
+    </fieldset>
+    <!-- --------------------------------------------- -->
+    <div class="divider"></div>
+    <fieldset class="fieldset">
+      <div class="flex">
+        <legend class="fieldset-legend text-2xl">Contact Information</legend>
+        <button type="button" class="btn" (click)="addContact()">+</button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Handle</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (contact of artist.contacts; track $index) {
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    name="contacts[{{ $index }}].platform"
+                    class="input"
+                    [(ngModel)]="contact.platform"
+                    required
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="contacts[{{ $index }}].handle"
+                    class="input"
+                    [(ngModel)]="contact.handle"
+                    required
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="contacts[{{ $index }}].url"
+                    class="input"
+                    [(ngModel)]="contact.url"
+                    required
+                  />
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </fieldset>
+    <!-- --------------------------------------------- -->
+    <div class="modal-action">
+      <button type="submit" class="btn">Save</button>
+      <button type="button" class="btn" onclick="edit_form.close()">Cancel</button>
+    </div>
+  </form>
+}

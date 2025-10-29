@@ -1,1 +1,24 @@
-<p>offerings works!</p>
+@for (category of categories; track category.id) {
+  <div>
+    <h2 class="font-black leading-none text-[clamp(2rem,3vw,3rem)] text-white">
+      {{ category.name }} Services
+    </h2>
+    <div>
+      @for (offering of category.offerings; track offering.id) {
+        <div class="card card-lg">
+          <img [src]="offering.imageUrl" [alt]="offering.name" class="photo" />
+
+          <div class="card-body">
+            <h3 class="card-title text-lg">{{ offering.name }}</h3>
+            <p class="text-sm text-base-content/70">
+              {{ offering.description }}
+            </p>
+            <div class="badge badge-lg badge-outline gap-2">
+              {{ offering.priceRange }}
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}

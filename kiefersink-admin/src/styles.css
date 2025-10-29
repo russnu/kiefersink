@@ -12,3 +12,7 @@
 body {
   @apply font-poppins;
 }
+
+.photo {
+  @apply h-fit rounded-2xl object-contain transition-transform duration-500 group-hover:scale-105 w-lg;
+}

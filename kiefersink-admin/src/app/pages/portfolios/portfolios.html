@@ -1,1 +1,13 @@
-<p>portfolios works!</p>
+@for (portfolio of portfolios; track portfolio.id) {
+  <div class="card card-lg">
+    <img [src]="portfolio.imageUrl" [alt]="portfolio.title" class="photo" />
+    <div class="card-body">
+      <h2 class="card-title text-lg">{{ portfolio.title }}</h2>
+      <p class="text-sm text-base-content/70">{{ portfolio.description }}</p>
+      <div class="card-actions justify-between items-center mt-2">
+        <div class="badge badge-outline">{{ portfolio.artist.name }}</div>
+        <div class="badge badge-ghost">{{ portfolio.offering.name }}</div>
+      </div>
+    </div>
+  </div>
+}

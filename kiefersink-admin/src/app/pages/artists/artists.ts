@@ -1,11 +1,51 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { Artist } from '../../models/artist';
+import { ArtistService } from '../../services/Artist/artist-service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CreateArtist } from '../../components/create-artist/create-artist';
+import { EditArtist } from '../../components/edit-artist/edit-artist';
 
 @Component({
   selector: 'app-artists',
-  imports: [],
+  imports: [FontAwesomeModule, FormsModule, CreateArtist, EditArtist],
   templateUrl: './artists.html',
-  styleUrl: './artists.css'
+  styleUrl: './artists.css',
 })
-export class Artists {
+export class Artists implements OnInit {
+  artists: Artist[] = [];
+  selectedArtist: Artist | null = null;
 
+  private router = inject(Router);
+  private artistService = inject(ArtistService);
+
+  openEditModal(artist: Artist) {
+    this.selectedArtist = artist;
+    const dialog = document.getElementById('edit_form') as HTMLDialogElement;
+    dialog.showModal();
+  }
+
+  openDeleteModal(artist: Artist) {
+    this.selectedArtist = artist;
+    const dialog = document.getElementById('delete_confirm') as HTMLDialogElement;
+    dialog.showModal();
+  }
+
+  deleteArtist() {
+    if (!this.selectedArtist) return;
+    this.artistService.deleteArtist(this.selectedArtist.id!).subscribe({
+      next: () => {
+        const dialog = document.getElementById('delete_confirm') as HTMLDialogElement;
+        dialog?.close();
+      },
+      error: (err) => console.error('Error deleting artist:', err),
+    });
+  }
+
+  ngOnInit() {
+    this.artistService.getAllArtistsWithContacts().subscribe((data) => {
+      this.artists = data;
+    });
+  }
 }
