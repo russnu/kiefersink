@@ -8,21 +8,87 @@
 @plugin "daisyui" {
   themes: dark --default;
 }
-
+/* ====================================================================== */
 body {
   @apply font-poppins;
 }
+/* NAV ====================================================================== */
+.logo-image {
+  @apply h-fit object-contain w-50;
+}
+
+.nav-btn {
+  @apply flex text-lg font-bold justify-between;
+}
+
+.nav-btn > span {
+  @apply mx-auto w-25;
+}
+
+.menuButton {
+  @apply btn btn-xl border-none shadow-none bg-transparent lg:hidden mb-8 h-10 mt-4;
+}
+/* PAGE TITLE ====================================================================== */
+.pageTitle {
+  @apply text-yellow-200 text-4xl font-black mb-8 inline-flex;
+}
+/* CONTAINERS ====================================================================== */
+.container {
+  @apply border-2 border-gray-500 rounded-2xl;
+}
+
+.list > :not(:last-child).list-row::after {
+  @apply border-gray-500;
+}
+
+.card {
+  @apply bg-gray-700/20 rounded-2xl hover:shadow-2xl hover:bg-gray-700 transition-all duration-500;
+}
+/* DIVIDERS ====================================================================== */
+.divider::before,
+.divider::after {
+  @apply bg-gray-500;
+}
+
+.divider::before {
+  @apply rounded-t-2xl;
+}
+.divider::after {
+  @apply rounded-b-2xl;
+}
+/* BUTTONS ====================================================================== */
+.button {
+  @apply btn border-none shadow-none text-yellow-200;
+}
+
+.editButton {
+  @apply btn text-yellow-200 border-none shadow-none bg-transparent;
+}
+
+.deleteButton {
+  @apply btn text-error border-none shadow-none bg-transparent;
+}
+
+/* FORM ====================================================================== */
 .input,
 .file-input,
 .select,
 .textarea {
   @apply placeholder:text-gray-500 placeholder:text-xs placeholder:italic focus:outline-0 focus-within:outline-0;
 }
-
+/* IMAGES ====================================================================== */
 .photo {
-  @apply h-fit rounded-2xl object-contain transition-transform duration-500 group-hover:scale-105 w-lg;
+  @apply h-fit rounded-2xl object-contain;
 }
-
 .offering-photo {
   @apply rounded-2xl object-contain transition-transform duration-500 group-hover:scale-105 h-[300px];
+}
+/* MODAL ====================================================================== */
+
+.modal-box {
+  @apply p-8 max-w-7xl w-fit;
+}
+
+.confirmation {
+  @apply text-2xl font-bold;
 }

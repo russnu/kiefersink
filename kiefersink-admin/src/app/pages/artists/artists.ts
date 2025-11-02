@@ -49,4 +49,9 @@ export class Artists implements OnInit {
       error: (err) => console.error('Error deleting artist:', err),
     });
   }
+  // ====================================================== //
+  toTitleCase(s: string) {
+    const result = s.replace(/([A-Z])/g, ' $1');
+    return result.charAt(0).toUpperCase() + result.slice(1);
+  }
 }

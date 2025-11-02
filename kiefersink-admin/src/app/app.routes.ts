@@ -9,26 +9,26 @@ export const routes: Routes = [
   {
     path: '',
     component: Inquiries,
-    title: 'Inquiries',
+    title: 'Admin | Inquiries',
   },
   {
     path: 'artists',
     component: Artists,
-    title: 'Artists',
+    title: 'Admin | Artists',
   },
   {
     path: 'services',
     component: Offerings,
-    title: 'Services',
+    title: 'Admin | Services',
   },
   {
     path: 'portfolios',
     component: Portfolios,
-    title: 'Portfolios',
+    title: 'Admin | Portfolios',
   },
   {
     path: 'settings',
     component: Settings,
-    title: 'Settings',
+    title: 'Admin | Settings',
   },
 ];

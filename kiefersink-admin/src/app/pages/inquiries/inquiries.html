@@ -1,27 +1,30 @@
-<ul class="list">
-  @for (inquiry of inquiries; track inquiry.id) {
-    <li class="list-row">
-      <div class="w-48 shrink-0">
-        <p>{{ inquiry.customerName }}</p>
-        <p>{{ inquiry.customerEmail }}</p>
-        <p>{{ inquiry.customerPhone }}</p>
-      </div>
-      <div class="divider divider-horizontal"></div>
-      <div class="list-col-grow">
-        <p>
-          {{ inquiry.subject }}
-        </p>
-        <p>
-          {{ inquiry.message }}
-        </p>
-      </div>
+<h1 class="pageTitle">Inquiries</h1>
+<div class="container">
+  <ul class="list border-gray-700/50">
+    @for (inquiry of inquiries; track inquiry.id) {
+      <li class="list-row items-center">
+        <div class="w-48 shrink-0">
+          <p class="font-bold">{{ inquiry.customerName }}</p>
+          <p class="text-gray-400">{{ inquiry.customerEmail }}</p>
+          <p class="text-gray-400">{{ inquiry.customerPhone }}</p>
+        </div>
+        <div class="divider divider-horizontal"></div>
+        <div class="list-col-grow">
+          <p class="italic font-bold mb-3">
+            {{ inquiry.subject }}
+          </p>
+          <p class="text-gray-100">
+            {{ inquiry.message }}
+          </p>
+        </div>
 
-      <button class="btn btn-square btn-ghost" (click)="openDeleteInquiryModal(inquiry)">
-        <fa-icon icon="trash" />
-      </button>
-    </li>
-  }
-</ul>
+        <button class="deleteButton" (click)="openDeleteInquiryModal(inquiry)">
+          <fa-icon icon="trash" />
+        </button>
+      </li>
+    }
+  </ul>
+</div>
 
 <!-- ------------------------------------------------------------------------------------- -->
 <dialog id="delete_inquiry_confirm" class="modal">

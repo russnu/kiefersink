@@ -1,8 +1,11 @@
-<div class="p-6 space-y-8">
+<h1 class="pageTitle">Settings</h1>
+
+<div class="space-y-8">
   <!-- Company Info -->
-  <div class="card border border-gray-500 p-6">
-    <h2 class="text-2xl font-bold mb-4">Company Information</h2>
-    <div class="space-y-3">
+  <div class="container p-8">
+    <h2 class="font-bold text-3xl">Company Information</h2>
+    <div class="divider"></div>
+    <div class="space-y-1">
       @for (setting of settings; track setting.settingKey; let last = $last) {
         @if (setting.settingKey !== 'logoUrl') {
           <div class="flex items-center gap-4">
@@ -13,7 +16,7 @@
               <div class="flex items-center gap-4 group">
                 <span>{{ setting.settingValue }}</span>
                 <button
-                  class="btn btn-xs btn-ghost opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                  class="editButton opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
                   (click)="toggleEdit(setting)"
                 >
                   <fa-icon icon="pen" />
@@ -30,8 +33,9 @@
             }
           </div>
         } @else {
-          <div class="flex items-center gap-4">
-            <img [src]="setting.settingValue" alt="Company Logo" class="photo" />
+          <div class="flex flex-col w-3xl">
+            <span class="w-40 font-semibold capitalize"> Logo </span>
+            <img [src]="setting.settingValue" alt="Company Logo" class="photo w-100" />
             <input
               type="file"
               name="image"
@@ -48,14 +52,14 @@
   </div>
 
   <!-- Company Contacts -->
-  <div class="card border border-gray-500 p-6">
+  <div class="container p-8">
     <div class="flex justify-between">
-      <h2 class="text-2xl font-bold mb-4">Contacts & Socials</h2>
-      <button class="btn" onclick="create_company_contact_form.showModal()">
-        <fa-icon icon="plus" /> New Contact
+      <h2 class="font-bold text-3xl">Contacts & Socials</h2>
+      <button class="button" onclick="create_company_contact_form.showModal()">
+        <fa-icon icon="plus" class="text-lg" /> New Contact
       </button>
     </div>
-
+    <div class="divider"></div>
     <table class="table">
       <thead>
         <tr>
@@ -112,13 +116,13 @@
             }
             <td>
               <button
-                class="btn btn-xs btn-ghost opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                class="editButton opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
                 (click)="toggleEdit(contact)"
               >
                 <fa-icon icon="pen" />
               </button>
               <button
-                class="btn btn-xs btn-ghost text-error opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                class="deleteButton text-error opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
                 (click)="openDeleteCompanyContactModal(contact)"
               >
                 <fa-icon icon="trash" />

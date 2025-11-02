@@ -1,16 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
-
 import { Portfolio } from '../../models/portfolio';
-
 import { PortfolioService } from '../../services/Portfolio/portfolio-service';
-
 import { CreatePortfolio } from '../../components/create-portfolio/create-portfolio';
-
 import { EditPortfolio } from '../../components/edit-portfolio/edit-portfolio';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-portfolios',
-  imports: [EditPortfolio, CreatePortfolio],
+  imports: [FontAwesomeModule, EditPortfolio, CreatePortfolio],
   templateUrl: './portfolios.html',
   styleUrl: './portfolios.css',
 })

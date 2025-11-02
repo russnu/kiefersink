@@ -1,26 +1,40 @@
-<button class="btn" onclick="create_portfolio_form.showModal()">Add Portolio</button>
-<div class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-10">
+<h1 class="pageTitle">Portolios</h1>
+<button class="button align-super float-end" onclick="create_portfolio_form.showModal()">
+  <fa-icon icon="plus" class="text-lg" /> New Portolio
+</button>
+<div class="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-10 grid-masonry">
   @for (portfolio of portfolios; track portfolio.id) {
-    <div class="card card-lg">
+    <div class="card">
       <img [src]="portfolio.imageUrl" [alt]="portfolio.title" class="photo" />
-      <div class="card-body px-0">
-        <h2 class="card-title text-lg">{{ portfolio.title }}</h2>
+      <div class="card-body p-8">
+        <p class="card-title font-black">{{ portfolio.title }}</p>
         <p class="text-sm text-base-content/70">{{ portfolio.description }}</p>
-        <div class="card-actions items-center mt-2">
-          <div class="badge badge-outline">{{ portfolio.artist.name }}</div>
-          <div class="badge badge-ghost">{{ portfolio.offering.name }}</div>
+        <div class="flex flex-col gap-2">
+          <div class="badge badge-outline border-gray-200! rounded-none">
+            {{ portfolio.artist.name }}
+          </div>
+          <div class="badge rounded-none">{{ portfolio.offering.name }}</div>
         </div>
-        <button class="btn" (click)="openEditModal(portfolio)">Edit</button>
-        <button class="btn" (click)="openDeleteModal(portfolio)">Delete</button>
-        <label class="label pt-2 gap-5 items-center">
-          <input
-            type="checkbox"
-            [checked]="portfolio.featured"
-            class="toggle checked:bg-orange-400"
-            (change)="onToggle(portfolio)"
-          />
-          Featured
-        </label>
+        <div class="divider my-0"></div>
+        <div class="flex gap-2 justify-between">
+          <label class="label pt-2 gap-5 items-center">
+            <input
+              type="checkbox"
+              [checked]="portfolio.featured"
+              class="toggle checked:bg-orange-400"
+              (change)="onToggle(portfolio)"
+            />
+            Featured
+          </label>
+          <div>
+            <button class="editButton" (click)="openEditModal(portfolio)">
+              <fa-icon icon="pen" class="text-sm" />
+            </button>
+            <button class="deleteButton" (click)="openDeleteModal(portfolio)">
+              <fa-icon icon="trash" class="text-sm" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   }
