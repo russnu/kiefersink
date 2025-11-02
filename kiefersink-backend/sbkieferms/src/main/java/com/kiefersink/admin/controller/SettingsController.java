@@ -4,7 +4,9 @@ import com.kiefersink.admin.model.Settings;
 import com.kiefersink.admin.service.SettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -30,9 +32,11 @@ public class SettingsController {
         return service.create(settings);
     }
     //========================================================================================================//
-    @PutMapping
-    public Settings updateSettings(@PathVariable("setting_key") String settingKey, @RequestBody Settings settings) {
-        return service.update(settingKey, settings);
+    @PutMapping(value = "/{setting_key}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Settings updateSettings(@PathVariable("setting_key") String settingKey,
+                                   @RequestPart("setting") Settings settings,
+                                   @RequestPart(value = "image", required = false) MultipartFile image) {
+        return service.update(settingKey, settings, image);
     }
     //========================================================================================================//
     @DeleteMapping("/{setting_key}")

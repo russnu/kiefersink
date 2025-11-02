@@ -9,7 +9,12 @@ public class TransformSettings implements Transform<Settings, SettingsData>{
     public Settings toModel(SettingsData data) {
         Settings settings = new Settings();
         settings.setSettingKey(data.getSettingKey());
-        settings.setSettingValue(data.getSettingValue());
+
+        if ("logoUrl".equals(settings.getSettingKey())){
+            settings.setSettingValue("http://localhost:8080/uploads/settings-images/" + data.getSettingValue());
+        } else {
+            settings.setSettingValue(data.getSettingValue());
+        }
 
         return settings;
     }

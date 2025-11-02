@@ -1,1 +1,55 @@
-<p>inquiries works!</p>
+<ul class="list">
+  @for (inquiry of inquiries; track inquiry.id) {
+    <li class="list-row">
+      <div class="w-48 shrink-0">
+        <p>{{ inquiry.customerName }}</p>
+        <p>{{ inquiry.customerEmail }}</p>
+        <p>{{ inquiry.customerPhone }}</p>
+      </div>
+      <div class="divider divider-horizontal"></div>
+      <div class="list-col-grow">
+        <p>
+          {{ inquiry.subject }}
+        </p>
+        <p>
+          {{ inquiry.message }}
+        </p>
+      </div>
+
+      <button class="btn btn-square btn-ghost" (click)="openDeleteInquiryModal(inquiry)">
+        <fa-icon icon="trash" />
+      </button>
+    </li>
+  }
+</ul>
+
+<!-- ------------------------------------------------------------------------------------- -->
+<dialog id="delete_inquiry_confirm" class="modal">
+  <div class="modal-box">
+    <h1>Are you sure you want to remove this inquiry?</h1>
+    <p class="text-xl font-black flex gap-2">
+      <span class="text-gray-500">Subject: </span> {{ selectedInquiry?.subject }}
+    </p>
+    <p class="text-xl font-black flex gap-2">
+      <span class="text-gray-500">Message: </span> {{ selectedInquiry?.message }}
+    </p>
+    <p class="text-xl font-black flex gap-2">
+      <span class="text-gray-500">From Sender: </span>
+      <span
+        >{{ selectedInquiry?.customerName }}
+        {{ selectedInquiry?.customerEmail }}
+        {{ selectedInquiry?.customerPhone }}</span
+      >
+    </p>
+
+    <div class="divider"></div>
+    <div class="modal-action">
+      <button type="submit" class="btn" (click)="deleteInquiry()">Delete</button>
+      <button type="cancel" class="btn" onclick="delete_inquiry_confirm.close()">Cancel</button>
+    </div>
+  </div>
+
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>

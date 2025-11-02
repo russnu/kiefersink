@@ -1,6 +1,7 @@
 export interface CompanyContact {
-  id: number;
+  id?: number;
   platform: string;
   handle: string;
   url: string;
+  editing?: boolean;
 }

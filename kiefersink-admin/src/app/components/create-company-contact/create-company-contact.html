@@ -1,0 +1,49 @@
+<form #createCompanyContactForm="ngForm" (ngSubmit)="onCreate(createCompanyContactForm)">
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend text-2xl">Add New Contact</legend>
+    <!-- --------------------------------------------- -->
+    <label for="name" class="label">Contact Platform </label>
+    <input
+      type="text"
+      name="name"
+      class="input"
+      placeholder="e.g., Facebook, Instagram"
+      [(ngModel)]="companyContact.platform"
+      #platformCtrl="ngModel"
+      required
+    />
+    @if (platformCtrl.invalid && platformCtrl.touched) {
+      <small class="text-error">Platform is required</small>
+    }
+    <!-- --------------------------------------------- -->
+    <label for="handle" class="label"> Handle </label>
+    <input
+      type="text"
+      name="handle"
+      class="input"
+      placeholder="e.g., @kiefersINKTattoos, Kiefer's Ink Tattoos"
+      [(ngModel)]="companyContact.handle"
+      #handleCtrl="ngModel"
+      required
+    />
+    @if (handleCtrl.invalid && handleCtrl.touched) {
+      <small class="text-error">Handle is required</small>
+    }
+    <!-- --------------------------------------------- -->
+    <label for="url" class="label">Link</label>
+    <input
+      type="text"
+      name="url"
+      class="input"
+      placeholder="e.g., https://instagram.com/kiefersinktattoo"
+      [(ngModel)]="companyContact.url"
+    />
+  </fieldset>
+  <!-- --------------------------------------------- -->
+  <div class="divider"></div>
+  <!-- --------------------------------------------- -->
+  <div class="modal-action">
+    <button type="submit" class="btn">Save</button>
+    <button type="button" class="btn" (click)="closeModal(createCompanyContactForm)">Cancel</button>
+  </div>
+</form>

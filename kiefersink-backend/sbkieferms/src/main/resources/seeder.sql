@@ -73,7 +73,7 @@ INSERT INTO portfolios (artistId, title, description, imageUrl, offeringId, feat
 -- ========================
 INSERT INTO settings (settingKey, settingValue) VALUES
 ('companyName', 'Kiefer''s Ink Tattoo'),
-('logoUrl', 'http://localhost:8080/uploads/logo_white.png'),
+('logoUrl', 'logo_white.png'),
 ('openHours', 'Mon-Sun, 10:00 AM - 8:00 PM'),
 ('address', '3rd flr, 189 Victor Javier Rosario Pasig City, Pasig, Philippines');
 

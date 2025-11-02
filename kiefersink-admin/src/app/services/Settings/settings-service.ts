@@ -12,7 +12,15 @@ export class SettingsService {
 
   constructor(private http: HttpClient) {}
 
+  getAllSettings(): Observable<Settings[]> {
+    return this.http.get<Settings[]>(this.apiUrl);
+  }
+
   getSettings(settingKey: string): Observable<Settings> {
     return this.http.get<Settings>(`${this.apiUrl}/${settingKey}`);
+  }
+
+  updateSettings(id: number, formData: FormData) {
+    return this.http.put<Settings>(`${this.apiUrl}/${id}`, formData);
   }
 }

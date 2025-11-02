@@ -1,1 +1,171 @@
-<div class="card border border-gray-500 shadow-sm">Settings</div>
+<div class="p-6 space-y-8">
+  <!-- Company Info -->
+  <div class="card border border-gray-500 p-6">
+    <h2 class="text-2xl font-bold mb-4">Company Information</h2>
+    <div class="space-y-3">
+      @for (setting of settings; track setting.settingKey; let last = $last) {
+        @if (setting.settingKey !== 'logoUrl') {
+          <div class="flex items-center gap-4">
+            <span class="w-40 font-semibold capitalize">
+              {{ toTitleCase(setting.settingKey) }}
+            </span>
+            @if (!setting.editing) {
+              <div class="flex items-center gap-4 group">
+                <span>{{ setting.settingValue }}</span>
+                <button
+                  class="btn btn-xs btn-ghost opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                  (click)="toggleEdit(setting)"
+                >
+                  <fa-icon icon="pen" />
+                </button>
+              </div>
+            } @else {
+              <input
+                [(ngModel)]="setting.settingValue"
+                class="input input-bordered input-sm w-full"
+                (keyup.enter)="saveSetting(setting)"
+                (blur)="saveSetting(setting)"
+                autofocus
+              />
+            }
+          </div>
+        } @else {
+          <div class="flex items-center gap-4">
+            <img [src]="setting.settingValue" alt="Company Logo" class="photo" />
+            <input
+              type="file"
+              name="image"
+              class="file-input"
+              (change)="onFileSelected($event, setting)"
+            />
+          </div>
+        }
+        @if (!last) {
+          <div class="divider"></div>
+        }
+      }
+    </div>
+  </div>
+
+  <!-- Company Contacts -->
+  <div class="card border border-gray-500 p-6">
+    <div class="flex justify-between">
+      <h2 class="text-2xl font-bold mb-4">Contacts & Socials</h2>
+      <button class="btn" onclick="create_company_contact_form.showModal()">
+        <fa-icon icon="plus" /> New Contact
+      </button>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Handle</th>
+          <th>Link</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (contact of companyContacts; track contact.id) {
+          <tr class="group">
+            <td>
+              @if (!contact.editing) {
+                <span>{{ toTitleCase(contact.platform) }}</span>
+              } @else {
+                <input
+                  [(ngModel)]="contact.platform"
+                  class="input input-bordered input-sm w-full"
+                  (keyup.enter)="saveContact(contact)"
+                  autofocus
+                />
+              }
+            </td>
+
+            <td>
+              @if (!contact.editing) {
+                <span>{{ contact.handle }}</span>
+              } @else {
+                <input
+                  [(ngModel)]="contact.handle"
+                  class="input input-bordered input-sm w-full"
+                  (keyup.enter)="saveContact(contact)"
+                  autofocus
+                />
+              }
+            </td>
+
+            @if (contact.platform !== 'email' && contact.platform !== 'phone' && contact.url) {
+              <td>
+                @if (!contact.editing) {
+                  <span>{{ contact.url }}</span>
+                } @else {
+                  <input
+                    [(ngModel)]="contact.url"
+                    class="input input-bordered input-sm w-full"
+                    (keyup.enter)="saveContact(contact)"
+                    autofocus
+                  />
+                }
+              </td>
+            } @else {
+              <td></td>
+            }
+            <td>
+              <button
+                class="btn btn-xs btn-ghost opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                (click)="toggleEdit(contact)"
+              >
+                <fa-icon icon="pen" />
+              </button>
+              <button
+                class="btn btn-xs btn-ghost text-error opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                (click)="openDeleteCompanyContactModal(contact)"
+              >
+                <fa-icon icon="trash" />
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- ========================================================================================================================================================= -->
+<dialog id="create_company_contact_form" class="modal">
+  <div class="modal-box">
+    <create-company-contact-form />
+  </div>
+</dialog>
+<!-- ------------------------------------------------------------------------------------- -->
+<dialog id="delete_company_contact_confirm" class="modal">
+  <div class="modal-box">
+    <h1>Are you sure you want to remove this contact?</h1>
+    <p class="text-xl font-black flex gap-2">
+      <span class="text-gray-500">Platform: </span> {{ selectedCompanyContact?.platform }}
+    </p>
+    <p class="text-xl font-black flex gap-2">
+      <span class="text-gray-500">Handle: </span> {{ selectedCompanyContact?.handle }}
+    </p>
+    @if (
+      selectedCompanyContact?.platform !== 'email' &&
+      selectedCompanyContact?.platform !== 'phone' &&
+      selectedCompanyContact?.url
+    ) {
+      <p class="text-xl font-black flex gap-2">
+        <span class="text-gray-500">URL: </span> {{ selectedCompanyContact?.url }}
+      </p>
+    }
+
+    <div class="divider"></div>
+    <div class="modal-action">
+      <button type="submit" class="btn" (click)="deleteCompanyContact()">Delete</button>
+      <button type="cancel" class="btn" onclick="delete_company_contact_confirm.close()">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
