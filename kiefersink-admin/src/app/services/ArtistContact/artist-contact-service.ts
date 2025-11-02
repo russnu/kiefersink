@@ -14,4 +14,8 @@ export class ArtistContactService {
   getArtistContacts(artistId: number): Observable<ArtistContact[]> {
     return this.http.get<ArtistContact[]>(`${this.apiUrl}/${artistId}`);
   }
+
+  getAll(): Observable<ArtistContact[]> {
+    return this.http.get<ArtistContact[]>(this.apiUrl);
+  }
 }

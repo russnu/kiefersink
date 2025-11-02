@@ -5,7 +5,7 @@ TRUNCATE TABLE `artists`;
 TRUNCATE TABLE `companycontacts`;
 TRUNCATE TABLE `inquiries`;
 TRUNCATE TABLE `offerings`;
-TRUNCATE TABLE `portfolio`;
+TRUNCATE TABLE `portfolios`;
 TRUNCATE TABLE `categories`;
 TRUNCATE TABLE `settings`;
 

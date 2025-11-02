@@ -1,10 +1,10 @@
 import { Category } from './category';
 
 export interface Offering {
-  id: number;
+  id?: number;
   name: string;
   description: string;
   priceRange: string;
   imageUrl: string;
-  category: Category;
+  category?: Category;
 }

@@ -1,6 +1,7 @@
 package com.kiefersink.admin.serviceimpl;
 
 import com.kiefersink.admin.entity.CategoryData;
+import com.kiefersink.admin.entity.PortfolioData;
 import com.kiefersink.admin.model.Category;
 import com.kiefersink.admin.repository.CategoryRepository;
 import com.kiefersink.admin.service.CategoryService;
@@ -16,7 +17,7 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryRepository repository;
     private final TransformCategory transformCategory = new TransformCategory();
     private final TransformOffering transformOffering = new TransformOffering();
     //========================================================================================================//
@@ -24,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> getAll(boolean includeOfferings) {
         List<CategoryData> categoryDataList = new ArrayList<>();
-        categoryRepository.findAll().forEach(categoryDataList::add);
+        repository.findAll().forEach(categoryDataList::add);
 
         List<Category> categories = new ArrayList<>();
         for (CategoryData data : categoryDataList) {
@@ -44,11 +45,11 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return categories;
     }
-
+    //========================================================================================================//
     @Transactional
     @Override
     public Category get(Integer id, boolean includeOfferings) {
-        CategoryData categoryData = categoryRepository.findById(id)
+        CategoryData categoryData = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
         Category category = transformCategory.toModel(categoryData);
@@ -62,22 +63,32 @@ public class CategoryServiceImpl implements CategoryService {
 
         return category;
     }
-
+    //========================================================================================================//
     @Transactional
     @Override
     public Category create(Category category) {
-        return null;
-    }
 
+        CategoryData categoryData = transformCategory.toData(category);
+        CategoryData saved = repository.save(categoryData);
+        return transformCategory.toModel(saved);
+    }
+    //========================================================================================================//
     @Transactional
     @Override
     public Category update(Integer id, Category category) {
-        return null;
-    }
 
+        CategoryData existing = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
+        existing.setName(category.getName());
+        CategoryData saved = repository.save(existing);
+        return transformCategory.toModel(saved);
+
+    }
+    //========================================================================================================//
     @Transactional
     @Override
     public void delete(Integer id) {
-
+        repository.deleteById(id);
     }
 }

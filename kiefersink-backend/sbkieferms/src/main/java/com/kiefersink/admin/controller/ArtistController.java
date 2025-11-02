@@ -27,7 +27,7 @@ public class ArtistController {
     //========================================================================================================//
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Artist createArtist(  @RequestPart("artist") Artist artist, @RequestPart(value = "image", required = false) MultipartFile image) {
+    public Artist createArtist(@RequestPart("artist") Artist artist, @RequestPart(value = "image", required = false) MultipartFile image) {
         return service.create(artist, image);
     }
     //========================================================================================================//

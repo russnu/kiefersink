@@ -1,6 +1,5 @@
-import { Component, OnInit, inject, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Artist } from '../../models/artist';
-import { ArtistContact } from '../../models/artist-contact';
 import { ArtistService } from '../../services/Artist/artist-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Router } from '@angular/router';
@@ -24,6 +23,7 @@ export class EditArtist {
   }
   // ====================================================== //
   private artistService = inject(ArtistService);
+  private router = inject(Router);
   // ====================================================== //
   addContact() {
     if (!this.artist) return;
@@ -45,13 +45,26 @@ export class EditArtist {
       formData.append('image', this.selectedFile);
     }
 
-    this.artistService.editArtist(this.artist.id, formData).subscribe({
+    this.artistService.updateArtist(this.artist.id, formData).subscribe({
       next: (response) => {
         console.log('Artist updated successfully!:', response);
-        form.resetForm();
+        this.closeModal(form);
+        window.location.reload();
       },
       error: (err) => console.error('Error updating artist:', err),
     });
   }
   // ====================================================== //
+  removeContact(index: number) {
+    if (!this.artist?.contacts) return;
+    if (confirm('Remove this contact?')) {
+      this.artist.contacts.splice(index, 1);
+    }
+  }
+  // ====================================================== //
+  closeModal(form: NgForm) {
+    const dialog = document.getElementById('edit_form') as HTMLDialogElement;
+    form.resetForm();
+    dialog.close();
+  }
 }

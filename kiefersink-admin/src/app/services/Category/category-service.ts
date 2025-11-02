@@ -20,4 +20,20 @@ export class CategoryService {
   getAllCategoriesWithOfferings(): Observable<Category[]> {
     return this.http.get<Category[]>(`${this.apiUrl}?includeOfferings=true`);
   }
+
+  getCategoryWithOfferings(id: number): Observable<Category> {
+    return this.http.get<Category>(`${this.apiUrl}/${id}?includeOfferings=true`);
+  }
+
+  createCategory(category: Category) {
+    return this.http.post(this.apiUrl, category);
+  }
+
+  updateCategory(id: number, category: Category) {
+    return this.http.patch<Category>(`${this.apiUrl}/${id}`, category);
+  }
+
+  deleteCategory(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

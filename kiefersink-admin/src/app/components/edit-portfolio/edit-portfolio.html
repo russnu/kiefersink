@@ -1,0 +1,83 @@
+@if (portfolio) {
+  <form #editPortfolioForm="ngForm" (ngSubmit)="onUpdate(editPortfolioForm)">
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend text-2xl">Edit Portfolio</legend>
+      @if (previewUrl) {
+        <div class="mt-4">
+          <img
+            [src]="previewUrl"
+            alt="Selected image preview"
+            class="w-48 h-48 object-cover rounded-xl shadow-md"
+          />
+        </div>
+      } @else {
+        @if (portfolio.imageUrl) {
+          <img
+            [src]="portfolio.imageUrl"
+            alt="Existing portfolio image"
+            class="w-48 h-48 object-cover rounded-xl shadow-md"
+          />
+        }
+      }
+
+      <label for="imageUrl" class="label">Profile Image</label>
+      <input type="file" name="image" class="file-input" (change)="onFileSelected($event)" />
+
+      <label for="title" class="label">Portfolio Title </label>
+      <input type="text" name="title" class="input" [(ngModel)]="portfolio.title" required />
+
+      <label for="description" class="label"> Description </label>
+      <textarea
+        name="description"
+        class="textarea"
+        placeholder="Enter description"
+        [(ngModel)]="portfolio.description"
+        required
+      ></textarea>
+      <!-- --------------------------------------------- -->
+      <label for="artist" class="label"> Artist </label>
+      <select class="select" name="artist" [(ngModel)]="portfolio.artist">
+        <option [ngValue]="null" disabled>Select Artist</option>
+        @for (artist of artists; track artist.id) {
+          <option [ngValue]="artist">
+            {{ artist.name }}
+          </option>
+        }
+      </select>
+      <!-- --------------------------------------------- -->
+      <div class="divider"></div>
+      <!-- --------------------------------------------- -->
+      <label for="category" class="label"> Category </label>
+      <select
+        class="select"
+        name="category"
+        [(ngModel)]="selectedCategory"
+        (change)="onCategoryChange()"
+      >
+        <option [ngValue]="null" disabled>Change Category</option>
+        @for (category of categories; track category.id) {
+          <option [ngValue]="category">
+            {{ category.name }}
+          </option>
+        }
+      </select>
+      <!-- --------------------------------------------- -->
+      <label for="offering" class="label"> Style </label>
+      <select class="select" name="offering" [(ngModel)]="portfolio.offering">
+        <option [ngValue]="null" disabled>Select offering type</option>
+        @for (offering of filteredOfferings; track offering.id) {
+          <option [ngValue]="offering">
+            {{ offering.name }}
+          </option>
+        }
+      </select>
+    </fieldset>
+    <!-- --------------------------------------------- -->
+    <div class="divider"></div>
+    <!-- --------------------------------------------- -->
+    <div class="modal-action">
+      <button type="submit" class="btn">Save</button>
+      <button type="button" class="btn" (click)="closeModal(editPortfolioForm)">Cancel</button>
+    </div>
+  </form>
+}

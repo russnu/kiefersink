@@ -11,4 +11,8 @@ public class Offering {
     private String priceRange;
     private String imageUrl;
     private Category category;
+
+    public String getImageFileName() {
+        return this.getName().replaceAll("\\s+", "_").toLowerCase();
+    };
 }

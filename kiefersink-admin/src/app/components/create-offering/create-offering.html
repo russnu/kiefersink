@@ -1,0 +1,77 @@
+<form #createOfferingForm="ngForm" (ngSubmit)="onCreate(createOfferingForm)">
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend text-2xl">Add New {{ category?.name }} Offering</legend>
+    <!-- --------------------------------------------- -->
+    @if (previewUrl) {
+      <div class="mt-4">
+        <img
+          [src]="previewUrl"
+          alt="Selected image preview"
+          class="w-48 h-48 object-cover rounded-xl shadow-md"
+        />
+      </div>
+    } @else {
+      @if (offering.imageUrl) {
+        <img
+          [src]="offering.imageUrl"
+          alt="Existing portfolio image"
+          class="w-48 h-48 object-cover rounded-xl shadow-md"
+        />
+      }
+    }
+    <!-- --------------------------------------------- -->
+    <label for="imageUrl" class="label">Offering Image</label>
+    <input type="file" name="image" class="file-input" (change)="onFileSelected($event)" />
+    @if (!selectedFile) {
+      <small class="text-error">Image is required</small>
+    }
+    <!-- --------------------------------------------- -->
+    <label for="name" class="label">Offering Name </label>
+    <input
+      type="text"
+      name="name"
+      class="input"
+      placeholder="e.g., Fine Line Tattoo, Ear Piercing"
+      [(ngModel)]="offering.name"
+      #nameCtrl="ngModel"
+      required
+    />
+    @if (nameCtrl.invalid && nameCtrl.touched) {
+      <small class="text-error">Name is required</small>
+    }
+    <!-- --------------------------------------------- -->
+    <label for="description" class="label"> Description </label>
+    <textarea
+      name="description"
+      class="textarea"
+      placeholder="Enter description"
+      [(ngModel)]="offering.description"
+      #descriptionCtrl="ngModel"
+      required
+    ></textarea>
+    @if (descriptionCtrl.invalid && descriptionCtrl.touched) {
+      <small class="text-error">Description is required</small>
+    }
+    <!-- --------------------------------------------- -->
+    <label for="priceRange" class="label">Price Range </label>
+    <input
+      type="text"
+      name="priceRange"
+      class="input"
+      placeholder="e.g., ₱2,500 - ₱15,000"
+      [(ngModel)]="offering.priceRange"
+      #priceRangeCtrl="ngModel"
+      required
+    />
+    @if (priceRangeCtrl.invalid && priceRangeCtrl.touched) {
+      <small class="text-error">Price range is required</small>
+    }
+  </fieldset>
+  <!-- --------------------------------------------- -->
+  <div class="divider"></div>
+  <!-- --------------------------------------------- -->
+  <div class="modal-action">
+    <button type="submit" class="btn">Save</button>
+    <button type="button" class="btn" (click)="closeModal(createOfferingForm)">Cancel</button>
+  </div>
+</form>

@@ -22,19 +22,33 @@
             <th>Platform</th>
             <th>Handle</th>
             <th>Link</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr>
             @for (contact of artist.contacts; track $index) {
               <td>
-                <input
-                  type="text"
+                <select
+                  class="select"
                   name="contacts[{{ $index }}].platform"
-                  class="input"
                   [(ngModel)]="contact.platform"
-                  required
-                />
+                >
+                  <option [ngValue]="null" disabled>Pick a platform</option>
+                  <option>Instagram</option>
+                  <option>Facebook</option>
+                  <option>Tiktok</option>
+                  <option>Phone</option>
+                  <option>Email</option>
+                  <div class="divider"></div>
+                  <input
+                    type="text"
+                    name="contacts[{{ $index }}].platform"
+                    [(ngModel)]="contact.platform"
+                    class="input"
+                    placeholder="Other"
+                  />
+                </select>
               </td>
               <td>
                 <input
@@ -52,6 +66,13 @@
                   class="input"
                   [(ngModel)]="contact.url"
                   required
+                />
+              </td>
+              <td>
+                <fa-icon
+                  icon="trash"
+                  class="btn btn-ghost text-xl"
+                  (click)="removeContact($index)"
                 />
               </td>
             }

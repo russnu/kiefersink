@@ -18,4 +18,7 @@ public class ArtistData {
     // Relationships ======================================= //
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "artist", cascade = CascadeType.ALL)
     private List<ArtistContactData> contacts;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "artist", cascade = CascadeType.ALL)
+    private List<PortfolioData> artistPortfolio;
 }

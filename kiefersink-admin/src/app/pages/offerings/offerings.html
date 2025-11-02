@@ -1,24 +1,119 @@
-@for (category of categories; track category.id) {
-  <div>
-    <h2 class="font-black leading-none text-[clamp(2rem,3vw,3rem)] text-white">
-      {{ category.name }} Services
-    </h2>
-    <div>
-      @for (offering of category.offerings; track offering.id) {
-        <div class="card card-lg">
-          <img [src]="offering.imageUrl" [alt]="offering.name" class="photo" />
+<button class="btn" onclick="create_category_form.showModal()">Add Category</button>
+<!-- ------------------------------------------------------------------------------------- -->
+<div class="space-y-10">
+  @for (category of categories; track category.id) {
+    <div class="card border border-gray-500 shadow-sm">
+      <div class="card-body">
+        <div class="flex gap-2 items-center">
+          @if (!category.editing) {
+            <h2 class="font-bold text-xl">{{ category.name }} Services</h2>
+          } @else {
+            <input
+              [(ngModel)]="category.name"
+              class="input input-bordered input-sm w-60"
+              (keyup.enter)="saveCategory(category)"
+              (blur)="saveCategory(category)"
+              autofocus
+            />
+          }
 
-          <div class="card-body">
-            <h3 class="card-title text-lg">{{ offering.name }}</h3>
-            <p class="text-sm text-base-content/70">
-              {{ offering.description }}
-            </p>
-            <div class="badge badge-lg badge-outline gap-2">
-              {{ offering.priceRange }}
-            </div>
-          </div>
+          <button
+            class="btn btn-sm btn-ghost border-none shadow-none bg-transparent"
+            (click)="toggleEdit(category)"
+          >
+            <fa-icon icon="pen" />
+          </button>
+          <button
+            class="btn btn-sm btn-ghost border-none shadow-none bg-transparent text-error"
+            (click)="openDeleteCategoryModal(category)"
+          >
+            <fa-icon icon="trash" />
+          </button>
+          <button class="btn ml-auto" (click)="openCreateOfferingModal(category)">
+            <fa-icon icon="plus" /> New Offering
+          </button>
         </div>
-      }
+
+        @if (category.offerings && category.offerings.length > 0) {
+          <div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 mt-4">
+            @for (offering of category.offerings; track offering.id) {
+              <div class="card bg-base-200">
+                <div class="card-body">
+                  <img [src]="offering.imageUrl" [alt]="offering.name" class="offering-photo" />
+                  <h3 class="font-semibold">{{ offering.name }}</h3>
+                  <p class="text-sm opacity-80">{{ offering.description }}</p>
+                  <div class="badge badge-outline">{{ offering.priceRange }}</div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="btn" (click)="openEditOfferingModal(offering)">
+                    Edit
+                  </button>
+                  <button type="button" class="btn" (click)="openDeleteOfferingModal(offering)">
+                    Delete
+                  </button>
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="italic text-gray-500 m-auto text-sm">This category has no offerings.</div>
+        }
+      </div>
+    </div>
+  }
+</div>
+<!-- ========================================================================================================================================================= -->
+<dialog id="create_category_form" class="modal">
+  <div class="modal-box">
+    <create-category-form />
+  </div>
+</dialog>
+<!-- ------------------------------------------------------------------------------------- -->
+<dialog id="delete_category_confirm" class="modal">
+  <div class="modal-box">
+    <h1>Are you sure you want to remove this category?</h1>
+    <p class="text-xl font-black flex gap-2">
+      <span class="text-gray-500">Category: </span> {{ selectedCategory?.name }}
+    </p>
+    <div class="divider"></div>
+    <div class="modal-action">
+      <button type="submit" class="btn" (click)="deleteCategory()">Delete</button>
+      <button type="cancel" class="btn" onclick="delete_category_confirm.close()">Cancel</button>
     </div>
   </div>
-}
+
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
+<!-- ========================================================================================================================================================= -->
+<dialog id="create_offering_form" class="modal">
+  <div class="modal-box">
+    <create-offering-form [category]="selectedCategory" />
+  </div>
+</dialog>
+<!-- ------------------------------------------------------------------------------------- -->
+<dialog id="edit_offering_form" class="modal">
+  <div class="modal-box">
+    <edit-offering-form [offering]="selectedOffering" />
+  </div>
+</dialog>
+<!-- ------------------------------------------------------------------------------------- -->
+<dialog id="delete_offering_confirm" class="modal">
+  <div class="modal-box">
+    <h1>Are you sure you want to remove this offering?</h1>
+    <p class="text-xl font-black flex gap-2">
+      <span class="text-gray-500">Offering: </span> {{ selectedOffering?.name }}
+    </p>
+    <div class="divider"></div>
+    <div class="modal-action">
+      <button type="submit" class="btn" (click)="deleteOffering()">Delete</button>
+      <button type="cancel" class="btn" onclick="delete_offering_confirm.close()">Cancel</button>
+    </div>
+  </div>
+
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
+<!-- ========================================================================================================================================================= -->

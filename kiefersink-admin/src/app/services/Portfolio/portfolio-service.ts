@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Portfolio } from '../../models/portfolio';
-import { Offering } from '../../models/offering';
 import { OfferingService } from '../Offering/offering-service';
 
 OfferingService;
@@ -22,5 +21,21 @@ export class PortfolioService {
 
   getFeaturedPortfolios(): Observable<Portfolio[]> {
     return this.http.get<Portfolio[]>(`${this.apiUrl}?featured=true`);
+  }
+
+  createPortfolio(formData: FormData) {
+    return this.http.post(this.apiUrl, formData);
+  }
+
+  updatePortfolio(id: number, formData: FormData) {
+    return this.http.put<Portfolio>(`${this.apiUrl}/${id}`, formData);
+  }
+
+  updateFeatured(id: number, featured: boolean) {
+    return this.http.patch<Portfolio>(`${this.apiUrl}/${id}/featured?featured=${featured}`, {});
+  }
+
+  deletePortfolio(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

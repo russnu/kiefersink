@@ -12,4 +12,8 @@ public class Portfolio {
     private boolean featured;
     private Offering offering;
 
+    public String getImageFileName() {
+        return this.getTitle().replaceAll("\\s+", "_").toLowerCase();
+    };
+
 }

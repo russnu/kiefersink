@@ -15,6 +15,7 @@ public class TransformPortfolio implements Transform<Portfolio, PortfolioData>{
         portfolio.setDescription(data.getDescription());
         portfolio.setImageUrl("http://localhost:8080/uploads/gallery/" + data.getImageUrl());
         portfolio.setOffering(transformOffering.toModel(data.getOffering()));
+        portfolio.setFeatured(data.isFeatured());
 
         return portfolio;
     }
@@ -28,6 +29,7 @@ public class TransformPortfolio implements Transform<Portfolio, PortfolioData>{
         portfolioData.setDescription(model.getDescription());
         portfolioData.setImageUrl(model.getImageUrl());
         portfolioData.setOffering(transformOffering.toData(model.getOffering()));
+        portfolioData.setFeatured(model.isFeatured());
         return portfolioData;
     }
 }

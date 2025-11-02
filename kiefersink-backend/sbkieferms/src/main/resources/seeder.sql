@@ -2,9 +2,9 @@
 -- ARTISTS
 -- ========================
 INSERT INTO artists (name, imageUrl) VALUES
-('Jek Valencia', 'jek.jpg'),
-('Dhens Valencia', 'dhens.jpg'),
-('Arman Walin', 'arman.jpg');
+('Jek Valencia', 'jek_valencia.jpg'),
+('Dhens Valencia', 'dhens_valencia.jpg'),
+('Arman Walin', 'arman_walin.jpg');
 -- ========================
 -- ARTIST CONTACTS
 -- ========================
@@ -56,7 +56,7 @@ INSERT INTO offerings (name, categoryId, description, priceRange, imageUrl) VALU
 -- ========================
 -- PORTFOLIO
 -- ========================
-INSERT INTO portfolio (artistId, title, description, imageUrl, offeringId, featured) VALUES
+INSERT INTO portfolios (artistId, title, description, imageUrl, offeringId, featured) VALUES
 (2, 'Wolf Forearm Tattoo', 'Eyes like ice, heart like fire. Tattoo by @dhens.kiefersink.', 'gallery_tattoo1.jpg', 1, 1),
 (1, 'Minimalist Forearm Tattoo', 'Tattoos are time travel etched in skin.', 'gallery_tattoo2.jpg', 4, 0),
 (1, 'Ink Flow Dragon', 'A sumi-e inspired dragon tattoo flowing across the shoulder and arm.', 'gallery_tattoo3.jpg', 1, 1),

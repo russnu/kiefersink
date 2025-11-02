@@ -12,7 +12,17 @@
 body {
   @apply font-poppins;
 }
+.input,
+.file-input,
+.select,
+.textarea {
+  @apply placeholder:text-gray-500 placeholder:text-xs placeholder:italic focus:outline-0 focus-within:outline-0;
+}
 
 .photo {
   @apply h-fit rounded-2xl object-contain transition-transform duration-500 group-hover:scale-105 w-lg;
+}
+
+.offering-photo {
+  @apply rounded-2xl object-contain transition-transform duration-500 group-hover:scale-105 h-[300px];
 }

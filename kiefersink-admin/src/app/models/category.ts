@@ -1,7 +1,8 @@
 import { Offering } from './offering';
 
 export interface Category {
-  id: number;
+  id?: number;
   name: string;
-  offerings: Offering[];
+  offerings?: Offering[];
+  editing?: boolean;
 }

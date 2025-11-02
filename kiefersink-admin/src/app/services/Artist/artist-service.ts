@@ -24,7 +24,7 @@ export class ArtistService {
     return this.http.post(this.apiUrl, formData);
   }
 
-  editArtist(id: number, formData: FormData) {
+  updateArtist(id: number, formData: FormData) {
     return this.http.put(`${this.apiUrl}/${id}`, formData);
   }
 

@@ -19,33 +19,34 @@ export class Artists implements OnInit {
 
   private router = inject(Router);
   private artistService = inject(ArtistService);
-
+  // ====================================================== //
+  ngOnInit() {
+    this.artistService.getAllArtistsWithContacts().subscribe((data) => {
+      this.artists = data;
+    });
+  }
+  // ====================================================== //
   openEditModal(artist: Artist) {
-    this.selectedArtist = artist;
+    this.selectedArtist = JSON.parse(JSON.stringify(artist));
     const dialog = document.getElementById('edit_form') as HTMLDialogElement;
     dialog.showModal();
   }
-
+  // ====================================================== //
   openDeleteModal(artist: Artist) {
     this.selectedArtist = artist;
     const dialog = document.getElementById('delete_confirm') as HTMLDialogElement;
     dialog.showModal();
   }
-
+  // ====================================================== //
   deleteArtist() {
     if (!this.selectedArtist) return;
     this.artistService.deleteArtist(this.selectedArtist.id!).subscribe({
       next: () => {
         const dialog = document.getElementById('delete_confirm') as HTMLDialogElement;
         dialog?.close();
+        window.location.reload();
       },
       error: (err) => console.error('Error deleting artist:', err),
-    });
-  }
-
-  ngOnInit() {
-    this.artistService.getAllArtistsWithContacts().subscribe((data) => {
-      this.artists = data;
     });
   }
 }

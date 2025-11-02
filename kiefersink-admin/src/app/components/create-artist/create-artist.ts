@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Artist } from '../../models/artist';
 import { ArtistContact } from '../../models/artist-contact';
 import { ArtistService } from '../../services/Artist/artist-service';
@@ -18,6 +18,8 @@ export class CreateArtist {
     imageUrl: '',
     contacts: [{ platform: '', handle: '', url: '' } as ArtistContact],
   };
+
+  platforms: string[] = [];
   // ====================================================== //
   selectedFile: File | null = null;
   onFileSelected(event: Event) {
@@ -28,6 +30,13 @@ export class CreateArtist {
   }
   // ====================================================== //
   private artistService = inject(ArtistService);
+  private router = inject(Router);
+  // ====================================================== //
+  // ngOnInit() {
+  //   this.artistService.getAllArtistsWithContacts().subscribe((data) => {
+  //     this.artists = data;
+  //   });
+  // }
   // ====================================================== //
   addContact() {
     this.artist.contacts ??= [];
@@ -35,6 +44,13 @@ export class CreateArtist {
   }
   // ====================================================== //
   onCreate(form: NgForm) {
+    if (this.artist.contacts) {
+      this.artist.contacts = this.artist.contacts.map((c) => ({
+        ...c,
+        platform: c.platform?.toLowerCase().trim() || '',
+      }));
+    }
+
     const formData = new FormData();
 
     formData.append(
@@ -45,16 +61,30 @@ export class CreateArtist {
       formData.append('image', this.selectedFile);
     }
 
+    // const artistBlob = formData.get('artist') as Blob;
+    // if (artistBlob) {
+    //   artistBlob.text().then((jsonText) => {
+    //     console.log('Artist JSON:', JSON.parse(jsonText));
+    //   });
+    // }
+
     this.artistService.createArtist(formData).subscribe({
       next: (response) => {
         console.log('Artist created:', response);
-        form.resetForm();
+        this.closeModal(form);
+        window.location.reload();
       },
       error: (err) => console.error('Error creating artist:', err),
     });
   }
   // ====================================================== //
-
+  removeContact(index: number) {
+    if (!this.artist?.contacts) return;
+    if (confirm('Remove this contact?')) {
+      this.artist.contacts.splice(index, 1);
+    }
+  }
+  // ====================================================== //
   closeModal(form: NgForm) {
     const dialog = document.getElementById('create_form') as HTMLDialogElement;
     form.resetForm();

@@ -30,8 +30,9 @@ public class CategoryController {
         return service.create(category);
     }
     //========================================================================================================//
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public Category updateCategory(@PathVariable("id") Integer id, @RequestBody Category category) {
+
         return service.update(id, category);
     }
     //========================================================================================================//

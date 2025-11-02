@@ -9,7 +9,7 @@ import com.kiefersink.admin.repository.ArtistRepository;
 import com.kiefersink.admin.service.ArtistService;
 import com.kiefersink.admin.transform.TransformArtist;
 import com.kiefersink.admin.transform.TransformArtistContact;
-import com.kiefersink.admin.utils.UploadUtils;
+import com.kiefersink.admin.utils.ImageUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,13 +27,11 @@ public class ArtistServiceImpl implements ArtistService {
     @Autowired
     private ArtistContactRepository artistContactRepository;
     @Autowired
-    private UploadUtils uploadUtils;
+    private ImageUtils imageUtils;
 
     private final TransformArtist transformArtist = new TransformArtist();
     private final TransformArtistContact transformArtistContact =  new TransformArtistContact();
 
-    @Value("${file.upload-dir}")
-    private String uploadDir;
     //========================================================================================================//
     @Override
     public List<Artist> getAll(boolean includeContacts) {
@@ -78,8 +76,10 @@ public class ArtistServiceImpl implements ArtistService {
             try {
                 if (image != null && !image.isEmpty()) {
                     String fileName = artist.getImageFileName();
-                    String savedFileName = uploadUtils.saveImage(image, "artist-images", fileName);
+                    String savedFileName = imageUtils.saveImage(image, "artist-images", fileName);
                     artist.setImageUrl(savedFileName);
+                } else {
+                    artist.setImageUrl("default-artist.png");
                 }
 
                 ArtistData artistData = transformArtist.toData(artist);
@@ -111,7 +111,7 @@ public class ArtistServiceImpl implements ArtistService {
         try {
             if (image != null && !image.isEmpty()) {
                 String fileName = artist.getImageFileName();
-                String savedFileName = uploadUtils.saveImage(image, "artist-images", fileName);
+                String savedFileName = imageUtils.saveImage(image, "artist-images", fileName);
                 artist.setImageUrl(savedFileName);
             } else {
                 artist.setImageUrl(existing.getImageUrl());
@@ -142,7 +142,17 @@ public class ArtistServiceImpl implements ArtistService {
     //========================================================================================================//
     @Override
     public void delete(Integer id) {
+        ArtistData artistData = artistRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Artist not found"));
+
+        String imageUrl = artistData.getImageUrl();
+        if (imageUrl != null && !imageUrl.equals("default-artist.png")) {
+            imageUtils.deleteImage(imageUrl, "artist-images");
+        }
+
         artistRepository.deleteById(id);
+
+
     }
 
 }

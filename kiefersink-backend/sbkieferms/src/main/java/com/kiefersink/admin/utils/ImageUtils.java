@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @Component
-public class UploadUtils {
+public class ImageUtils {
     @Value("${file.upload-dir}")
     private String uploadDir;
 
@@ -30,4 +30,13 @@ public class UploadUtils {
 
         return finalFileName;
     }
+    public void deleteImage(String fileName, String folder) {
+        try {
+            Path filePath = Paths.get(uploadDir, folder, fileName);
+            Files.deleteIfExists(filePath);
+        } catch (IOException e) {
+            System.err.println("Failed to delete image file: " + e.getMessage());
+        }
+    }
+
 }
