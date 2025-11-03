@@ -23,7 +23,7 @@ export class CreateCategory {
       next: (response) => {
         console.log('Category created successfully!:', response);
         this.closeModal(form);
-        // window.location.reload();
+        window.location.reload();
       },
       error: (err) => console.error('Error creating category:', err),
     });

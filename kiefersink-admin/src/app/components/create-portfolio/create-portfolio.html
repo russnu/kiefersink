@@ -1,82 +1,145 @@
 <form #createPortfolioForm="ngForm" (ngSubmit)="onCreate(createPortfolioForm)">
   <fieldset class="fieldset">
     <legend class="fieldset-legend text-2xl">Add Portfolio</legend>
-    <!-- --------------------------------------------- -->
-    @if (previewUrl) {
-      <div class="mt-4">
-        <img
-          [src]="previewUrl"
-          alt="Selected image preview"
-          class="w-48 h-48 object-cover rounded-xl shadow-md"
-        />
+
+    <div class="flex">
+      <!-- =================================================================================================== -->
+      <div class="flex flex-col gap-1.5">
+        @if (previewUrl) {
+          <div class="mt-4">
+            <img [src]="previewUrl" alt="Selected image preview" class="preview-photo" />
+          </div>
+        } @else {
+          @if (portfolio.imageUrl) {
+            <div class="mt-4">
+              <img
+                [src]="portfolio.imageUrl"
+                alt="Existing portfolio image"
+                class="preview-photo"
+              />
+            </div>
+          }
+        }
+        <label for="imageUrl" class="label">Portfolio Image</label>
+        <input type="file" name="image" class="file-input" (change)="onFileSelected($event)" />
+        @if (!selectedFile) {
+          <small class="text-error">Image is required</small>
+        }
       </div>
-    } @else {
-      @if (portfolio.imageUrl) {
-        <img
-          [src]="portfolio.imageUrl"
-          alt="Existing portfolio image"
-          class="w-48 h-48 object-cover rounded-xl shadow-md"
-        />
-      }
-    }
-    <!-- --------------------------------------------- -->
-    <label for="imageUrl" class="label">Profile Image</label>
-    <input type="file" name="image" class="file-input" (change)="onFileSelected($event)" />
-    <!-- --------------------------------------------- -->
-    <label for="title" class="label">Portfolio Title </label>
-    <input type="text" name="title" class="input" [(ngModel)]="portfolio.title" required />
-    <!-- --------------------------------------------- -->
-    <label for="description" class="label"> Description </label>
-    <textarea
-      name="description"
-      class="textarea"
-      placeholder="Enter description"
-      [(ngModel)]="portfolio.description"
-      required
-    ></textarea>
-    <!-- --------------------------------------------- -->
-    <label for="artist" class="label"> Artist </label>
-    <select class="select" name="artist" [(ngModel)]="portfolio.artist">
-      <option [ngValue]="null" disabled>Select Artist</option>
-      @for (artist of artists; track artist.id) {
-        <option [ngValue]="artist">
-          {{ artist.name }}
-        </option>
-      }
-    </select>
-    <!-- --------------------------------------------- -->
-    <div class="divider"></div>
-    <!-- --------------------------------------------- -->
-    <label for="category" class="label"> Category </label>
-    <select
-      class="select"
-      name="category"
-      [(ngModel)]="selectedCategory"
-      (change)="onCategoryChange()"
-    >
-      <option [ngValue]="null" disabled>Select Category</option>
-      @for (category of categories; track category.id) {
-        <option [ngValue]="category">
-          {{ category.name }}
-        </option>
-      }
-    </select>
-    <!-- --------------------------------------------- -->
-    <label for="offering" class="label"> Style </label>
-    <select class="select" name="offering" [(ngModel)]="portfolio.offering">
-      <option [ngValue]="null" disabled>Select offering type</option>
-      @for (offering of filteredOfferings; track offering.id) {
-        <option [ngValue]="offering">
-          {{ offering.name }}
-        </option>
-      }
-    </select>
+      <div class="divider divider-horizontal"></div>
+      <!-- =================================================================================================== -->
+      <div class="flex flex-col gap-5">
+        <!-- --------------------------------------------- -->
+        <div class="flex gap-8">
+          <div class="flex flex-col gap-1.5 min-w-50">
+            <label for="title" class="label">Portfolio Title </label>
+            <input
+              type="text"
+              name="title"
+              class="input"
+              [(ngModel)]="portfolio.title"
+              #titleCtrl="ngModel"
+              required
+            />
+            @if (titleCtrl.invalid && titleCtrl.touched) {
+              <small class="text-error">Title is required</small>
+            }
+          </div>
+
+          <div class="flex flex-col gap-1.5 min-w-50">
+            <label for="artist" class="label"> Artist </label>
+            <select
+              class="select"
+              [class.text-gray-500]="!portfolio.artist"
+              name="artist"
+              [(ngModel)]="portfolio.artist"
+              #artistCtrl="ngModel"
+              required
+            >
+              <option [ngValue]="null" disabled>Select Artist</option>
+              @for (artist of artists; track artist.id) {
+                <option [ngValue]="artist" class="text-white">
+                  {{ artist.name }}
+                </option>
+              }
+            </select>
+            @if (artistCtrl.invalid && artistCtrl.touched) {
+              <small class="text-error">Artist is required</small>
+            }
+          </div>
+        </div>
+
+        <!-- --------------------------------------------- -->
+        <div class="flex gap-8">
+          <div class="flex flex-col gap-1.5 min-w-50">
+            <label for="category" class="label"> Category </label>
+            <select
+              class="select"
+              [class.text-gray-500]="!selectedCategory"
+              name="category"
+              [(ngModel)]="selectedCategory"
+              (change)="onCategoryChange()"
+              #categoryCtrl="ngModel"
+              required
+            >
+              <option [ngValue]="null" disabled>Select Category</option>
+              @for (category of categories; track category.id) {
+                <option [ngValue]="category">
+                  {{ category.name }}
+                </option>
+              }
+            </select>
+            @if (categoryCtrl.invalid && categoryCtrl.touched) {
+              <small class="text-error">Category is required</small>
+            }
+          </div>
+          <div class="flex flex-col gap-1.5 min-w-50">
+            <label for="offering" class="label"> Style </label>
+            <select
+              class="select"
+              [class.text-gray-500]="!portfolio.offering"
+              name="offering"
+              [(ngModel)]="portfolio.offering"
+              #offeringCtrl="ngModel"
+              required
+            >
+              <option [ngValue]="null" disabled>Select offering type</option>
+              @for (offering of filteredOfferings; track offering.id) {
+                <option [ngValue]="offering">
+                  {{ offering.name }}
+                </option>
+              }
+            </select>
+            @if (offeringCtrl.invalid && offeringCtrl.touched) {
+              <small class="text-error">Offering is required</small>
+            }
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label for="description" class="label"> Description </label>
+          <textarea
+            name="description"
+            class="textarea w-full"
+            placeholder="Enter description"
+            [(ngModel)]="portfolio.description"
+            #descriptionCtrl="ngModel"
+            required
+          ></textarea>
+          @if (descriptionCtrl.invalid && descriptionCtrl.touched) {
+            <small class="text-error">Description is required</small>
+          }
+        </div>
+      </div>
+      <!-- =================================================================================================== -->
+    </div>
   </fieldset>
-  <!-- --------------------------------------------- -->
   <div class="divider"></div>
   <!-- --------------------------------------------- -->
   <div class="modal-action">
-    <button type="submit" class="btn">Save</button>
-    <button type="button" class="btn" (click)="closeModal(createPortfolioForm)">Cancel</button>
+    <button type="submit" class="button">Save</button>
+    <button type="button" class="cancelButton" (click)="closeModal(createPortfolioForm)">
+      Cancel
+    </button>
   </div>
 </form>

@@ -26,15 +26,15 @@ export class Artists implements OnInit {
     });
   }
   // ====================================================== //
-  openEditModal(artist: Artist) {
+  openEditArtistModal(artist: Artist) {
     this.selectedArtist = JSON.parse(JSON.stringify(artist));
-    const dialog = document.getElementById('edit_form') as HTMLDialogElement;
+    const dialog = document.getElementById('edit_artist_form') as HTMLDialogElement;
     dialog.showModal();
   }
   // ====================================================== //
-  openDeleteModal(artist: Artist) {
+  openDeleteArtistModal(artist: Artist) {
     this.selectedArtist = artist;
-    const dialog = document.getElementById('delete_confirm') as HTMLDialogElement;
+    const dialog = document.getElementById('delete_artist_confirm') as HTMLDialogElement;
     dialog.showModal();
   }
   // ====================================================== //
@@ -42,7 +42,7 @@ export class Artists implements OnInit {
     if (!this.selectedArtist) return;
     this.artistService.deleteArtist(this.selectedArtist.id!).subscribe({
       next: () => {
-        const dialog = document.getElementById('delete_confirm') as HTMLDialogElement;
+        const dialog = document.getElementById('delete_artist_confirm') as HTMLDialogElement;
         dialog?.close();
         window.location.reload();
       },

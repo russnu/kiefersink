@@ -22,7 +22,7 @@ export class Portfolios implements OnInit {
     });
   }
   // ====================================================== //
-  openEditModal(portfolio: Portfolio) {
+  openEditPortfolioModal(portfolio: Portfolio) {
     this.selectedPortfolio = JSON.parse(JSON.stringify(portfolio));
     const dialog = document.getElementById('edit_portfolio_form') as HTMLDialogElement;
     dialog.showModal();
@@ -33,7 +33,6 @@ export class Portfolios implements OnInit {
     this.portfolioService.updateFeatured(portfolio.id!, newFeaturedState).subscribe({
       next: (updated) => {
         portfolio.featured = updated.featured;
-        // console.log(`Portfolio ${updated.id} featured:`, updated.featured);
       },
       error: (err) => console.error('Error updating featured:', err),
     });
@@ -53,7 +52,7 @@ export class Portfolios implements OnInit {
         dialog?.close();
         window.location.reload();
       },
-      error: (err) => console.error('Error deleting artist:', err),
+      error: (err) => console.error('Error deleting portfolio:', err),
     });
   }
 }

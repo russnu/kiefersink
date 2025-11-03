@@ -27,7 +27,7 @@
             Featured
           </label>
           <div>
-            <button class="editButton" (click)="openEditModal(portfolio)">
+            <button class="editButton" (click)="openEditPortfolioModal(portfolio)">
               <fa-icon icon="pen" class="text-sm" />
             </button>
             <button class="deleteButton" (click)="openDeleteModal(portfolio)">
@@ -55,12 +55,18 @@
 <dialog id="delete_portfolio_confirm" class="modal">
   <div class="modal-box">
     <div>
-      <h1>Are you sure you want to remove artist</h1>
+      <h1 class="confirmation">
+        Are you sure you want to remove portfolio
+        <span class="italic text-yellow-200 font-black">{{ selectedPortfolio?.title }}</span
+        >?
+      </h1>
     </div>
+    <div class="divider"></div>
     <div class="modal-action">
-      <!-- (click)="confirmDelete() -->
-      <button type="submit" class="btn" (click)="deletePortfolio()">Delete</button>
-      <button type="cancel" class="btn" onclick="delete_portfolio_confirm.close()">Cancel</button>
+      <button type="submit" class="cancelButton" (click)="deletePortfolio()">Delete</button>
+      <button type="cancel" class="button" onclick="delete_portfolio_confirm.close()">
+        Cancel
+      </button>
     </div>
   </div>
 

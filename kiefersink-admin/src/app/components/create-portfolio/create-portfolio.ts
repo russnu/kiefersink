@@ -20,8 +20,8 @@ export class CreatePortfolio implements OnInit {
     title: '',
     description: '',
     imageUrl: '',
-    artist: {} as Artist,
-    offering: {} as Offering,
+    artist: null as any,
+    offering: null as any,
     featured: false,
   };
   // ====================================================== //
@@ -62,6 +62,10 @@ export class CreatePortfolio implements OnInit {
   }
   // ====================================================== //
   onCreate(form: NgForm) {
+    if (form.invalid) {
+      form.control.markAllAsTouched();
+      return;
+    }
     if (this.selectedCategory && this.portfolio.offering) {
       this.portfolio.offering.category = { id: this.selectedCategory.id } as Category;
     }
@@ -74,35 +78,48 @@ export class CreatePortfolio implements OnInit {
       formData.append('image', this.selectedFile);
     }
 
-    const portfolioBlob = formData.get('portfolio') as Blob;
-    if (portfolioBlob) {
-      portfolioBlob.text().then((jsonText) => {
-        console.log('Portfolio JSON:', JSON.parse(jsonText));
-      });
-    }
+    // const portfolioBlob = formData.get('portfolio') as Blob;
+    // if (portfolioBlob) {
+    //   portfolioBlob.text().then((jsonText) => {
+    //     console.log('Portfolio JSON:', JSON.parse(jsonText));
+    //   });
+    // }
 
-    // this.service.createPortfolio(formData).subscribe({
-    //   next: (response) => {
-    //     console.log('Portfolio created successfully!:', response);
-    //     this.closeModal(form);
-    //     window.location.reload();
-    //   },
-    //   error: (err) => console.error('Error creating artist:', err),
-    // });
+    this.service.createPortfolio(formData).subscribe({
+      next: (response) => {
+        console.log('Portfolio created successfully!:', response);
+        this.closeModal(form);
+        window.location.reload();
+      },
+      error: (err) => console.error('Error creating artist:', err),
+    });
   }
   // ====================================================== //
   onCategoryChange() {
     this.filteredOfferings = this.selectedCategory?.offerings || [];
 
-    console.log(this.selectedCategory);
     this.portfolio.offering = {} as Offering;
   }
   // ====================================================== //
   closeModal(form: NgForm) {
     const dialog = document.getElementById('create_portfolio_form') as HTMLDialogElement;
     form.resetForm();
+
+    this.portfolio = {
+      title: '',
+      description: '',
+      imageUrl: '',
+      artist: null as any,
+      offering: null as any,
+      featured: false,
+    };
+
     this.previewUrl = null;
     this.selectedFile = null;
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
     dialog.close();
   }
 }

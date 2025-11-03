@@ -16,6 +16,7 @@ import { Settings, SettingsService } from '../../services/settings/settings-serv
 })
 export class Footer implements OnInit {
   companyContacts: CompanyContact[] = [];
+  companyName = '';
   address = '';
   openHours = '';
 
@@ -25,6 +26,10 @@ export class Footer implements OnInit {
   ngOnInit() {
     this.companyContactService.getCompanyContacts().subscribe((data) => {
       this.companyContacts = data;
+    });
+
+    this.settingsService.getSettings('companyName').subscribe((data) => {
+      this.companyName = data.settingValue;
     });
 
     this.settingsService.getSettings('address').subscribe((data) => {

@@ -2,7 +2,6 @@ import { Component, inject, Input } from '@angular/core';
 import { Artist } from '../../models/artist';
 import { ArtistService } from '../../services/Artist/artist-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
@@ -15,15 +14,22 @@ export class EditArtist {
   @Input() artist: Artist | null = null;
   // ====================================================== //
   selectedFile: File | null = null;
+  previewUrl: string | ArrayBuffer | null = null;
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
+
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result;
+      };
+      reader.readAsDataURL(this.selectedFile);
     }
   }
   // ====================================================== //
   private artistService = inject(ArtistService);
-  private router = inject(Router);
   // ====================================================== //
   addContact() {
     if (!this.artist) return;
@@ -32,6 +38,10 @@ export class EditArtist {
   }
   // ====================================================== //
   onUpdate(form: NgForm) {
+    if (form.invalid) {
+      form.control.markAllAsTouched();
+      return;
+    }
     if (!this.artist || this.artist.id == null) {
       console.error('Artist or artist ID missing.');
       return;
@@ -63,8 +73,14 @@ export class EditArtist {
   }
   // ====================================================== //
   closeModal(form: NgForm) {
-    const dialog = document.getElementById('edit_form') as HTMLDialogElement;
+    const dialog = document.getElementById('edit_artist_form') as HTMLDialogElement;
     form.resetForm();
+    this.previewUrl = null;
+    this.selectedFile = null;
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
     dialog.close();
   }
 }

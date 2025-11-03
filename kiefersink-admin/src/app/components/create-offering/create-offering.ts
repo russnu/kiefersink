@@ -88,6 +88,10 @@ export class CreateOffering {
     form.resetForm();
     this.previewUrl = null;
     this.selectedFile = null;
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
     dialog.close();
   }
 }

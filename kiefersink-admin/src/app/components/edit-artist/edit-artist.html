@@ -1,20 +1,45 @@
 @if (artist) {
-  <form #editForm="ngForm" (ngSubmit)="onUpdate(editForm)">
+  <form #editArtistForm="ngForm" (ngSubmit)="onUpdate(editArtistForm)">
     <fieldset class="fieldset">
       <legend class="fieldset-legend text-2xl">Edit Artist</legend>
 
       <label for="name" class="label">Artist Name </label>
-      <input type="text" name="name" class="input" [(ngModel)]="artist.name" required />
-
+      <input
+        type="text"
+        name="name"
+        class="input w-full"
+        [(ngModel)]="artist.name"
+        #nameCtrl="ngModel"
+        required
+      />
+      @if (nameCtrl.invalid && nameCtrl.touched) {
+        <small class="text-error">Name is required</small>
+      }
+      <!-- --------------------------------------------- -->
+      @if (previewUrl) {
+        <div class="mt-5">
+          <img [src]="previewUrl" alt="Selected image preview" class="preview-photo" />
+        </div>
+      } @else {
+        @if (artist.imageUrl) {
+          <div class="mt-4">
+            <img [src]="artist.imageUrl" alt="Existing artist image" class="preview-photo" />
+          </div>
+        }
+      }
+      <!-- --------------------------------------------- -->
       <label for="imageUrl" class="label">Profile Image</label>
       <input type="file" name="image" class="file-input" (change)="onFileSelected($event)" />
+      @if (!selectedFile) {
+        <small class="text-error">Image is required</small>
+      }
     </fieldset>
     <!-- --------------------------------------------- -->
     <div class="divider"></div>
     <fieldset class="fieldset">
-      <div class="flex">
+      <div class="flex justify-between">
         <legend class="fieldset-legend text-2xl">Contact Information</legend>
-        <button type="button" class="btn" (click)="addContact()">+</button>
+        <button type="button" class="button" (click)="addContact()"><fa-icon icon="plus" /></button>
       </div>
       <div class="overflow-x-auto">
         <table class="table">
@@ -31,9 +56,11 @@
               <tr>
                 <td>
                   <select
-                    class="select"
+                    class="select min-w-50"
                     name="contacts[{{ $index }}].platform"
                     [(ngModel)]="contact.platform"
+                    #platformCtrl="ngModel"
+                    required
                   >
                     <option [ngValue]="null" disabled>Pick a platform</option>
                     <option [value]="'instagram'">Instagram</option>
@@ -50,29 +77,35 @@
                       placeholder="Other"
                     />
                   </select>
+                  @if (platformCtrl.invalid && platformCtrl.touched) {
+                    <small class="text-error">Platform is required</small>
+                  }
                 </td>
                 <td>
                   <input
                     type="text"
                     name="contacts[{{ $index }}].handle"
-                    class="input"
+                    class="input min-w-50"
                     [(ngModel)]="contact.handle"
+                    #handleCtrl="ngModel"
                     required
                   />
+                  @if (handleCtrl.invalid && handleCtrl.touched) {
+                    <small class="text-error">Handle is required</small>
+                  }
                 </td>
                 <td>
                   <input
                     type="text"
                     name="contacts[{{ $index }}].url"
-                    class="input"
+                    class="input min-w-50"
                     [(ngModel)]="contact.url"
-                    required
                   />
                 </td>
                 <td>
                   <fa-icon
                     icon="trash"
-                    class="btn btn-ghost text-xl"
+                    class="deleteButton text-xl"
                     (click)="removeContact($index)"
                   />
                 </td>
@@ -83,9 +116,10 @@
       </div>
     </fieldset>
     <!-- --------------------------------------------- -->
+    <div class="divider"></div>
     <div class="modal-action">
-      <button type="submit" class="btn">Save</button>
-      <button type="button" class="btn" onclick="edit_form.close()">Cancel</button>
+      <button type="submit" class="button">Save</button>
+      <button type="button" class="cancelButton" onclick="edit_artist_form.close()">Cancel</button>
     </div>
   </form>
 }

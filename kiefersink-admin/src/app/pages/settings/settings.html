@@ -143,29 +143,55 @@
 <!-- ------------------------------------------------------------------------------------- -->
 <dialog id="delete_company_contact_confirm" class="modal">
   <div class="modal-box">
-    <h1>Are you sure you want to remove this contact?</h1>
-    <p class="text-xl font-black flex gap-2">
-      <span class="text-gray-500">Platform: </span> {{ selectedCompanyContact?.platform }}
+    <h1 class="confirmation">Are you sure you want to remove this contact?</h1>
+    <p class="text-xl flex gap-2 mt-5">
+      <span class="text-gray-500">Platform: </span
+      ><span class="italic text-yellow-200 font-black">{{ selectedCompanyContact?.platform }}</span>
     </p>
-    <p class="text-xl font-black flex gap-2">
-      <span class="text-gray-500">Handle: </span> {{ selectedCompanyContact?.handle }}
+    <p class="text-xl flex gap-2 mt-5">
+      <span class="text-gray-500">Handle: </span>
+      <span class="italic text-yellow-200 font-black">{{ selectedCompanyContact?.handle }}</span>
     </p>
     @if (
       selectedCompanyContact?.platform !== 'email' &&
       selectedCompanyContact?.platform !== 'phone' &&
       selectedCompanyContact?.url
     ) {
-      <p class="text-xl font-black flex gap-2">
-        <span class="text-gray-500">URL: </span> {{ selectedCompanyContact?.url }}
+      <p class="text-xl flex gap-2 mt-5 items-center">
+        <span class="text-gray-500">URL: </span>
+        <a [href]="selectedCompanyContact?.url" class="link italic text-sm">{{
+          selectedCompanyContact?.url
+        }}</a>
       </p>
     }
 
     <div class="divider"></div>
     <div class="modal-action">
-      <button type="submit" class="btn" (click)="deleteCompanyContact()">Delete</button>
-      <button type="cancel" class="btn" onclick="delete_company_contact_confirm.close()">
+      <button type="submit" class="cancelButton" (click)="deleteCompanyContact()">Delete</button>
+      <button type="cancel" class="button" onclick="delete_company_contact_confirm.close()">
         Cancel
       </button>
+    </div>
+  </div>
+
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
+
+<dialog id="logo_preview_modal" class="modal">
+  <div class="modal-box">
+    <h1 class="confirmation">Confirm New Logo</h1>
+
+    @if (previewUrl) {
+      <img [src]="previewUrl" alt="Logo Preview" class="logo-preview-photo" />
+    }
+
+    <div class="divider"></div>
+
+    <div class="modal-action">
+      <button class="button" (click)="confirmLogoUpload()">Confirm</button>
+      <button class="cancelButton" (click)="cancelLogoUpload()">Cancel</button>
     </div>
   </div>
 

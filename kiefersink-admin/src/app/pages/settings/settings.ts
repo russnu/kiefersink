@@ -19,16 +19,28 @@ export class Settings {
   companyContacts: CompanyContact[] = [];
   // ====================================================== //
   selectedCompanyContact: CompanyContact | null = null;
+  logoSetting: any = null;
   // ====================================================== //
   selectedFile: File | null = null;
   previewUrl: string | ArrayBuffer | null = null;
+
   onFileSelected(event: Event, setting: any) {
     const input = event.target as HTMLInputElement;
 
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
-
-      this.saveSetting(setting);
+      this.logoSetting = setting;
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result;
+        // Open the modal once preview is ready
+        setTimeout(() => {
+          const modal = document.getElementById('logo_preview_modal') as HTMLDialogElement;
+          modal?.showModal();
+        }, 50);
+      };
+      reader.readAsDataURL(this.selectedFile);
+      // this.saveSetting(setting);
     }
   }
   // ====================================================== //
@@ -46,6 +58,26 @@ export class Settings {
   // ====================================================== //
   toggleEdit(item: any) {
     item.editing = !item.editing;
+  }
+  // ====================================================== //
+  confirmLogoUpload() {
+    const dialog = document.getElementById('logo_preview_modal') as HTMLDialogElement;
+    dialog.close();
+
+    if (this.logoSetting) {
+      this.saveSetting(this.logoSetting);
+    }
+  }
+  // ====================================================== //
+  cancelLogoUpload() {
+    const dialog = document.getElementById('logo_preview_modal') as HTMLDialogElement;
+    this.selectedFile = null;
+    this.previewUrl = null;
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
+    dialog.close();
   }
   // ====================================================== //
   saveSetting(setting: any) {

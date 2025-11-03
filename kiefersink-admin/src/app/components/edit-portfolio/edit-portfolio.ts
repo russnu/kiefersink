@@ -55,6 +55,10 @@ export class EditPortfolio implements OnInit {
   }
   // ====================================================== //
   onUpdate(form: NgForm) {
+    if (form.invalid) {
+      form.control.markAllAsTouched();
+      return;
+    }
     if (!this.portfolio || this.portfolio.id == null) {
       console.error('Artist not found.');
       return;

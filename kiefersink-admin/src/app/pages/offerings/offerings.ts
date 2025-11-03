@@ -71,8 +71,9 @@ export class Offerings implements OnInit {
   }
   // ====================================================== //
   openEditOfferingModal(offering: Offering) {
-    this.selectedOffering = offering;
-    (document.getElementById('edit_offering_form') as HTMLDialogElement).showModal();
+    this.selectedOffering = JSON.parse(JSON.stringify(offering));
+    const dialog = document.getElementById('edit_offering_form') as HTMLDialogElement;
+    dialog.showModal();
   }
   // ====================================================== //
   openDeleteOfferingModal(offering: Offering) {

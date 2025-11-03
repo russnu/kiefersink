@@ -22,12 +22,21 @@ export class CreateArtist {
   platforms: string[] = [];
   // ====================================================== //
   selectedFile: File | null = null;
+  previewUrl: string | ArrayBuffer | null = null;
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
+
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result;
+      };
+      reader.readAsDataURL(this.selectedFile);
     }
   }
+
   // ====================================================== //
   private artistService = inject(ArtistService);
   private router = inject(Router);
@@ -44,6 +53,11 @@ export class CreateArtist {
   }
   // ====================================================== //
   onCreate(form: NgForm) {
+    if (form.invalid) {
+      form.control.markAllAsTouched();
+      return;
+    }
+
     if (this.artist.contacts) {
       this.artist.contacts = this.artist.contacts.map((c) => ({
         ...c,
@@ -86,8 +100,19 @@ export class CreateArtist {
   }
   // ====================================================== //
   closeModal(form: NgForm) {
-    const dialog = document.getElementById('create_form') as HTMLDialogElement;
+    const dialog = document.getElementById('create_artist_form') as HTMLDialogElement;
     form.resetForm();
+    this.artist = {
+      name: '',
+      imageUrl: '',
+      contacts: [{ platform: '', handle: '', url: '' }],
+    };
+    this.previewUrl = null;
+    this.selectedFile = null;
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
     dialog.close();
   }
 }

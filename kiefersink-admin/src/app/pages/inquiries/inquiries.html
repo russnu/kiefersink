@@ -1,26 +1,32 @@
 <h1 class="pageTitle">Inquiries</h1>
 <div class="container">
   <ul class="list border-gray-700/50">
-    @for (inquiry of inquiries; track inquiry.id) {
-      <li class="list-row items-center">
-        <div class="w-48 shrink-0">
-          <p class="font-bold">{{ inquiry.customerName }}</p>
-          <p class="text-gray-400">{{ inquiry.customerEmail }}</p>
-          <p class="text-gray-400">{{ inquiry.customerPhone }}</p>
-        </div>
-        <div class="divider divider-horizontal"></div>
-        <div class="list-col-grow">
-          <p class="italic font-bold mb-3">
-            {{ inquiry.subject }}
-          </p>
-          <p class="text-gray-100">
-            {{ inquiry.message }}
-          </p>
-        </div>
+    @if (inquiries && inquiries.length > 0) {
+      @for (inquiry of inquiries; track inquiry.id) {
+        <li class="list-row items-center">
+          <div class="w-48 shrink-0">
+            <p class="font-bold">{{ inquiry.customerName }}</p>
+            <p class="text-gray-400">{{ inquiry.customerEmail }}</p>
+            <p class="text-gray-400">{{ inquiry.customerPhone }}</p>
+          </div>
+          <div class="divider divider-horizontal"></div>
+          <div class="list-col-grow">
+            <p class="italic font-bold mb-3">
+              {{ inquiry.subject }}
+            </p>
+            <p class="text-gray-100">
+              {{ inquiry.message }}
+            </p>
+          </div>
 
-        <button class="deleteButton" (click)="openDeleteInquiryModal(inquiry)">
-          <fa-icon icon="trash" />
-        </button>
+          <button class="deleteButton" (click)="openDeleteInquiryModal(inquiry)">
+            <fa-icon icon="trash" />
+          </button>
+        </li>
+      }
+    } @else {
+      <li class="w-full flex justify-center list-row text-gray-500 italic text-center">
+        No inquiries yet.
       </li>
     }
   </ul>
@@ -29,26 +35,24 @@
 <!-- ------------------------------------------------------------------------------------- -->
 <dialog id="delete_inquiry_confirm" class="modal">
   <div class="modal-box">
-    <h1>Are you sure you want to remove this inquiry?</h1>
-    <p class="text-xl font-black flex gap-2">
+    <h1 class="confirmation mb-5">Are you sure you want to remove this inquiry?</h1>
+    <p class="flex gap-2">
       <span class="text-gray-500">Subject: </span> {{ selectedInquiry?.subject }}
     </p>
-    <p class="text-xl font-black flex gap-2">
-      <span class="text-gray-500">Message: </span> {{ selectedInquiry?.message }}
-    </p>
-    <p class="text-xl font-black flex gap-2">
+
+    <p class="flex gap-2">
       <span class="text-gray-500">From Sender: </span>
       <span
-        >{{ selectedInquiry?.customerName }}
-        {{ selectedInquiry?.customerEmail }}
-        {{ selectedInquiry?.customerPhone }}</span
+        ><dd>{{ selectedInquiry?.customerName }}</dd>
+        <dd>{{ selectedInquiry?.customerEmail }}</dd>
+        <dd>{{ selectedInquiry?.customerPhone }}</dd></span
       >
     </p>
 
     <div class="divider"></div>
     <div class="modal-action">
-      <button type="submit" class="btn" (click)="deleteInquiry()">Delete</button>
-      <button type="cancel" class="btn" onclick="delete_inquiry_confirm.close()">Cancel</button>
+      <button type="submit" class="cancelButton" (click)="deleteInquiry()">Delete</button>
+      <button type="cancel" class="button" onclick="delete_inquiry_confirm.close()">Cancel</button>
     </div>
   </div>
 

@@ -6,7 +6,7 @@
     <input
       type="text"
       name="name"
-      class="input"
+      class="input min-w-100"
       placeholder="e.g., Facebook, Instagram"
       [(ngModel)]="companyContact.platform"
       #platformCtrl="ngModel"
@@ -20,7 +20,7 @@
     <input
       type="text"
       name="handle"
-      class="input"
+      class="input min-w-100"
       placeholder="e.g., @kiefersINKTattoos, Kiefer's Ink Tattoos"
       [(ngModel)]="companyContact.handle"
       #handleCtrl="ngModel"
@@ -34,7 +34,7 @@
     <input
       type="text"
       name="url"
-      class="input"
+      class="input min-w-100"
       placeholder="e.g., https://instagram.com/kiefersinktattoo"
       [(ngModel)]="companyContact.url"
     />
@@ -43,7 +43,9 @@
   <div class="divider"></div>
   <!-- --------------------------------------------- -->
   <div class="modal-action">
-    <button type="submit" class="btn">Save</button>
-    <button type="button" class="btn" (click)="closeModal(createCompanyContactForm)">Cancel</button>
+    <button type="submit" class="button">Save</button>
+    <button type="button" class="cancelButton" (click)="closeModal(createCompanyContactForm)">
+      Cancel
+    </button>
   </div>
 </form>

@@ -1,5 +1,5 @@
 <h1 class="pageTitle">Artists</h1>
-<button class="button align-super float-end" onclick="create_form.showModal()">
+<button class="button align-super float-end" onclick="create_artist_form.showModal()">
   <fa-icon icon="plus" class="text-lg" /> New Artist
 </button>
 <div class="space-y-8">
@@ -18,13 +18,13 @@
       <div class="py-5 justify-center">
         <button
           class="editButton opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
-          (click)="openEditModal(artist)"
+          (click)="openEditArtistModal(artist)"
         >
           <fa-icon icon="pen" class="text-lg" />
         </button>
         <button
           class="deleteButton opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"
-          (click)="openDeleteModal(artist)"
+          (click)="openDeleteArtistModal(artist)"
         >
           <fa-icon icon="trash" class="text-lg" />
         </button>
@@ -34,19 +34,19 @@
 </div>
 
 <!-- ===================================================================================== -->
-<dialog id="create_form" class="modal">
+<dialog id="create_artist_form" class="modal">
   <div class="modal-box">
     <create-artist-form />
   </div>
 </dialog>
 <!-- ===================================================================================== -->
-<dialog id="edit_form" class="modal">
+<dialog id="edit_artist_form" class="modal">
   <div class="modal-box">
     <edit-artist-form [artist]="selectedArtist" />
   </div>
 </dialog>
 <!-- ===================================================================================== -->
-<dialog id="delete_confirm" class="modal">
+<dialog id="delete_artist_confirm" class="modal">
   <div class="modal-box">
     <div>
       <h1 class="confirmation">
@@ -57,9 +57,8 @@
     </div>
     <div class="divider"></div>
     <div class="modal-action">
-      <!-- (click)="confirmDelete() -->
-      <button type="submit" class="btn" (click)="deleteArtist()">Delete</button>
-      <button type="cancel" class="btn" onclick="delete_confirm.close()">Cancel</button>
+      <button type="submit" class="cancelButton" (click)="deleteArtist()">Delete</button>
+      <button type="cancel" class="button" onclick="delete_artist_confirm.close()">Cancel</button>
     </div>
   </div>
 
