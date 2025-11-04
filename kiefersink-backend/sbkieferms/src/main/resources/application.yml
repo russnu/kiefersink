@@ -2,10 +2,12 @@ spring:
   application:
     name: kiefersink
   datasource:
-    url: jdbc:mysql://localhost:3306/kiefersink_db?createDatabaseIfNotExist=true
-    username: root
+    url: jdbc:mysql://db:3306/kiefersink_db?createDatabaseIfNotExist=true
+    username: mysqluser
     password: password
   jpa:
+    properties:
+      format_sql: true
     hibernate:
       ddl-auto: update
       naming:
@@ -16,4 +18,4 @@ spring:
     date-format: MM dd, yyyy hh:mm a
     time-zone: GMT+08:00
 file:
-  upload-dir: sbkieferms/uploads
+  upload-dir: /app/sbkieferms/uploads

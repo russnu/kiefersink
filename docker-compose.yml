@@ -1,0 +1,40 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: kiefers-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: kiefersink_db
+      MYSQL_USER: mysqluser
+      MYSQL_PASSWORD: password
+    # command: --lower_case_table_names=1
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - kiefersinknetwork
+
+  backend:
+    build:
+      context: ./kiefersink-backend/sbkieferms
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/kiefersink_db
+      - SPRING_DATASOURCE_USERNAME=mysqluser
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - db
+    networks:
+      - kiefersinknetwork
+
+volumes:
+  db_data:
+
+networks:
+  kiefersinknetwork:
+    driver: bridge

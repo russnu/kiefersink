@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Settings")
+@Table(name = "settings")
 public class SettingsData {
     @Id
     private String settingKey;

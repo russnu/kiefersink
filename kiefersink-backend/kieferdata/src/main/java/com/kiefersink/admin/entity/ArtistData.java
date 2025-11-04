@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Artists")
+@Table(name = "artists")
 public class ArtistData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

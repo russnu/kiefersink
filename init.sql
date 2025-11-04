@@ -1,6 +1,4 @@
--- ========================
--- ARTISTS
--- ========================
+
 INSERT INTO artists (name, imageUrl) VALUES
 ('Jek Valencia', 'jek_valencia.jpg'),
 ('Dhens Valencia', 'dhens_valencia.jpg'),

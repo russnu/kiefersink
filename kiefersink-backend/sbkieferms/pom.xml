@@ -7,6 +7,7 @@
         <groupId>com.kiefersink</groupId>
         <artifactId>kiefersink-backend</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath/>
     </parent>
 
     <artifactId>sbkieferms</artifactId>
@@ -18,12 +19,6 @@
     </properties>
 
     <dependencies>
-        <!--========================== Spring Boot ========================== -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-starter</artifactId>-->
-        <!--        </dependency>-->
-
         <!--========================== Spring Boot Web ========================== -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -53,7 +48,7 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
     </dependencies>
-
+    <packaging>jar</packaging>
     <build>
         <plugins>
             <plugin>
