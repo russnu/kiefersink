@@ -1,0 +1,12 @@
+services:
+  website:
+    build: .
+    image: kiefersink-admin:latest
+    container_name: kiefersink-admin
+    ports:
+      - '4300:80'
+    networks:
+      - kiefersinknetwork
+networks:
+  kiefersinknetwork:
+    external: true

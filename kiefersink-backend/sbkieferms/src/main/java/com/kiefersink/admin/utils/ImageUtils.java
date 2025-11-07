@@ -22,6 +22,10 @@ public class ImageUtils {
 
         Path dirPath = Paths.get(uploadDir, folder);
 
+        if (!Files.exists(dirPath)) {
+            Files.createDirectories(dirPath);
+        }
+
         String extension = GetFileExtension.fromFilename(image.getOriginalFilename());
         String finalFileName = fileName + extension;
 

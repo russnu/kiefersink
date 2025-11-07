@@ -1,21 +1,28 @@
 spring:
   application:
     name: kiefersink
+
   datasource:
-    url: jdbc:mysql://db:3306/kiefersink_db?createDatabaseIfNotExist=true
-    username: mysqluser
+    url: jdbc:mysql://localhost:3306/kiefersink_db?createDatabaseIfNotExist=true
+    username: root
     password: password
+
   jpa:
-    properties:
-      format_sql: true
     hibernate:
       ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+
   jackson:
     date-format: MM dd, yyyy hh:mm a
     time-zone: GMT+08:00
+
 file:
-  upload-dir: /app/sbkieferms/uploads
+  upload-dir: sbkieferms/uploads
