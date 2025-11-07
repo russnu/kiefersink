@@ -11,6 +11,8 @@ The project includes the implementation of a public website and an admin panel a
 >  <strong>ITS181-2 — Application Development 2</strong>
 > </p>
 
+---
+
 ## Tech Stack
 
 - **Website**: _Angular_
